@@ -90,11 +90,21 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Reveal animations are progressive enhancement — never hide
-            content when JavaScript is unavailable. */}
-        <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
+        {/* Reveal animations are pure progressive enhancement.
+            1. `js` unlocks the hidden pre-reveal state (so the content is
+               always visible without JavaScript).
+            2. `reveal-all` is a failsafe: if the bundle never hydrates
+               (blocked asset, runtime error, offline chunk), everything is
+               revealed instead of leaving a blank page.
+            Set synchronously in <head> so it lands before first paint. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement;d.classList.add('js');" +
+              "setTimeout(function(){if(!window.__desaRevealReady){d.classList.add('reveal-all');}},1200);" +
+              "})();",
+          }}
+        />
       </head>
       <body className="bg-ink text-fg font-sans antialiased">
         <a

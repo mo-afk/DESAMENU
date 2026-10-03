@@ -176,8 +176,16 @@
 
 /* ------------------------------------------------------------------
    Scroll reveal (IntersectionObserver driven, no dependencies)
+
+   The hidden state is deliberately gated behind `html.js`, which is set by
+   the inline bootstrap script in <head>. That means the page is fully
+   readable when JavaScript is unavailable, blocked, or fails to hydrate —
+   content never depends on JS to become visible.
+
+   `.reveal-all` is the failsafe: the bootstrap script applies it if the
+   client bundle never hydrates, revealing everything.
    ------------------------------------------------------------------ */
-[data-reveal] {
+.js [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 22px, 0);
   transition: opacity 0.9s var(--ease-premium),
@@ -186,7 +194,16 @@
   will-change: opacity, transform;
 }
 
-[data-reveal="in"] {
+.js [data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hydration failsafe — declared last so it wins at equal specificity.
+   Transitions are intentionally kept so force-revealed content eases in
+   instead of popping. */
+.reveal-all [data-reveal],
+.reveal-all [data-reveal="in"] {
   opacity: 1;
   transform: none;
 }
@@ -196,8 +213,9 @@
     scroll-behavior: auto;
   }
 
-  [data-reveal],
-  [data-reveal="in"] {
+  .js [data-reveal],
+  .js [data-reveal="in"],
+  .reveal-all [data-reveal] {
     opacity: 1;
     transform: none;
     transition: none;

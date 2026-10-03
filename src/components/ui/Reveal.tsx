@@ -2,6 +2,13 @@
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
+declare global {
+  interface Window {
+    /** Signals that the client bundle hydrated — disarms the reveal failsafe. */
+    __desaRevealReady?: boolean;
+  }
+}
+
 type RevealProps = {
   children: ReactNode;
   /** Stagger in milliseconds. */
@@ -25,6 +32,15 @@ export default function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+
+    /* Hydration reached this component: the failsafe is no longer needed. */
+    window.__desaRevealReady = true;
+
+    /* Already force-revealed by the failsafe — leave it visible. */
+    if (document.documentElement.classList.contains("reveal-all")) {
+      node.dataset.reveal = "in";
+      return;
+    }
 
     if (typeof IntersectionObserver === "undefined") {
       node.dataset.reveal = "in";
