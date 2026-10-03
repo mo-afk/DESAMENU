@@ -10,25 +10,34 @@ export default function Article() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [related, setRelated] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  /* Slug the currently held data belongs to. `loading` is derived from it so
+     the effect never has to call setState synchronously. */
+  const [loadedSlug, setLoadedSlug] = useState<string | undefined>(undefined);
+
+  const loading = loadedSlug !== slug;
 
   useEffect(() => {
     let active = true;
-    setLoading(true);
-    setError(null);
     (async () => {
       try {
         if (!slug) throw new Error('Missing article');
         const [p, all] = await Promise.all([getPost(slug), getPosts()]);
         if (!active) return;
-        if (!p) { setError('Article not found.'); return; }
+        if (!p) {
+          setPost(null);
+          setError('Article not found.');
+          setLoadedSlug(slug);
+          return;
+        }
         setPost(p);
         setRelated(all.filter((x) => x.slug !== slug).slice(0, 2));
+        setError(null);
+        setLoadedSlug(slug);
       } catch (e) {
-        if (active) setError(e instanceof Error ? e.message : 'Failed to load article');
-      } finally {
-        if (active) setLoading(false);
+        if (!active) return;
+        setError(e instanceof Error ? e.message : 'Failed to load article');
+        setLoadedSlug(slug);
       }
     })();
     return () => { active = false; };

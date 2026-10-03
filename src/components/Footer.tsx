@@ -65,7 +65,7 @@ export default function Footer() {
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke">Sitemap</p>
               <ul className="mt-4 space-y-3 text-sm">
-                {[['/work', 'Work'], ['/services', 'Services'], ['/studio', 'Studio'], ['/journal', 'Journal'], ['/contact', 'Contact']].map(([to, label]) => (
+                {[['/desa-menu', 'DESA Menu'], ['/work', 'Work'], ['/services', 'Services'], ['/studio', 'Studio'], ['/journal', 'Journal'], ['/contact', 'Contact']].map(([to, label]) => (
                   <li key={to}>
                     <Link to={to} className="link-sweep text-bone/80 hover:text-bone">{label}</Link>
                   </li>

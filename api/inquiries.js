@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
       const { name, email, company, project_type, budget, timeline, message } = req.body || {};
       if (!name || !email || !message) return res.status(400).json({ error: 'name, email and message are required' });
-      const emailOk = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!emailOk) return res.status(400).json({ error: 'Please provide a valid email address' });
       const db = await getDb();
       if (db) {

@@ -10,26 +10,35 @@ export default function CaseStudy() {
   const { slug } = useParams<{ slug: string }>();
   const [project, setProject] = useState<Project | null>(null);
   const [next, setNext] = useState<Project | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  /* Slug the currently held data belongs to. `loading` is derived from it so
+     the effect never has to call setState synchronously. */
+  const [loadedSlug, setLoadedSlug] = useState<string | undefined>(undefined);
+
+  const loading = loadedSlug !== slug;
 
   useEffect(() => {
     let active = true;
-    setLoading(true);
-    setError(null);
     (async () => {
       try {
         if (!slug) throw new Error('Missing project');
         const [p, all] = await Promise.all([getProject(slug), getProjects()]);
         if (!active) return;
-        if (!p) { setError('Case study not found.'); return; }
+        if (!p) {
+          setProject(null);
+          setError('Case study not found.');
+          setLoadedSlug(slug);
+          return;
+        }
         setProject(p);
         const idx = all.findIndex((x) => x.slug === slug);
         setNext(all.length > 1 ? all[(idx + 1) % all.length] : null);
+        setError(null);
+        setLoadedSlug(slug);
       } catch (e) {
-        if (active) setError(e instanceof Error ? e.message : 'Failed to load case study');
-      } finally {
-        if (active) setLoading(false);
+        if (!active) return;
+        setError(e instanceof Error ? e.message : 'Failed to load case study');
+        setLoadedSlug(slug);
       }
     })();
     return () => { active = false; };

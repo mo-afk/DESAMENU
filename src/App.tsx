@@ -10,6 +10,7 @@ import Studio from './pages/Studio';
 import Journal from './pages/Journal';
 import Article from './pages/Article';
 import Contact from './pages/Contact';
+import DesaMenu from './pages/DesaMenu';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -49,6 +50,7 @@ export default function App() {
             <Route path="/journal" element={<Journal />} />
             <Route path="/journal/:slug" element={<Article />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/desa-menu" element={<DesaMenu />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

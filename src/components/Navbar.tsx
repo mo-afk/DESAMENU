@@ -5,6 +5,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
 const LINKS = [
+  { to: '/desa-menu', label: 'DESA Menu' },
   { to: '/work', label: 'Work' },
   { to: '/services', label: 'Services' },
   { to: '/studio', label: 'Studio' },
@@ -22,10 +23,6 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -61,7 +58,7 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog md:inline-flex">
+            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog xl:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
@@ -118,6 +115,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={l.to}
+                    onClick={() => setOpen(false)}
                     className="group flex items-baseline gap-4 border-b border-bone/10 py-4"
                   >
                     <span className="font-mono text-xs text-lime">0{i + 1}</span>
