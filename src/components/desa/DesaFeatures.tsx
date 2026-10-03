@@ -3,10 +3,12 @@ import Reveal from '../Reveal';
 import SectionHeading from '../SectionHeading';
 
 /* ------------------------------------------------------------------ */
-/* Bespoke mock panels — pure markup, no external assets.             */
+/* Bespoke mock panels — pure markup, no external assets.              */
+/* Exported so other sections (e.g. the homepage spotlight) can reuse   */
+/* the exact same visuals.                                             */
 /* ------------------------------------------------------------------ */
 
-function VideoPanel() {
+export function VideoPanel() {
   return (
     <div className="flex h-full flex-col justify-center gap-3">
       <div className="flex items-end gap-2">
@@ -28,7 +30,7 @@ function VideoPanel() {
   );
 }
 
-function MenuPanel() {
+export function MenuPanel() {
   return (
     <div className="flex h-full flex-col justify-center gap-3">
       {[
@@ -49,7 +51,7 @@ function MenuPanel() {
   );
 }
 
-function GamePanel() {
+export function GamePanel() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3">
       <div className="flex items-center gap-2">
@@ -69,7 +71,7 @@ function GamePanel() {
   );
 }
 
-function LoyaltyPanel() {
+export function LoyaltyPanel() {
   return (
     <div className="flex h-full flex-col justify-center gap-3">
       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]">

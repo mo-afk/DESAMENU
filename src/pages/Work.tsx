@@ -29,9 +29,9 @@ export default function Work() {
     <div className="pt-[72px]">
       <section className="bg-blueprint border-b border-bone/10">
         <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-mono text-xs uppercase tracking-[0.3em] text-fog">01 - Selected Work</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-6xl uppercase leading-[0.9] sm:text-8xl lg:text-[7.5vw]">Work that <span className="text-outline">works.</span></motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">Every case study below shipped, launched and moved a number that matters. Filter by discipline - then click through for the full story.</motion.p>
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-mono text-xs uppercase tracking-[0.3em] text-fog">01 - Portfolio</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-6xl uppercase leading-[0.9] sm:text-8xl lg:text-[7.5vw]">Venues running <span className="text-outline">DESA Menu.</span></motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">Every deployment below is a live venue. Filter by what we built - video menus, interactive menus, text menus or loyalty - then open a case study for the numbers.</motion.p>
         </div>
       </section>
       <section className="mx-auto max-w-[1600px] px-5 py-12 sm:px-8 lg:py-16">
@@ -58,7 +58,7 @@ export default function Work() {
           ) : error ? (
             <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">Could not load projects: {error}</p>
           ) : visible.length === 0 ? (
-            <p className="border border-bone/15 p-10 text-center font-mono text-sm text-fog">No projects in this category yet.</p>
+            <p className="border border-bone/15 p-10 text-center font-mono text-sm text-fog">No venues in this deployment type yet.</p>
           ) : view === 'grid' ? (
             <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
               {visible.map((p, i) => (<Reveal key={p.id} delay={(i % 2) * 0.08}><ProjectCard project={p} /></Reveal>))}

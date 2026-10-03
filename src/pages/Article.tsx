@@ -96,10 +96,10 @@ export default function Article() {
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-col gap-4 border border-bone/15 bg-coal p-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-display text-xl uppercase">Need this thinking on your project?</p>
-              <p className="mt-1 text-sm text-fog">Tell us where it hurts. We reply within 24 hours.</p>
+              <p className="font-display text-xl uppercase">Want this thinking in your venue?</p>
+              <p className="mt-1 text-sm text-fog">Tell us about your menu. We reply within one business day.</p>
             </div>
-            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-lime">Start a project <ArrowUpRight className="h-4 w-4" /></Link>
+            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-lime">Book a demo <ArrowUpRight className="h-4 w-4" /></Link>
           </div>
         </Reveal>
       </article>

@@ -25,10 +25,10 @@ function NotFound() {
     <div className="flex min-h-[80vh] flex-col items-center justify-center px-5 text-center">
       <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">Error 404</p>
       <h1 className="mt-4 font-display text-7xl uppercase sm:text-9xl">Lost<span className="text-outline">?</span></h1>
-      <p className="mt-4 max-w-sm text-bone/60">This page left the studio and never came back. Let us get you somewhere better.</p>
+      <p className="mt-4 max-w-sm text-bone/60">This page left the pass and never came back. Let us get you somewhere better.</p>
       <div className="mt-8 flex gap-4">
         <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">Home</Link>
-        <Link to="/work" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">Work</Link>
+        <Link to="/desa-menu" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">DESA Menu</Link>
       </div>
     </div>
   );

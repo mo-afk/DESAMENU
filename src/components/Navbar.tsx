@@ -6,7 +6,7 @@ import Logo from './Logo';
 
 const LINKS = [
   { to: '/desa-menu', label: 'DESA Menu' },
-  { to: '/work', label: 'Work' },
+  { to: '/work', label: 'Portfolio' },
   { to: '/services', label: 'Services' },
   { to: '/studio', label: 'Studio' },
   { to: '/journal', label: 'Journal' },
@@ -37,11 +37,11 @@ export default function Navbar() {
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled ? 'border-b border-bone/10 bg-ink/85 backdrop-blur-md' : 'border-b border-transparent bg-transparent'}`}
       >
         <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-5 sm:px-8">
-          <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DG home">
+          <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DESA home">
             <Logo className="h-9 w-10" />
             <span className="hidden flex-col leading-none sm:flex">
-              <span className="font-display text-sm tracking-wide">DG<sup className="text-[9px]">R</sup></span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-fog">Design & Growth</span>
+              <span className="font-display text-sm tracking-wide">DESA</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-fog">Hospitality Technology</span>
             </span>
           </Link>
 
@@ -63,13 +63,13 @@ export default function Navbar() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
               </span>
-              Booking Q1 2027
+              Onboarding new venues
             </span>
             <Link
               to="/contact"
               className="group hidden items-center gap-2 bg-bone px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-lime sm:inline-flex"
             >
-              Start a project
+              Book a Demo
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <button
@@ -95,7 +95,7 @@ export default function Navbar() {
             <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
               <div className="flex items-center gap-3 text-bone">
                 <Logo className="h-9 w-10" />
-                <span className="font-display text-sm">DG</span>
+                <span className="font-display text-sm">DESA</span>
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -127,8 +127,8 @@ export default function Navbar() {
               ))}
             </nav>
             <div className="flex items-center justify-between px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-fog sm:px-8">
-              <span>NYC - LDN - TOKYO</span>
-              <span>hello@dg-agency.co</span>
+              <span>Powered by DESA Agency</span>
+              <span>hello@desamenu.com</span>
             </div>
           </motion.div>
         )}

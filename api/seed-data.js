@@ -1,305 +1,285 @@
-// Bundled seed content for DG Agency.
+// Bundled seed content for DESA and its flagship product, DESA Menu.
 // API routes try Supabase first and fall back to this data when the DB is unreachable,
 // so the site stays fully functional in every environment.
 
 export const projects = [
   {
     id: 1,
-    slug: 'noir-atelier',
-    title: 'Noir Atelier',
-    client: 'Noir Atelier',
-    category: 'Branding',
+    slug: 'la-terrasse',
+    title: 'La Terrasse',
+    client: 'La Terrasse',
+    category: 'Video Menu',
     year: 2026,
-    tagline: 'A Parisian fashion house reborn as a digital-first luxury brand.',
-    description: "Noir Atelier had heritage, craft and a loyal clientele - but an identity stuck in 2009 and a website that leaked high-intent traffic. We rebuilt the brand from the monogram up: a sharper wordmark, a cinematic art direction system, and a flagship e-commerce experience.\n\nThe new identity pairs brutalist typography with couture restraint - oversized serif headlines, razor-thin rules, and product photography shot like editorial. Every touchpoint, from tissue paper to transactional email, was redesigned in one 10-week sprint.\n\nLaunch week broke the brand's single-day revenue record twice. Wholesale buyers who had passed for years came back within a quarter.",
-    image_url: '/images/work-noir.jpg',
-    services: ['Brand strategy', 'Visual identity', 'Art direction', 'E-commerce design', 'Development'],
+    tagline: 'A fine-dining room where every dish is filmed before it is ordered.',
+    description: "La Terrasse had a menu nobody read and a kitchen capable of far more. Guests were ordering the same three safe dishes, and the kitchen's most ambitious work went unnoticed at the back of a laminated page.\n\nWe rebuilt the menu as a cinematic experience: each plate filmed on the pass, cut to six-second loops, and paired with a short tasting note written with the head chef. Categories were restructured around how guests actually decide - light to rich, not starter to dessert. The signature dish moved to position one with a looping film that loads in under a second on 4G.\n\nAverage spend per cover rose within the first month, and the kitchen finally sells the dishes it is proud of. The loyalty card added in phase two now recognises return guests by seat and greets them by name.",
+    image_url: '/images/demo-terrace.jpg',
+    services: ['Menu architecture', 'Dish film production', 'DESA Menu build', 'Loyalty programme', 'Staff onboarding'],
     metrics: [
-      { value: '212%', label: 'Lift in online revenue in 6 months' },
-      { value: '3.4x', label: 'Increase in average order value' },
-      { value: '48', label: 'Press features in launch quarter' }
+      { value: '+34%', label: 'Average spend per cover' },
+      { value: '61%', label: 'Of guests open a dish video' },
+      { value: '4.9', label: 'Guest experience rating' }
     ],
     featured: true,
-    timeline: '10 weeks'
+    timeline: '5 weeks'
   },
   {
     id: 2,
-    slug: 'ledgerline-fintech',
-    title: 'Ledgerline',
-    client: 'Ledgerline',
-    category: 'Web',
+    slug: 'noir-lounge',
+    title: 'Noir Lounge',
+    client: 'Noir Lounge',
+    category: 'Interactive Menu',
     year: 2026,
-    tagline: 'A fintech platform that turned compliance into a conversion engine.',
-    description: "Ledgerline's product was best-in-class. Its website was a PDF with a nav bar. Demo requests were flat while competitors with weaker products out-converted them 4 to 1.\n\nWe rebuilt the marketing site around one insight: CFOs do not buy features, they buy Fridays without reconciliation hell. Interactive calculators, live product sandboxes and proof-led storytelling replaced the feature grid.\n\nThe new site paid for itself in 11 days. Pipeline from organic search tripled within two quarters, and the sales team finally stopped apologizing for the URL.",
-    image_url: '/images/work-ledgerline.jpg',
-    services: ['UX research', 'Web design', 'Creative development', 'CRO program', 'Analytics'],
+    tagline: 'A cocktail lounge where the menu became part of the night out.',
+    description: "Noir Lounge sells atmosphere, but its menu was a static PDF that killed the mood the moment it loaded. Worse, tables of four were ordering two rounds and leaving.\n\nWe designed an interactive menu built for a dark room: bold type, zero glare, drink cards with tasting notes and a table game called Who Pays? that guests play while the next round is being made. The game is branded, weightless, and takes fifteen seconds - long enough to be memorable, short enough to sell another round.\n\nDwell time extended, second-round orders became normal rather than occasional, and the game is now the single most shared part of the venue on social.",
+    image_url: '/images/demo-noir.jpg',
+    services: ['Interactive menu design', 'Table game design', 'Brand system', 'DESA Menu build', 'Analytics setup'],
     metrics: [
-      { value: '4.1x', label: 'More demo requests per month' },
-      { value: '-38%', label: 'Drop in cost per qualified lead' },
-      { value: '11', label: 'Days to full payback on the project' }
+      { value: '+41%', label: 'Second-round reorders' },
+      { value: '23 min', label: 'Longer average dwell time' },
+      { value: '1 in 3', label: 'Tables play Who Pays?' }
     ],
     featured: true,
-    timeline: '12 weeks'
+    timeline: '4 weeks'
   },
   {
     id: 3,
-    slug: 'kinetic-velocity',
-    title: 'Kinetic Velocity',
-    client: 'Kinetic',
-    category: 'Campaigns',
+    slug: 'cafe-atelier',
+    title: 'Café Atelier',
+    client: 'Café Atelier',
+    category: 'Text Menu',
     year: 2025,
-    tagline: 'A launch campaign that sold out 40,000 pairs in 72 hours.',
-    description: "Kinetic's Velocity One was a genuine innovation - a carbon-plated daily trainer at half the price of the incumbents. But innovation does not sell itself; attention does.\n\nWe built the launch around a 72-hour drop window: teaser films, a live countdown experience, athlete seeding and a city-by-city midnight run series. Scarcity was real, not manufactured - one production run, one window.\n\nForty thousand pairs sold out in 72 hours. The waitlist for run two hit 190,000 and gave Kinetic leverage to 3x wholesale distribution.",
-    image_url: '/images/work-kinetic.jpg',
-    services: ['Campaign concept', 'Film direction', 'Social systems', 'Launch site', 'OOH'],
+    tagline: 'A specialty coffee bar that serves the queue faster than it forms.',
+    description: "Café Atelier serves 400 covers a day out of 60 square metres. Every second a guest spends deciding is a second the queue gets longer - and the printed menu board was the bottleneck.\n\nWe built a fast menu: one screen, no scrolling required, with the day's brew rotation updated in seconds from the counter. Highlighted items rotate automatically by time of day, so the morning shows pastries and the afternoon shows cold brew. Regulars scan once and their loyalty card opens with their usual order already pinned.\n\nOrder-to-serve time dropped, average ticket rose, and the cafe stopped reprinting anything.",
+    image_url: '/images/demo-atelier.jpg',
+    services: ['Fast menu design', 'Menu operations setup', 'Retention flow', 'DESA Menu build'],
     metrics: [
-      { value: '72hrs', label: 'To sell out 40,000 pairs' },
-      { value: '190k', label: 'Waitlist signups for run two' },
-      { value: '14M', label: 'Organic campaign impressions' }
+      { value: '-22%', label: 'Time from scan to order' },
+      { value: '+18%', label: 'Average ticket value' },
+      { value: '0', label: 'Reprints since launch' }
     ],
     featured: true,
-    timeline: '6 weeks'
+    timeline: '3 weeks'
   },
   {
     id: 4,
     slug: 'maison-verre',
     title: 'Maison Verre',
     client: 'Maison Verre',
-    category: 'Branding',
+    category: 'Video Menu',
     year: 2025,
-    tagline: 'Minimal skincare with a maximal point of view.',
-    description: "The skincare shelf is a sea of beige sameness. Maison Verre had better formulas and a glass-packaging story nobody could see through generic branding.\n\nWe gave the brand its edge back: a stark black-and-bone identity, ingredient-led naming, and packaging designed to be photographed. The DTC site was rebuilt around routines, not SKUs - lifting bundles over single units.\n\nSephora came calling within five months of relaunch. DTC revenue doubled while ad spend stayed flat.",
+    tagline: 'A rooftop dining room that sells the view and the plate in one scroll.',
+    description: "Maison Verre is a rooftop restaurant where the view sells the reservation and the menu had to live up to it. The team wanted guests to explore beyond the tasting menu without adding service pressure.\n\nWe built a layered menu: the signature plates carry film and provenance, the wine list pairs by mood rather than region, and a guest-facing sommelier panel recommends by course. The rooftop's golden-hour photography was shot on the same day as the dish films so the digital menu looks like the room it belongs to.\n\nUpsell on paired beverages moved the most, and the venue now uses the menu analytics to plan wine orders against real demand.",
     image_url: '/images/work-verre.jpg',
-    services: ['Naming', 'Visual identity', 'Packaging', 'DTC website', 'Content direction'],
+    services: ['Dish film production', 'Wine pairing system', 'Menu architecture', 'DESA Menu build'],
     metrics: [
-      { value: '2x', label: 'DTC revenue at flat ad spend' },
-      { value: '+67%', label: 'Bundle attach rate' },
-      { value: 'Sephora', label: 'National retail deal in 5 months' }
+      { value: '+27%', label: 'Paired beverage uplift' },
+      { value: '2.1x', label: 'More tasting-menu selections' },
+      { value: '5 weeks', label: 'From kickoff to live' }
     ],
-    featured: true,
-    timeline: '8 weeks'
+    featured: false,
+    timeline: '5 weeks'
   },
   {
     id: 5,
     slug: 'velvet-hour',
     title: 'Velvet Hour',
     client: 'Velvet Hour',
-    category: 'Campaigns',
-    year: 2024,
-    tagline: 'A nightlife brand that became the night itself.',
-    description: "Velvet Hour threw the best parties in the city and had the worst brand in the group chat. Flyers, guest lists and a MySpace-era site were holding back a promoter ready to go national.\n\nWe built a full campaign identity: posters that became collectibles, a drop-based ticketing experience, and a content system that made every night feel like the one you missed. FOMO, systematized.\n\nThe tour sold out 11 of 12 cities. Sponsors went from asking for free tables to paying six figures for naming rights.",
+    category: 'Interactive Menu',
+    year: 2025,
+    tagline: 'A cocktail bar that turned its menu into the best icebreaker in the room.',
+    description: "Velvet Hour's bar team creates twelve new drinks a season. The printed menu could not keep up, and guests kept ordering the same classics because the new work was invisible.\n\nWe shipped a seasonal menu that updates the same night the drinks launch, with a mood-based discovery flow - bright, bitter, smoky, sweet - instead of a list. The Who Pays? game was adapted to a cocktail setting: a short, shareable way to decide the next round that also surfaces the season's newest drinks.\n\nDiscovery of new drinks tripled, and the bar's seasonal launches now land with an audience instead of a reprint.",
     image_url: '/images/work-velvet.jpg',
-    services: ['Campaign identity', 'Poster systems', 'Ticketing UX', 'Social content', 'Sponsor decks'],
+    services: ['Seasonal menu system', 'Mood-based discovery', 'Table game design', 'DESA Menu build'],
     metrics: [
-      { value: '11/12', label: 'Tour dates sold out' },
-      { value: '6 figs', label: 'Sponsor deals unlocked' },
-      { value: '310k', label: 'New social followers in one season' }
+      { value: '3x', label: 'Orders of new seasonal drinks' },
+      { value: '+31%', label: 'Revenue per table' },
+      { value: 'Same-day', label: 'Menu update turnaround' }
     ],
     featured: false,
-    timeline: '5 weeks'
+    timeline: '4 weeks'
   },
   {
     id: 6,
-    slug: 'forma-architects',
-    title: 'Forma Architects',
-    client: 'Forma Studio',
-    category: 'Web',
-    year: 2024,
-    tagline: 'An architecture portfolio engineered to win commissions.',
-    description: "Forma's buildings won awards; their website won bounce rates. Project imagery was buried three clicks deep in a template that made concrete look cheap.\n\nWe designed a portfolio experience worthy of the work: full-bleed case studies, drawing-to-building narratives, and a private client area for bids and planning docs. The site now does the first meeting before the first meeting.\n\nQualified commission inquiries tripled. Two landmark projects credited the website as the reason Forma made the shortlist.",
-    image_url: '/images/work-forma.jpg',
-    services: ['Web design', 'Development', 'CMS', 'SEO', 'Client portal'],
-    metrics: [
-      { value: '3x', label: 'Qualified commission inquiries' },
-      { value: '2', label: 'Landmark wins credited to the site' },
-      { value: '0.9s', label: 'Median page load, globally' }
-    ],
-    featured: false,
-    timeline: '9 weeks'
-  },
-  {
-    id: 7,
-    slug: 'pulse-fitness',
-    title: 'Pulse Fitness',
-    client: 'Pulse',
-    category: 'Web',
+    slug: 'forma-hotel',
+    title: 'Forma Hotel',
+    client: 'Forma Hotel',
+    category: 'Loyalty',
     year: 2025,
-    tagline: 'From class bookings to a fitness platform with 200k members.',
-    description: "Pulse had packed studios and an app with a 2.1-star rating. Booking took nine taps, class packs expired silently, and support was drowning in password resets.\n\nWe redesigned the full digital experience: three-tap booking, transparent memberships, and a streak system that turned attendance into a game members refused to lose. The marketing site was rebuilt around transformation stories, not timetables.\n\nApp rating climbed to 4.8 stars. Member churn dropped by a third and digital now drives 60% of new joins.",
-    image_url: '/images/work-pulse.jpg',
-    services: ['Product UX', 'App redesign', 'Marketing site', 'Lifecycle emails', 'CRO'],
+    tagline: 'A boutique hotel that recognises a guest before they reach the desk.',
+    description: "Forma Hotel runs a restaurant, a bar and in-room dining across 42 rooms. Each outlet had its own printed menu and none of them knew a returning guest when they saw one.\n\nWe deployed one DESA Menu across all three outlets with a single guest identity. In-room dining scans from the room QR and carries the guest's stay details; the restaurant menu remembers preferences and dietary notes from previous visits; the bar's loyalty card tracks across outlets.\n\nReturn-guest rates rose, in-room dining orders grew, and the front desk finally has one view of who is in the building and what they like.",
+    image_url: '/images/work-forma.jpg',
+    services: ['Multi-outlet deployment', 'Guest identity', 'Loyalty system', 'In-room dining flow', 'PMS handover'],
     metrics: [
-      { value: '4.8', label: 'App Store rating, up from 2.1' },
-      { value: '-33%', label: 'Member churn in two quarters' },
-      { value: '60%', label: 'Of new joins now via digital' }
-    ],
-    featured: false,
-    timeline: '12 weeks'
-  },
-  {
-    id: 8,
-    slug: 'kilo-coffee',
-    title: 'Kilo & Co.',
-    client: 'Kilo & Co.',
-    category: 'Branding',
-    year: 2023,
-    tagline: 'A roastery brand bold enough for the specialty shelf.',
-    description: "Kilo roasted exceptional coffee and packaged it like a commodity. On a shelf of forty bags, theirs was the one nobody remembered.\n\nWe built a weighty, confident identity - literally: a kilo-inspired mark, origin-led color coding, and bags designed to stand out at twelve feet. Subscriptions got their own ritual-grade unboxing.\n\nWholesale accounts grew 5x in a year. The subscription base now funds an entire second roastery.",
-    image_url: '/images/work-kilo.jpg',
-    services: ['Brand strategy', 'Packaging', 'Retail design', 'Subscriptions UX', 'Wholesale kit'],
-    metrics: [
-      { value: '5x', label: 'Wholesale accounts in 12 months' },
-      { value: '12k', label: 'Active coffee subscribers' },
-      { value: '+84%', label: 'Shelf standout in eye-tracking tests' }
+      { value: '+46%', label: 'Returning-guest rate' },
+      { value: '+2.4x', label: 'In-room dining orders' },
+      { value: '3', label: 'Outlets on one system' }
     ],
     featured: false,
     timeline: '7 weeks'
+  },
+  {
+    id: 7,
+    slug: 'pulse-beach-club',
+    title: 'Pulse Beach Club',
+    client: 'Pulse',
+    category: 'Loyalty',
+    year: 2024,
+    tagline: 'A beach club that keeps the summer going until next summer.',
+    description: "Pulse Beach Club lives on seasonal volume: thousands of guests, most of them once a year, most of them never heard from again after September.\n\nThe problem was not acquisition, it was memory. We built a loyalty system that travels with the guest across the season and across years: sunbed bookings, food and beverage, and event tickets all feed one card. Off-season the same system sends a single, well-timed message before the calendar opens.\n\nThe club now enters each season with a warm list instead of a cold one, and opening-weekend bookings come from guests who were already there last year.",
+    image_url: '/images/work-pulse.jpg',
+    services: ['Loyalty system', 'Season-pass logic', 'Off-season lifecycle', 'DESA Menu build'],
+    metrics: [
+      { value: '38k', label: 'Loyalty cards issued' },
+      { value: '2.7x', label: 'Opening-weekend bookings' },
+      { value: '+29%', label: 'Repeat spend per guest' }
+    ],
+    featured: false,
+    timeline: '6 weeks'
   }
 ];
 
 export const testimonials = [
   {
     id: 1,
-    quote: 'DG rebuilt our brand and our pipeline in the same quarter. Revenue doubled while ad spend stayed flat - I still show their decks to other founders.',
+    quote: 'We spent years assuming guests wanted a printed menu. They wanted to see the food. The first month with DESA Menu moved our average spend by a third - the kitchen noticed before the numbers did.',
     author: 'Camille Roux',
-    role: 'Founder',
-    company: 'Maison Verre',
+    role: 'Owner',
+    company: 'La Terrasse',
     rating: 5,
-    project_slug: 'maison-verre'
+    project_slug: 'la-terrasse'
   },
   {
     id: 2,
-    quote: 'The new site paid for itself in eleven days. Our sales team finally sends prospects to our URL instead of apologizing for it.',
-    author: 'Marcus Webb',
-    role: 'CEO',
-    company: 'Ledgerline',
+    quote: 'Our room is dark, our guests are two drinks in, and the old PDF was unreadable. DESA built something that fits the room. The Who Pays? game alone changed how long people stay.',
+    author: 'Leo Fontaine',
+    role: 'Founder',
+    company: 'Noir Lounge',
     rating: 5,
-    project_slug: 'ledgerline-fintech'
+    project_slug: 'noir-lounge'
   },
   {
     id: 3,
-    quote: 'They think like owners. Every creative decision came with a number attached - and the numbers kept coming true.',
-    author: 'Dana Cole',
-    role: 'CMO',
-    company: 'Kinetic',
+    quote: 'We serve four hundred people a day in a room the size of a van. The menu had to be faster than the queue - and now it is. Regulars scan once and their usual is already there.',
+    author: 'Amel Benali',
+    role: 'Head of Coffee',
+    company: 'Café Atelier',
     rating: 5,
-    project_slug: 'kinetic-velocity'
+    project_slug: 'cafe-atelier'
   },
   {
     id: 4,
-    quote: 'Seniors only is real. The people in the pitch were the people on the tools, every week, for twelve weeks. Unheard of.',
+    quote: 'Three outlets, three printed menus, and no idea who our returning guests were. Now one system knows. Our front desk finally recognises people before they reach the desk.',
     author: 'Priya Nair',
-    role: 'VP Product',
-    company: 'Pulse',
+    role: 'General Manager',
+    company: 'Forma Hotel',
     rating: 5,
-    project_slug: 'pulse-fitness'
+    project_slug: 'forma-hotel'
   },
   {
     id: 5,
-    quote: 'Our tour sold out eleven of twelve cities. DG turned our parties into a brand sponsors fight over.',
-    author: 'Leo Fontaine',
+    quote: 'We used to end every September with a clean slate and no relationship with the people who spent the summer with us. That changed in one season.',
+    author: 'Marcus Webb',
     role: 'Director',
-    company: 'Velvet Hour',
+    company: 'Pulse Beach Club',
     rating: 5,
-    project_slug: 'velvet-hour'
+    project_slug: 'pulse-beach-club'
   }
 ];
 
 export const team = [
-  { id: 1, name: 'June Park', role: 'Founding Partner, Creative', department: 'Creative', bio: 'Ex-Pentagram. Built identity systems for 60+ brands. Believes kerning is a moral issue.', initials: 'JP', years: 10 },
-  { id: 2, name: 'Dario Grimm', role: 'Founding Partner, Strategy', department: 'Strategy', bio: 'Ex-brand consultant turned growth skeptic turned growth believer. Owns every metric we promise.', initials: 'DG', years: 10 },
-  { id: 3, name: 'Amara Okafor', role: 'Head of Engineering', department: 'Technology', bio: 'Ships award-winning sites that load in under a second. Allergic to page builders and jank.', initials: 'AO', years: 7 },
-  { id: 4, name: 'Tomas Silva', role: 'Creative Director, Campaigns', department: 'Creative', bio: 'Film-school dropout with three D&AD pencils. Makes launches feel like cultural events.', initials: 'TS', years: 6 },
-  { id: 5, name: 'Yuki Tanaka', role: 'Head of Growth', department: 'Growth', bio: 'Data scientist with taste. Runs experimentation programs that have added $200M+ in client revenue.', initials: 'YT', years: 5 },
-  { id: 6, name: 'Sofia Marchetti', role: 'Design Director, Brand', department: 'Creative', bio: 'Typography obsessive. Her identity systems have survived three client acquisitions intact.', initials: 'SM', years: 8 }
+  { id: 1, name: 'Yasmine Haddad', role: 'Founding Partner, Product', department: 'Product', bio: 'Ran digital for a 40-venue restaurant group before building DESA. Thinks in service flows, not screens.', initials: 'YH', years: 11 },
+  { id: 2, name: 'Omar Zerhouni', role: 'Founding Partner, Experience', department: 'Design', bio: 'Art director turned product designer. Believes a menu is the most-read document a venue owns.', initials: 'OZ', years: 10 },
+  { id: 3, name: 'Ines Duarte', role: 'Head of Film', department: 'Content', bio: 'Directed food films for hotel groups across three continents. Shoots on the pass, never in a studio.', initials: 'ID', years: 8 },
+  { id: 4, name: 'Tarek Belkacem', role: 'Head of Engineering', department: 'Technology', bio: 'Builds menus that load in under a second on a bad connection in a full dining room.', initials: 'TB', years: 9 },
+  { id: 5, name: 'Sofia Marchetti', role: 'Hospitality Lead', department: 'Partnerships', bio: 'Fifteen years on the floor. Onboards every venue and trains every service team personally.', initials: 'SM', years: 15 },
+  { id: 6, name: 'Daniel Okonkwo', role: 'Head of Retention', department: 'Growth', bio: 'Loyalty strategist. Designs programmes guests actually use, then proves the return visits.', initials: 'DO', years: 7 }
 ];
 
 export const posts = [
   {
     id: 1,
-    slug: 'the-72-hour-sellout-playbook',
-    title: 'The 72-Hour Sellout Playbook',
-    excerpt: 'How we sold 40,000 pairs of trainers in three days - and the exact launch sequence you can steal, from seeding to countdown to restock.',
-    body: "Everyone wants a sellout. Almost nobody engineers one. The Kinetic Velocity launch sold 40,000 pairs in 72 hours - not because of luck, but because every hour of the window was choreographed like a heist.\n\nIt started six weeks out with seeding: 200 pairs to runners with audiences between 10k and 100k followers. Not celebrities - credible people whose recommendation actually moves product. No posting requirements, no scripts. Just the shoes, early.\n\nWeek two brought the film: a 90-second launch spot cut into 40+ assets across every ratio that matters. Paid spend stayed dark until day three of the window - all early momentum was earned, which meant the algorithm worked for us instead of against us.\n\nThe window itself ran on manufactured rhythm: midnight city runs, hourly stock updates, and a live countdown that made waiting feel like participation. Scarcity was real - one production run - so urgency never felt like a trick.\n\nThe lesson most brands miss: a drop is not a discount with better lighting. It is a story with a deadline. Give people a reason to care on day one, a reason to hurry on day two, and a reason to forgive you on day three - the waitlist for run two hit 190,000 because missing out felt like joining something.",
-    category: 'Growth',
-    author: 'Tomas Silva',
-    author_role: 'Creative Director, Campaigns',
-    image_url: '/images/work-kinetic.jpg',
-    read_time: 8,
+    slug: 'why-video-menus-outsell-static-menus',
+    title: 'Why Video Menus Outsell Static Menus',
+    excerpt: 'Guests cannot taste a photograph. They can watch a dish being finished. What we learned filming plates for 120 venues - and the numbers that came back.',
+    body: "A printed menu asks guests to imagine. A photograph helps a little. A six-second film of the plate being finished, sauced and set down - that is the closest a guest gets to tasting it before it arrives.\n\nAcross the venues we have filmed, roughly six in ten guests open at least one dish video. The effect is not spread evenly: it concentrates on the dishes a venue most wants to sell. When a signature plate sits at the top of a category with film attached, selection of that dish roughly doubles against its printed baseline.\n\nThe practical rules we have settled on are unglamorous. Shoot on the pass, not in a studio, because guests recognise the room they are sitting in. Keep loops under six seconds and under 300 kilobytes, because the network in a full dining room is worse than your office. Film the finish - the pour, the shave, the flame - because motion is what carries appetite.\n\nAnd do not film everything. A menu where every dish moves is a menu where nothing stands out. We typically film eight to twelve plates per venue and let the rest stay quiet, elegant text.",
+    category: 'Video',
+    author: 'Ines Duarte',
+    author_role: 'Head of Film',
+    image_url: '/images/hero-dish.jpg',
+    read_time: 6,
     featured: true,
     published_at: '2026-08-14T10:00:00Z'
   },
   {
     id: 2,
-    slug: 'rebrand-without-the-cringe',
-    title: 'How to Rebrand Without the Cringe',
-    excerpt: 'Five rules for evolving an identity without alienating the customers who got you here - learned across 60+ rebrands.',
-    body: "Every rebrand announcement attracts the same comment: it was better before. Sometimes the crowd is right. Usually, the brand changed the wrong things for the wrong reasons - chasing trends instead of fixing problems.\n\nRule one: audit before you sketch. We interview customers, staff and lost deals before drawing a single line. The Noir Atelier rebrand worked because research showed the monogram had equity but the system around it was dated - so the monogram stayed and everything else changed.\n\nRule two: evolve the assets with memory, revolutionize the system. Keep what people recognize in a thumbnail. Rebuild the grids, type scales and art direction that nobody photographs but everybody feels.\n\nRule three: launch the story, not the logo. Nobody shares a logo reveal except designers. Maison Verre launched with founder films and a packaging story - the identity arrived as evidence of a bigger idea, not as the idea itself.\n\nRules four and five are operational: migrate everything at once (a half-rebranded company looks bankrupt) and write the guidelines people will actually use - twenty pages of examples beat two hundred pages of rules.",
-    category: 'Branding',
-    author: 'Sofia Marchetti',
-    author_role: 'Design Director, Brand',
+    slug: 'designing-a-menu-for-a-phone-not-a-page',
+    title: 'Designing a Menu for a Phone, Not a Page',
+    excerpt: 'Most digital menus are print layouts squeezed into a browser. The constraints of a phone screen should be the brief, not the problem.',
+    body: "The first thing to accept is that a phone screen in a restaurant is hostile territory: one hand, low light, a guest who is mid-conversation and slightly impatient. Everything about the design follows from that.\n\nType gets bigger and lighter-weight than a print menu would allow. Contrast goes up, glare comes down - a dark palette is not a fashion choice in a dim room, it is usability. Tap targets are generous because the guest is not looking carefully. Category navigation sits within thumb reach on the first screen, never hidden behind a hamburger.\n\nThe structure matters more than the styling. A printed menu organises by course because that is how kitchens are built. Guests do not order in kitchen order. They decide by appetite, budget, and what the table next to them is having - so we group by weight and mood, surface the signature plates early, and make price easy to scan without making it the loudest thing on screen.\n\nThe test we use is simple: hand a phone to someone who has never seen the menu, in a dark room, and see whether they order within ninety seconds without asking a question.",
+    category: 'Design',
+    author: 'Omar Zerhouni',
+    author_role: 'Founding Partner, Experience',
     image_url: '/images/process-branding.jpg',
-    read_time: 6,
+    read_time: 7,
     featured: false,
-    published_at: '2026-06-02T10:00:00Z'
+    published_at: '2026-07-30T10:00:00Z'
   },
   {
     id: 3,
-    slug: 'landing-pages-that-convert',
-    title: 'Landing Pages That Actually Convert',
-    excerpt: 'We audited 120 SaaS landing pages. 100 of them make the same four mistakes. Here is the teardown and the fix.',
-    body: "We audited 120 SaaS landing pages this year. The median conversion rate was 2.1%. The top decile converted at 11%+. The gap was not budget or traffic quality - it was four repeated mistakes.\n\nMistake one: the hero sells the category, not the outcome. Visitor arrives and learns you are an AI-powered platform for modern teams. They leave and Google the problem instead. Ledgerline's hero leads with the outcome - close the books in days, not weeks - and demos quadrupled.\n\nMistake two: proof is buried. Logos live below the fold, testimonials hide on a subpage, numbers appear nowhere. Put your strongest proof in the first viewport: a metric, a logo wall, a one-line quote. Trust is the prerequisite for reading further.\n\nMistake three: one page for every visitor. Paid traffic, organic traffic and returning visitors have different questions. The fix is not twelve pages - it is dynamic modules keyed to source and intent.\n\nMistake four: the form asks for a marriage on the first date. Every field costs conversions. Ask for email first, qualify after. The best-performing pages we have built collect one field above the fold and earn the rest through progressive profiling.",
-    category: 'Growth',
-    author: 'Yuki Tanaka',
-    author_role: 'Head of Growth',
-    image_url: '/images/work-ledgerline.jpg',
-    read_time: 7,
+    slug: 'loyalty-that-guests-actually-use',
+    title: 'Loyalty That Guests Actually Use',
+    excerpt: 'Punch cards die in wallets. The retention layer that works is the one already open on the table - inside the menu.',
+    body: "Most restaurant loyalty programmes fail for a boring reason: the guest has to remember them. A card in a wallet, an app nobody installed, a QR code on a receipt that is already in a pocket.\n\nPut the loyalty card inside the menu and the friction disappears. The guest has already scanned. The visit is already being recorded. The reward can be shown at the exact moment it matters - while they are deciding whether to order dessert.\n\nWhat we have learned from running these programmes: reward the visit, not the spend, because it is fairer to the guest and more predictable for the venue. Make progress visible in three seconds or fewer. And keep the reward genuinely small but genuinely immediate - a coffee, a dessert, a drink on the next visit beats a discount that never quite adds up.\n\nThe compound effect is quiet. Guests do not talk about your loyalty card. They simply come back, and the venue stops paying to acquire the same guest twice.",
+    category: 'Retention',
+    author: 'Daniel Okonkwo',
+    author_role: 'Head of Retention',
+    image_url: '/images/work-forma.jpg',
+    read_time: 5,
     featured: false,
-    published_at: '2026-04-20T10:00:00Z'
+    published_at: '2026-07-08T10:00:00Z'
   },
   {
     id: 4,
-    slug: 'typography-is-the-brand',
-    title: 'Typography Is the Brand (Sorry, Logo)',
-    excerpt: 'Your logo appears once per page. Your type appears 500 times. A case for spending the budget where the words are.',
-    body: "Here is an uncomfortable truth for logo lovers: on most websites, the logo occupies 0.1% of pixels. Typography occupies 90%+. Yet identity budgets routinely spend 80% of the effort on the mark and treat type as an afterthought.\n\nThe brands people call timeless - fashion houses, broadsheets, luxury hotels - are almost always just brands with disciplined typography. A distinctive serif or grotesque, set with conviction at every size, does more memorability work than any symbol.\n\nWhen we rebuilt Noir Atelier, the wordmark changed modestly. The type system changed completely: an oversized editorial serif for headlines, a razor grotesque for product data, and rules about scale contrast that make every layout feel expensive.\n\nPractical advice: license one great family instead of three good ones. Set headlines bigger than feels safe. And ban your body font from ever appearing above 24px - hierarchy is what separates designed from decorated.",
-    category: 'Design',
-    author: 'June Park',
-    author_role: 'Founding Partner, Creative',
-    image_url: '/images/work-noir.jpg',
+    slug: 'who-pays-and-why-table-games-work',
+    title: 'Who Pays, and Why Table Games Work',
+    excerpt: 'A fifteen-second game at the table does more for dwell time and reorders than any discount we have ever tested.',
+    body: "Who Pays? is not a feature we expected to matter. It is a small, branded game that decides which guest at the table covers the round. It takes fifteen seconds. It is, by any reasonable measure, trivial.\n\nIt turned out to be the most effective thing we have shipped. Around one table in three plays it, mostly in groups, mostly between the first and second round. Tables that play it stay longer and order more - not because the game sells anything, but because it gives a table a reason to stay in the seat and a reason to order the next round together.\n\nThere is a brand effect too. A game is something guests photograph, and a menu guests photograph is a menu that travels. Venues report it appearing in stories and reviews without anyone being asked to post.\n\nThe lesson generalises beyond the game: engagement at the table is worth more than a discount at the till. A small, well-made interaction costs nothing per use and compounds every service.",
+    category: 'Engagement',
+    author: 'Yasmine Haddad',
+    author_role: 'Founding Partner, Product',
+    image_url: '/images/work-pulse.jpg',
     read_time: 5,
     featured: false,
-    published_at: '2026-02-11T10:00:00Z'
+    published_at: '2026-06-19T10:00:00Z'
   },
   {
     id: 5,
-    slug: 'from-dtc-to-cult',
-    title: 'From DTC to Cult: the Retention Playbook',
-    excerpt: 'Acquisition is rented. Retention is owned. How subscription brands turn buyers into believers - with numbers from Kilo and Verre.',
-    body: "The average DTC brand loses 70% of first-time buyers. The cult brands - the ones with waitlists and tattooed logos - keep 60%+. The difference is rarely product quality. It is ritual.\n\nKilo & Co. turned a coffee subscription into a morning ceremony: origin cards in every box, brew guides that teach rather than preach, and a subscriber-only roast voted on quarterly. Churn dropped by half because cancelling felt like leaving a club, not skipping a delivery.\n\nMaison Verre applied the same logic to skincare: routines instead of SKUs, refill pricing that rewards loyalty, and packaging customers refuse to throw away. Repeat purchase rate climbed 67% in two quarters.\n\nThe playbook has three moves. First, give the second purchase a reason to exist at the moment of the first - samples, rituals, progress. Second, make membership visible: community, early access, status. Third, measure retention cohorts weekly and treat every dip like a fire alarm.\n\nAcquisition scales spending. Retention scales enterprise value. Build the cult before you buy the crowd.",
-    category: 'Strategy',
-    author: 'Dario Grimm',
-    author_role: 'Founding Partner, Strategy',
-    image_url: '/images/work-kilo.jpg',
+    slug: 'from-print-to-pixels-in-five-weeks',
+    title: 'From Print to Pixels in Five Weeks',
+    excerpt: 'What a DESA Menu deployment actually looks like, week by week - and what we need from a venue to hit the date.',
+    body: "The question every venue asks first is how long the switch takes, and how much of their team's time it will eat. The honest answer is five weeks for a single outlet, and about six hours of the venue's time in total.\n\nWeek one is audit and structure. We take the existing menu, the sales data if it exists, and the brand assets. We rebuild the categories around how guests decide rather than how the kitchen is organised, and we cut anything the venue does not actually want to sell.\n\nWeek two is the shoot. One day on site, on the pass, during service or before it. Eight to twelve plates, plus atmosphere frames for the venue's own marketing. No studio, no styling team, no interruption to service.\n\nWeek three is build: menu structure, film, copy, loyalty logic, table game branding. Week four is review, where the venue's team reads every word and we run it past two real guests. Week five is launch, training, and the first analytics review thirty days later.\n\nThe venues that hit five weeks share two habits: one decision-maker in the room, and content given to us in the first week rather than the fourth.",
+    category: 'Craft',
+    author: 'Sofia Marchetti',
+    author_role: 'Hospitality Lead',
+    image_url: '/images/work-verre.jpg',
     read_time: 6,
     featured: false,
-    published_at: '2025-11-05T10:00:00Z'
+    published_at: '2026-05-27T10:00:00Z'
   },
   {
     id: 6,
-    slug: 'why-we-kill-moodboards',
-    title: 'Why We Kill Moodboards (and What We Do Instead)',
-    excerpt: 'Moodboards are where strong ideas go to become beige. Our alternative: decision-first creative territories.',
-    body: "Moodboards feel productive and produce mush. A grid of 40 reference images lets everyone in the room see a different project - and lets every stakeholder veto the sharp edges until only the inoffensive survives.\n\nWe replaced moodboards with creative territories: three fully-articulated directions, each with a name, a point of view, sample headlines, a type pairing and one hero mock. Each territory is a decision, not a vibe.\n\nThe effect on process is dramatic. Clients stop debating individual images and start choosing between futures. Feedback gets specific because the stimulus is specific. Rounds drop from six to two.\n\nThis only works with genuine range: the three territories must be mutually exclusive. If the client can combine them, you have not done the strategic thinking yet. Our job is to make each option scary-good in a different way - then help them pick their fear.\n\nKill the moodboard. Ship the decision.",
-    category: 'Design',
-    author: 'June Park',
-    author_role: 'Founding Partner, Creative',
+    slug: 'the-quiet-metrics-of-a-better-menu',
+    title: 'The Quiet Metrics of a Better Menu',
+    excerpt: 'Average spend is the headline. The numbers that actually compound - scan rate, video opens, return visits - are the ones nobody puts on a slide.',
+    body: "Every venue wants the average-spend number, and we report it. But the metric that predicts next quarter is quieter: how many guests actually open the menu at the table.\n\nA printed menu has no scan rate because everyone reads it by default. A digital menu can fail silently - a guest who cannot find it, or finds it and closes it in four seconds, is a guest who ordered from memory. We treat scan rate as the health check of the whole deployment, and it is the first thing we look at when a venue reports flat results.\n\nThe next layer is engagement quality: how many guests open a dish video, how far into a category they scroll, and where they stop. That tells a venue something no printed menu ever could - which dishes are being considered and rejected, and which parts of the menu are invisible.\n\nThen retention: how many guests return within sixty days, and how many are recognised on arrival. It is a slower number than revenue, and a more honest one.",
+    category: 'Analytics',
+    author: 'Tarek Belkacem',
+    author_role: 'Head of Engineering',
     image_url: '/images/texture-ink.jpg',
-    read_time: 4,
+    read_time: 6,
     featured: false,
-    published_at: '2025-09-16T10:00:00Z'
+    published_at: '2026-05-02T10:00:00Z'
   }
 ];
 
-// In-memory inquiry store used when the database is unreachable.
 export const inquiries = [];

@@ -6,24 +6,24 @@ import Reveal from '../components/Reveal';
 import SectionHeading from '../components/SectionHeading';
 
 const SERVICES = [
-  { n: '01', title: 'Brand Identity', price: 'from $18k', time: '4-8 weeks', desc: 'Positioning, naming, visual identity and guidelines - the full foundation for being remembered.', deliverables: ['Brand strategy & positioning', 'Naming & verbal identity', 'Logo & visual system', 'Brand guidelines book', 'Art direction & templates', 'Launch asset kit'] },
-  { n: '02', title: 'Web Design & Build', price: 'from $24k', time: '6-12 weeks', desc: 'Marketing sites, e-commerce and web apps. Designed to win awards, engineered to convert.', deliverables: ['UX research & sitemaps', 'UI design system', 'Creative development', 'CMS & e-commerce setup', 'Motion & interaction', 'SEO & performance tuning'] },
-  { n: '03', title: 'Campaigns & Content', price: 'from $12k', time: '3-6 weeks', desc: 'Launch campaigns, film and photo direction, and always-on social systems with a point of view.', deliverables: ['Campaign concept & rollout', 'Photo & film direction', 'Social content systems', 'OOH & print', 'Influencer toolkits', 'Launch playbooks'] },
-  { n: '04', title: 'Growth & CRO', price: 'from $6k/mo', time: 'ongoing', desc: 'Experimentation programs, landing page systems and lifecycle creative that compound month over month.', deliverables: ['Growth audits & roadmaps', 'A/B testing program', 'Landing page sprints', 'Email & lifecycle creative', 'Analytics & dashboards', 'Monthly insight reports'] },
+  { n: '01', title: 'Menu Design & Film', price: 'from €2.4k', time: '2-3 weeks', desc: 'We restructure your menu around how guests decide, then film the dishes worth selling.', deliverables: ['Menu architecture & copy', 'Dish film production', 'Photography direction', 'Menu typography system', 'Price & category strategy', 'Brand asset kit'] },
+  { n: '02', title: 'DESA Menu Deployment', price: 'from €3.6k', time: '3-5 weeks', desc: 'Your menu built, tested and live — text navigation, video, categories, analytics and staff training.', deliverables: ['Menu build & setup', 'Video & image pipeline', 'Category navigation', 'Multi-language menus', 'Analytics dashboard', 'Team onboarding'] },
+  { n: '03', title: 'Interactive Experiences', price: 'from €4.2k', time: '3-4 weeks', desc: 'Branded table-side games and interactions that add dwell time — starting with Who Pays?.', deliverables: ['Who Pays? game setup', 'Custom branded games', 'Table-side engagement flows', 'Shareable brand moments', 'Game analytics', 'Seasonal game drops'] },
+  { n: '04', title: 'Loyalty & Retention', price: 'from €1.8k/mo', time: 'ongoing', desc: 'A loyalty programme inside the menu, with lifecycle messaging that brings guests back.', deliverables: ['Loyalty programme design', 'Reward & tier strategy', 'Guest identity across outlets', 'Off-season messaging', 'Return-visit reporting', 'Quarterly optimisation'] },
 ];
 
 const MODELS = [
-  { name: 'Project', price: 'Fixed scope', desc: 'One defined outcome - a rebrand, a site, a launch. Fixed price, fixed timeline, senior team throughout.', points: ['Fixed price & timeline', 'Senior-only team', 'Weekly demos', '30-day post-launch support'] },
-  { name: 'Partner', price: '$8k-$20k / mo', desc: 'An embedded creative team on retainer. Design, build and growth shipped in weekly sprints.', points: ['Dedicated pod of 3-5', 'Pause or cancel monthly', 'Unlimited requests, queued', 'Slack + same-day replies'], highlight: true },
-  { name: 'Sprint', price: '$9k / week', desc: 'A one-week intensive to crack one hard problem - positioning, a landing page, a prototype.', points: ['Kickoff Monday, ship Friday', 'Daily working sessions', 'Prototype or live page', 'Decision-ready readout'] },
+  { name: 'Single venue', price: 'Fixed scope', desc: 'One venue, live in five weeks. Menu design, dish film and a full DESA Menu deployment.', points: ['Fixed price & timeline', 'On-site shoot day', 'Staff training included', '30-day performance review'] },
+  { name: 'Group', price: '€1.8k-€6k / mo', desc: 'An ongoing partnership across outlets. Seasonal menus, new films and loyalty operations, shipped monthly.', points: ['Multi-venue rollout', 'Quarterly film drops', 'Loyalty programme managed', 'Pause or cancel monthly'], highlight: true },
+  { name: 'Hospitality group', price: 'Custom', desc: 'Ten outlets or more, multiple brands and PMS or POS integration. Scoped and priced on a call.', points: ['Group-wide guest identity', 'POS & PMS integration', 'Dedicated hospitality lead', 'Executive reporting'] },
 ];
 
 const FAQS = [
-  { q: 'How much does a typical project cost?', a: 'Most engagements land between $18k and $80k depending on scope. Brand identities start at $18k, websites at $24k, campaigns at $12k. Retainers run $8k-$20k/month. Every proposal is fixed-price - no hourly billing surprises.' },
-  { q: 'How long does a project take?', a: 'Sprints ship in a week, campaigns in 3-6 weeks, identities in 4-8 weeks, and full websites in 6-12 weeks. You will see real creative direction by week two on any engagement.' },
-  { q: 'Who will actually work on our account?', a: 'Seniors only. Your pod includes a creative director, a designer, an engineer and a strategist - the people you meet in the pitch are the people who ship the work.' },
-  { q: 'Do you work with early-stage startups?', a: 'Yes - roughly a third of our work is Seed to Series B. We offer sprint-based engagements and phased scopes so you can start sharp and scale the partnership as you grow.' },
-  { q: 'Can you take over from another agency?', a: 'Absolutely. We audit what exists, keep what works, and rebuild what does not. About 40% of our projects start as rescues or redesigns of work begun elsewhere.' },
+  { q: 'What does a DESA Menu deployment cost?', a: 'A single venue typically lands between €5k and €9k depending on how many dishes we film and how much of the menu is video. Menu design alone starts at €2.4k, loyalty programmes from €1.8k/month. Every proposal is fixed-price — no hourly billing surprises.' },
+  { q: 'How long until we are live?', a: 'Five weeks for a single venue: one week structuring your menu, one shoot day on site, two weeks building and reviewing, then launch and training. Larger multi-outlet deployments run six to ten weeks in phases, so your first outlet goes live while we build the rest.' },
+  { q: 'Do we need to close for the shoot?', a: 'No. We film on the pass before service or during it — whichever suits your kitchen. One day on site, eight to twelve dishes, plus atmosphere frames you can use across your own channels.' },
+  { q: 'Does it integrate with our POS?', a: 'Yes. We integrate with the major POS and payment systems for order routing where supported, plus reservations, delivery platforms and PMS for hotels. If an integration does not exist, we build the data flow rather than asking you to change systems.' },
+  { q: 'What happens if we already have a QR menu?', a: 'We keep what works. About half our projects begin as a rebuild: we audit the existing menu, migrate the content that earns its place, and replace the static experience with film, navigation and loyalty. Nothing goes live until your team signs off.' },
 ];
 
 function Faq({ q, a }: { q: string; a: string }) {
@@ -52,8 +52,8 @@ export default function Services() {
       <section className="bg-blueprint border-b border-bone/10">
         <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-mono text-xs uppercase tracking-[0.3em] text-fog">02 - Services</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-6xl uppercase leading-[0.9] sm:text-8xl lg:text-[7.5vw]">Everything the <span className="font-serif normal-case italic font-medium text-lime">funnel</span> needs.</motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">Four disciplines, one team, zero handoffs. Expand each service to see exactly what you get - and what it costs.</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-6xl uppercase leading-[0.9] sm:text-8xl lg:text-[7.5vw]">Everything a menu <span className="font-serif normal-case italic font-medium text-lime">needs.</span></motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">Four disciplines, one studio and no handoffs. Expand each service to see exactly what you get - and what it costs.</motion.p>
         </div>
       </section>
       <section className="mx-auto max-w-[1600px] px-5 py-12 sm:px-8 lg:py-16">

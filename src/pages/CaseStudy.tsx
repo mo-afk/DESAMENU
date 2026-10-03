@@ -58,7 +58,7 @@ export default function CaseStudy() {
     return (
       <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8">
         <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || 'Not found'}</p>
-        <Link to="/work" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to work</Link>
+        <Link to="/work" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to portfolio</Link>
       </div>
     );
   }
@@ -66,14 +66,14 @@ export default function CaseStudy() {
   const meta = [
     { icon: User, label: 'Client', value: project.client },
     { icon: Calendar, label: 'Year', value: String(project.year) },
-    { icon: Tag, label: 'Discipline', value: project.category },
+    { icon: Tag, label: 'Deployment', value: project.category },
     { icon: Clock, label: 'Timeline', value: project.timeline || '-' },
   ];
 
   return (
     <div className="pt-[72px]">
       <section className="mx-auto max-w-[1600px] px-5 pt-12 sm:px-8 lg:pt-16">
-        <Link to="/work" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All work</Link>
+        <Link to="/work" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All venues</Link>
         <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-5xl uppercase leading-[0.9] sm:text-7xl lg:text-8xl">{project.title}</motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-4 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{project.tagline}</motion.p>
       </section>
@@ -123,7 +123,7 @@ export default function CaseStudy() {
             </Reveal>
             <Reveal delay={0.12}>
               <Link to="/contact" className="group mt-6 flex items-center justify-between bg-bone p-6 text-ink transition-colors hover:bg-lime">
-                <span className="font-display text-lg uppercase">Want results like these?</span>
+                <span className="font-display text-lg uppercase">Want this in your venue?</span>
                 <ArrowUpRight className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
               </Link>
             </Reveal>
@@ -134,7 +134,7 @@ export default function CaseStudy() {
         <section className="border-t border-bone/10">
           <Link to={`/work/${next.slug}`} className="group mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-12 sm:px-8 lg:py-16">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">Next case study</p>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">Next venue</p>
               <p className="mt-3 font-display text-4xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-6xl">{next.title}</p>
               <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-fog">{next.client} - {next.year}</p>
             </div>
