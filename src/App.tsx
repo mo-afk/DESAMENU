@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Work from './pages/Work';
-import CaseStudy from './pages/CaseStudy';
-import Services from './pages/Services';
-import Studio from './pages/Studio';
-import Journal from './pages/Journal';
-import Article from './pages/Article';
+import Features from './pages/Features';
+import Demos from './pages/Demos';
+import DemoDetail from './pages/DemoDetail';
+import HowItWorks from './pages/HowItWorks';
+import Notes from './pages/Notes';
+import Note from './pages/Note';
 import Contact from './pages/Contact';
-import DesaMenu from './pages/DesaMenu';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,7 +27,7 @@ function NotFound() {
       <p className="mt-4 max-w-sm text-bone/60">This page left the pass and never came back. Let us get you somewhere better.</p>
       <div className="mt-8 flex gap-4">
         <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">Home</Link>
-        <Link to="/desa-menu" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">DESA Menu</Link>
+        <Link to="/demos" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">Live demos</Link>
       </div>
     </div>
   );
@@ -43,14 +42,21 @@ export default function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/work/:slug" element={<CaseStudy />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/studio" element={<Studio />} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/journal/:slug" element={<Article />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/demos" element={<Demos />} />
+            <Route path="/demos/:slug" element={<DemoDetail />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/notes" element={<Notes />} />
+            <Route path="/notes/:slug" element={<Note />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/desa-menu" element={<DesaMenu />} />
+            {/* Previous routes kept alive so existing links never 404 */}
+            <Route path="/desa-menu" element={<Navigate to="/" replace />} />
+            <Route path="/work" element={<Navigate to="/demos" replace />} />
+            <Route path="/work/:slug" element={<Navigate to="/demos" replace />} />
+            <Route path="/journal" element={<Navigate to="/notes" replace />} />
+            <Route path="/journal/:slug" element={<Navigate to="/notes" replace />} />
+            <Route path="/services" element={<Navigate to="/features" replace />} />
+            <Route path="/studio" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

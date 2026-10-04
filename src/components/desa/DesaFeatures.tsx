@@ -13,17 +13,17 @@ export function VideoPanel() {
     <div className="flex h-full flex-col justify-center gap-3">
       <div className="flex items-end gap-2">
         {[0, 1, 2].map((i) => (
-          <div key={i} className={`flex-1 border ${i === 1 ? 'h-16 border-lime/50 bg-lime/[0.08]' : 'h-10 border-bone/15'} transition-all duration-500 group-hover:h-16`}>
+          <div key={i} className={`flex-1 border ${i === 1 ? 'h-16 border-ember/50 bg-gradient-to-b from-ember/[0.18] to-honey/[0.06]' : 'h-10 border-bone/15'} transition-all duration-500 group-hover:h-16`}>
             {i === 1 && (
               <span className="flex h-full items-center justify-center">
-                <Play className="h-3 w-3 text-lime" />
+                <Play className="h-3 w-3 text-honey" />
               </span>
             )}
           </div>
         ))}
       </div>
       <div className="h-[3px] w-full bg-bone/10">
-        <div className="h-full w-2/3 bg-lime transition-all duration-700 group-hover:w-[88%]" />
+        <div className="h-full w-2/3 bg-gradient-to-r from-ember to-honey transition-all duration-700 group-hover:w-[88%]" />
       </div>
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">Cinematic dish preview</p>
     </div>

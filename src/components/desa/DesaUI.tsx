@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 /**
  * Shared button styles for the DESA Menu page.
- * Square, mono, uppercase — matching the agency's existing button language.
+ * Square, mono, uppercase — matching the existing button language.
  */
 const buttonBase =
   'group inline-flex items-center gap-2 px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] transition-colors';

@@ -6,7 +6,10 @@ import Reveal from '../components/Reveal';
 import { formatDate, getPost, getPosts } from '../lib/api';
 import type { Post } from '../lib/api';
 
-export default function Article() {
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** A single field note. */
+export default function Note() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [related, setRelated] = useState<Post[]>([]);
@@ -18,15 +21,23 @@ export default function Article() {
   const loading = loadedSlug !== slug;
 
   useEffect(() => {
+    const previous = document.title;
+    document.title = post ? `${post.title} — DESA Menu` : 'Notes — DESA Menu';
+    return () => {
+      document.title = previous;
+    };
+  }, [post]);
+
+  useEffect(() => {
     let active = true;
     (async () => {
       try {
-        if (!slug) throw new Error('Missing article');
+        if (!slug) throw new Error('Missing note');
         const [p, all] = await Promise.all([getPost(slug), getPosts()]);
         if (!active) return;
         if (!p) {
           setPost(null);
-          setError('Article not found.');
+          setError('Note not found.');
           setLoadedSlug(slug);
           return;
         }
@@ -36,7 +47,7 @@ export default function Article() {
         setLoadedSlug(slug);
       } catch (e) {
         if (!active) return;
-        setError(e instanceof Error ? e.message : 'Failed to load article');
+        setError(e instanceof Error ? e.message : 'Failed to load note');
         setLoadedSlug(slug);
       }
     })();
@@ -58,7 +69,7 @@ export default function Article() {
     return (
       <div className="mx-auto max-w-4xl px-5 pb-24 pt-40 sm:px-8">
         <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || 'Not found'}</p>
-        <Link to="/journal" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to journal</Link>
+        <Link to="/notes" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to notes</Link>
       </div>
     );
   }
@@ -67,8 +78,8 @@ export default function Article() {
     <div className="pt-[72px]">
       <section className="bg-blueprint border-b border-bone/10">
         <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
-          <Link to="/journal" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All articles</Link>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <Link to="/notes" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All notes</Link>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
             <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]">
               <span className="border border-lime/60 px-3 py-1 text-lime">{post.category}</span>
               <span className="text-fog">{formatDate(post.published_at)}</span>
@@ -85,9 +96,15 @@ export default function Article() {
           </motion.div>
         </div>
       </section>
+
       <article className="mx-auto max-w-4xl px-5 py-12 sm:px-8">
-        <Reveal><img src={post.image_url} alt={post.title} className="aspect-[16/8] w-full object-cover" /></Reveal>
-        <Reveal delay={0.05}><p className="mt-8 border-l-2 border-lime pl-5 font-serif text-xl italic leading-relaxed text-bone/85 sm:text-2xl">{post.excerpt}</p></Reveal>
+        <Reveal>
+          <div className="relative overflow-hidden">
+            <img src={post.image_url} alt={post.title} className="img-warm aspect-[16/8] w-full object-cover" />
+            <div aria-hidden className="warm-veil pointer-events-none absolute inset-0" />
+          </div>
+        </Reveal>
+        <Reveal delay={0.05}><p className="mt-8 border-l-2 border-ember pl-5 font-serif text-xl italic leading-relaxed text-bone/85 sm:text-2xl">{post.excerpt}</p></Reveal>
         <Reveal delay={0.1}>
           <div className="mt-8 space-y-6 text-base leading-[1.85] text-bone/80 sm:text-lg">
             {post.body.split('\n\n').map((para, i) => <p key={i}>{para}</p>)}
@@ -99,20 +116,21 @@ export default function Article() {
               <p className="font-display text-xl uppercase">Want this thinking in your venue?</p>
               <p className="mt-1 text-sm text-fog">Tell us about your menu. We reply within one business day.</p>
             </div>
-            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-lime">Book a demo <ArrowUpRight className="h-4 w-4" /></Link>
+            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone">Book a demo <ArrowUpRight className="h-4 w-4" /></Link>
           </div>
         </Reveal>
       </article>
+
       {related.length > 0 && (
         <section className="border-t border-bone/10">
           <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">Keep reading</p>
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               {related.map((r) => (
-                <Link key={r.id} to={`/journal/${r.slug}`} className="group grid gap-5 border border-bone/15 bg-coal p-5 sm:grid-cols-5 sm:p-6">
-                  <div className="overflow-hidden sm:col-span-2"><img src={r.image_url} alt={r.title} loading="lazy" className="img-mono aspect-[16/10] h-full w-full object-cover group-hover:scale-[1.04]" /></div>
+                <Link key={r.id} to={`/notes/${r.slug}`} className="group grid gap-5 border border-bone/15 bg-coal p-5 sm:grid-cols-5 sm:p-6">
+                  <div className="overflow-hidden sm:col-span-2"><img src={r.image_url} alt={r.title} loading="lazy" className="img-warm aspect-[16/10] h-full w-full object-cover group-hover:scale-[1.04]" /></div>
                   <div className="sm:col-span-3">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{r.category} - {r.read_time} min</p>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{r.category} — {r.read_time} min</p>
                     <h3 className="mt-2 font-display text-xl uppercase leading-tight group-hover:text-lime">{r.title}</h3>
                     <span className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 group-hover:text-lime">Read <ArrowUpRight className="h-4 w-4" /></span>
                   </div>

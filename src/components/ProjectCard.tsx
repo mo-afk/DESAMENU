@@ -4,18 +4,19 @@ import type { Project } from '../lib/api';
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   return (
-    <Link to={`/work/${project.slug}`} className="group block">
+    <Link to={`/demos/${project.slug}`} className="group block">
       <div className={`relative overflow-hidden bg-carbon ${large ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
         <img
           src={project.image_url}
           alt={project.title}
           loading="lazy"
-          className="img-mono h-full w-full object-cover group-hover:scale-[1.04]"
+          className="img-warm h-full w-full object-cover group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-80" />
+        <div aria-hidden className="warm-veil pointer-events-none absolute inset-0" />
         <div className="absolute left-4 top-4 flex gap-2">
+          <span className="bg-ink/80 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-honey backdrop-blur-sm">{project.industry}</span>
           <span className="bg-ink/80 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-bone backdrop-blur-sm">{project.category}</span>
-          <span className="bg-ink/80 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-fog backdrop-blur-sm">{project.year}</span>
         </div>
         <div className="absolute bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-full bg-bone text-ink opacity-0 transition-all duration-300 group-hover:opacity-100">
           <ArrowUpRight className="h-5 w-5" />
@@ -38,11 +39,11 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
 
 export function ProjectRow({ project, index }: { project: Project; index: number }) {
   return (
-    <Link to={`/work/${project.slug}`} className="group grid grid-cols-12 items-center gap-4 border-b border-bone/10 py-6 transition-colors hover:bg-bone/[0.03] sm:gap-6 sm:px-4">
+    <Link to={`/demos/${project.slug}`} className="group grid grid-cols-12 items-center gap-4 border-b border-bone/10 py-6 transition-colors hover:bg-bone/[0.03] sm:gap-6 sm:px-4">
       <span className="col-span-2 font-mono text-xs text-fog sm:col-span-1">{String(index + 1).padStart(2, '0')}</span>
       <div className="col-span-10 sm:col-span-5">
         <h3 className="font-display text-2xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-4xl">{project.title}</h3>
-        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{project.client} - {project.year}</p>
+        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{project.client} - {project.industry}</p>
       </div>
       <div className="hidden sm:col-span-4 sm:block">
         <p className="text-sm text-bone/60">{project.tagline}</p>

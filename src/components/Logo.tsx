@@ -1,7 +1,7 @@
 export default function Logo({ className = 'h-9 w-9' }: { className?: string }) {
   return (
     <svg viewBox="0 0 60 52" fill="none" className={className} aria-label="DESA monogram" role="img">
-      {/* D — the parent agency */}
+      {/* D — the DESA wordmark */}
       <path
         fillRule="evenodd"
         clipRule="evenodd"

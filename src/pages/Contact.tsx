@@ -207,7 +207,7 @@ export default function Contact() {
                 </div>
                 <div className="bg-ink p-6">
                   <MapPin className="h-5 w-5 text-lime" strokeWidth={1.5} />
-                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">Studios</p>
+                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">Where we operate</p>
                   <p className="mt-1 text-sm leading-relaxed text-bone/80">Casablanca - Boulevard Anfa<br />Dubai - Business Bay<br />Remote - worldwide</p>
                 </div>
                 <div className="bg-ink p-6">
@@ -217,8 +217,8 @@ export default function Contact() {
                 </div>
                 <div className="bg-ink p-6">
                   <Building2 className="h-5 w-5 text-lime" strokeWidth={1.5} />
-                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">Press and careers</p>
-                  <p className="mt-1 text-sm text-bone/80">hello@desamenu.com<br />talent@desa.agency</p>
+                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">Support</p>
+                  <p className="mt-1 text-sm text-bone/80">hello@desamenu.com<br />support@desamenu.com</p>
                 </div>
               </div>
             </Reveal>

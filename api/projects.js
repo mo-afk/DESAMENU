@@ -23,9 +23,10 @@ function withTimeout(promise) {
 }
 
 function seedFiltered(query) {
-  const { slug, category, featured } = query;
+  const { slug, category, industry, featured } = query;
   let data = [...seedProjects].sort((a, b) => Number(b.featured) - Number(a.featured) || b.year - a.year || a.id - b.id);
   if (category) data = data.filter((p) => p.category === category);
+  if (industry) data = data.filter((p) => p.industry === industry);
   if (featured === 'true') data = data.filter((p) => p.featured);
   if (slug) return data.find((p) => p.slug === slug) || null;
   return data;

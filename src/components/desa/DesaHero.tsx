@@ -78,8 +78,9 @@ function DesaDeviceMockup() {
           {/* video dish card */}
           <div className="relative mx-4 overflow-hidden border border-bone/15">
             <div className="relative aspect-[4/3]">
-              <img src="/images/hero-dish.jpg" alt="" className="h-full w-full object-cover brightness-[0.78]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/30" />
+              <img src="/images/hero-dish.jpg" alt="" className="img-warm h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/25" />
+              <div aria-hidden className="warm-veil pointer-events-none absolute inset-0" />
               {/* scanning highlight */}
               <motion.span
                 aria-hidden
@@ -100,7 +101,7 @@ function DesaDeviceMockup() {
               </span>
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3">
                 <div>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-lime">Chef&apos;s signature</p>
+                  <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-honey">Chef&apos;s signature</p>
                   <p className="mt-0.5 font-display text-sm uppercase leading-none">Seared Scallops</p>
                 </div>
                 <span className="font-mono text-[11px] text-bone">€24</span>
@@ -155,7 +156,7 @@ export default function DesaHero() {
         DESA Menu
       </p>
       <p className="writing-vertical absolute right-6 top-1/2 hidden -translate-y-1/2 rotate-180 font-mono text-[10px] uppercase tracking-[0.4em] text-smoke xl:block">
-        Hospitality product — DESA Agency
+        Hospitality menu ecosystem
       </p>
 
       <div className="relative mx-auto max-w-[1600px] px-5 pb-16 pt-32 sm:px-8 lg:pb-24 lg:pt-40">
@@ -167,7 +168,7 @@ export default function DesaHero() {
                 <Sparkles className="h-3.5 w-3.5 text-lime" />
                 DESA Menu
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-fog">Powered by DESA Agency</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-fog">Text · Video · Games · Loyalty</span>
             </motion.div>
 
             <h1 className="mt-8 font-display uppercase leading-[0.88] tracking-tight">
