@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { LayoutGrid, Rows3 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import Reveal from '../components/Reveal';
+import DesaQrStand from '../components/desa/DesaQr';
 import { ProjectCard, ProjectRow } from '../components/ProjectCard';
 import { getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
@@ -88,6 +89,33 @@ export default function Demos() {
             <div className="border-t border-bone/10">{visible.map((d, i) => <ProjectRow key={d.id} project={d} index={i} />)}</div>
           )}
         </div>
+
+        {/* Every deployment leaves the screen and lands on the table */}
+        <Reveal>
+          <div className="mt-20 grid gap-12 border-t border-bone/10 pt-14 lg:grid-cols-12 lg:items-center lg:gap-16">
+            <div className="lg:col-span-7">
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">On the table</p>
+              <h2 className="mt-4 max-w-xl font-display text-3xl uppercase leading-[0.95] tracking-tight sm:text-4xl">
+                Every demo ships with <span className="font-serif normal-case italic font-medium">its own stand.</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-bone/70">
+                Each deployment leaves the screen and lands on the table: a stand carrying a QR built around the venue, scanning straight into the digital menu —
+                no app, no PDF. The official DESA Menu mark sits at the centre of the code and on the card itself, so the first thing a guest sees is your brand.
+              </p>
+              <ul className="mt-8 grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-3">
+                {['Branded QR centre', 'Table-numbered stands', 'Kept in step with your menu'].map((item) => (
+                  <li key={item} className="flex items-center gap-3 bg-ink p-4 text-xs leading-snug text-bone/85">
+                    <span className="h-1.5 w-1.5 shrink-0 bg-lime" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="lg:col-span-5">
+              <DesaQrStand venue="La Terrasse" table="Table 07" />
+            </div>
+          </div>
+        </Reveal>
 
         <Reveal>
           <div className="mt-16 flex flex-col gap-6 border-t border-bone/10 pt-10 sm:flex-row sm:items-center sm:justify-between">

@@ -1,6 +1,26 @@
-export default function Logo({ className = 'h-9 w-9' }: { className?: string }) {
+interface Props {
+  className?: string;
+  /** Decorative usages (inside mocks, beside visible labels) hide the mark. */
+  decorative?: boolean;
+}
+
+/**
+ * Inline SVG monogram — the drawn DESA mark.
+ *
+ * The official logo image is the primary brand mark (see `BrandLogo`); this
+ * vector stays in the codebase as the automatic fallback for when the hosted
+ * asset cannot be reached, and as the local `<link rel="alternate icon">`.
+ */
+export function LogoMark({ className = 'h-9 w-9', decorative = false }: Props) {
   return (
-    <svg viewBox="0 0 60 52" fill="none" className={className} aria-label="DESA monogram" role="img">
+    <svg
+      viewBox="0 0 60 52"
+      fill="none"
+      className={className}
+      role={decorative ? undefined : 'img'}
+      aria-hidden={decorative || undefined}
+      aria-label={decorative ? undefined : 'DESA Menu monogram'}
+    >
       {/* D — the DESA wordmark */}
       <path
         fillRule="evenodd"
@@ -15,3 +35,5 @@ export default function Logo({ className = 'h-9 w-9' }: { className?: string }) 
     </svg>
   );
 }
+
+export default LogoMark;

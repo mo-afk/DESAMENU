@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Dices, Play, Tag, User } from 'lucide-react';
 import Reveal from '../components/Reveal';
+import DesaQrStand from '../components/desa/DesaQr';
 import { getProject, getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
 
@@ -153,6 +154,28 @@ export default function DemoDetail() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <div className="mt-10 grid gap-10 border border-bone/15 bg-coal p-8 sm:p-10 lg:grid-cols-[260px_1fr] lg:items-center">
+                <DesaQrStand venue={demo.title} table={demo.client} className="mx-auto" />
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">On the table</p>
+                  <h2 className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight sm:text-3xl">
+                    The stand guests <span className="font-serif normal-case italic font-medium text-lime">meet first.</span>
+                  </h2>
+                  <p className="mt-4 text-sm leading-relaxed text-bone/70">
+                    Every table at {demo.title} carries a branded stand. The official DESA Menu mark sits at the centre of the QR and on the card, so the scan
+                    opens into the menu under your name — no app to install, nothing to download.
+                  </p>
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {['Branded QR centre', 'Table-numbered', 'Live menu, no reprints'].map((item) => (
+                      <li key={item} className="border border-bone/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </Reveal>
           </div>

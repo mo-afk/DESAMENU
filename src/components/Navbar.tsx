@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
-import Logo from './Logo';
+import BrandLogo from './BrandLogo';
+import { BRAND } from '../lib/brand';
 
 const LINKS = [
   { to: '/features', label: 'Features' },
@@ -38,10 +39,10 @@ export default function Navbar() {
       >
         <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-5 sm:px-8">
           <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DESA Menu home">
-            <Logo className="h-9 w-10" />
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-sm tracking-wide">DESA <span className="text-lime">Menu</span></span>
-              <span className="mt-1 font-mono text-[9px] uppercase tracking-[0.25em] text-fog">Digital menu ecosystem</span>
+            {/* Official brand logo — sized by height so any lockup keeps its ratio */}
+            <BrandLogo className="h-9 w-auto max-w-[190px] shrink-0" />
+            <span className="hidden max-w-[8.5rem] border-l border-bone/15 pl-3 font-mono text-[9px] uppercase leading-[1.7] tracking-[0.25em] text-fog lg:block">
+              {BRAND.tagline}
             </span>
           </Link>
 
@@ -94,8 +95,8 @@ export default function Navbar() {
           >
             <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
               <div className="flex items-center gap-3 text-bone">
-                <Logo className="h-9 w-10" />
-                <span className="font-display text-sm">DESA <span className="text-lime">Menu</span></span>
+                <BrandLogo className="h-9 w-auto max-w-[190px] shrink-0" />
+                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-fog">{BRAND.tagline}</span>
               </div>
               <button
                 onClick={() => setOpen(false)}

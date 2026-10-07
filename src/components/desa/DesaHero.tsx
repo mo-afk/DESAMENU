@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Play, QrCode, ScanLine, Sparkles, Star } from 'lucide-react';
+import { ArrowDown, Play, ScanLine, Sparkles, Star } from 'lucide-react';
+import BrandLogo from '../BrandLogo';
 import DesaMarquee from './DesaMarquee';
+import { BrandQr } from './DesaQr';
 import { DesaButtonAnchor, DesaTag } from './DesaUI';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -57,13 +59,18 @@ function DesaDeviceMockup() {
             </span>
           </div>
 
-          {/* venue */}
+          {/* venue — the in-app header, carrying the official brand mark */}
           <div className="flex items-center justify-between gap-3 px-4 py-3.5">
-            <div>
-              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-smoke">DESA Menu</p>
-              <p className="mt-1 font-display text-lg uppercase leading-none">La Terrasse</p>
+            <div className="flex min-w-0 items-center gap-2.5">
+              <span className="flex h-8 shrink-0 items-center justify-center border border-bone/15 bg-carbon px-1.5">
+                <BrandLogo className="h-5 w-auto max-w-[72px]" fallbackClassName="h-4 w-4" alt="" />
+              </span>
+              <span className="min-w-0">
+                <span className="block truncate font-mono text-[9px] uppercase tracking-[0.2em] text-smoke">DESA Menu</span>
+                <span className="mt-1 block truncate font-display text-lg uppercase leading-none">La Terrasse</span>
+              </span>
             </div>
-            <QrCode className="h-5 w-5 shrink-0 text-fog" />
+            <BrandQr className="h-8 w-8" />
           </div>
 
           {/* categories */}

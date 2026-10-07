@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Check, Instagram, Mail, MessageCircle } from 'lucide-react';
-import Logo from './Logo';
+import BrandLogo from './BrandLogo';
+import { BRAND } from '../lib/brand';
 import Marquee from './Marquee';
 import { submitInquiry } from '../lib/api';
 
@@ -32,12 +33,10 @@ export default function Footer() {
       <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DESA Menu home">
-              <Logo className="h-12 w-14" />
-              <span className="flex flex-col leading-none">
-                <span className="font-display text-lg">DESA <span className="text-lime">Menu</span></span>
-                <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">Digital menu ecosystem</span>
-              </span>
+            <Link to="/" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-bone" aria-label="DESA Menu home">
+              {/* Official brand logo — primary mark in the footer */}
+              <BrandLogo className="h-11 w-auto max-w-[240px] shrink-0" loading="lazy" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{BRAND.tagline}</span>
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-fog">
               A premium digital menu ecosystem for hospitality. Interactive text menus, cinematic dish video, a full gamified dining ecosystem and digital loyalty cards —
@@ -103,6 +102,14 @@ export default function Footer() {
           <span>© 2026 DESA Menu — Premium digital menu ecosystems for hospitality</span>
           <span className="hidden md:inline">Fine dining · Lounges · Cafes · Hotels</span>
           <span>hello@desamenu.com</span>
+        </div>
+
+        {/* Micro-footer — the agency credit behind the product */}
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 border-t border-bone/10 pt-6 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-smoke sm:flex-row">
+          <BrandLogo className="h-4 w-auto max-w-[96px] shrink-0" alt="" loading="lazy" />
+          <span>
+            Powered by <span className="text-bone/60">{BRAND.agency}</span>
+          </span>
         </div>
       </div>
 

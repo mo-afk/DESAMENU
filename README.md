@@ -204,6 +204,43 @@ Utility classes include `bg-blueprint`, `text-outline`, `text-outline-faint`,
 `img-warm`, `warm-veil`, `glow-ember`, `link-sweep`, `writing-vertical`, `grain`
 and the marquee animations.
 
+## Brand assets
+
+The official DESA Menu logo is a transparent PNG served from the DESA CDN and
+declared once in `src/lib/brand.ts`:
+
+```ts
+export const BRAND_LOGO_URL = 'https://pub-…r2.dev/image.png_…-removebg-preview.png';
+```
+
+Every in-app surface reads it from there through `<BrandLogo />`
+(`src/components/BrandLogo.tsx`), which sizes the mark by height (`h-9 w-auto`)
+so any lockup keeps its own aspect ratio:
+
+| Surface                        | Where                                            |
+| ------------------------------ | ------------------------------------------------ |
+| Navbar + mobile menu           | `components/Navbar.tsx`                          |
+| Footer mark + agency credit    | `components/Footer.tsx`                          |
+| In-app menu header preview     | `components/desa/DesaHero.tsx`                   |
+| QR stands (demos + detail)     | `components/desa/DesaQr.tsx`                     |
+| Favicon, `og:image`, Twitter   | `index.html` (static — keep in sync by hand)      |
+
+`<BrandLogo />` falls back to the inline SVG monogram (`components/Logo.tsx`)
+if the hosted file cannot be reached, so a blocked or offline request never
+leaves the interface without a mark.
+
+Because the asset is transparent, the mark carries no backing of its own: every
+surface it sits on is dark. The one exception is the mock QR code in `DesaQr`,
+whose code area has to stay light — the mark there sits on a dark chip inside
+the code's cleared zone. That chip is the single place to flip if the artwork
+ever changes from a light mark to a dark one.
+
+Favicon and `og:image` use the same URL, so a light mark on a light browser
+theme (or a social platform that composites transparency onto white) is the one
+place transparency works against us; `public/favicon.svg` stays wired as the
+`alternate icon` for that case, and a solid-background 1200×630 card is the
+proper long-term `og:image`.
+
 ## Deployment
 
 Deploys to Vercel as a static SPA (`dist/`) plus the `api/` functions. Set the
