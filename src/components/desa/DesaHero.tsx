@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Play, ScanLine, Sparkles, Star } from 'lucide-react';
 import BrandLogo from '../BrandLogo';
 import DesaMarquee from './DesaMarquee';
-import { BrandQr } from './DesaQr';
 import { DesaButtonAnchor, DesaTag } from './DesaUI';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -59,18 +58,16 @@ function DesaDeviceMockup() {
             </span>
           </div>
 
-          {/* venue — the in-app header, carrying the official brand mark */}
+          {/* venue header — venue identity left, official brand mark right */}
           <div className="flex items-center justify-between gap-3 px-4 py-3.5">
-            <div className="flex min-w-0 items-center gap-2.5">
-              <span className="flex h-8 shrink-0 items-center justify-center border border-bone/15 bg-carbon px-1.5">
-                <BrandLogo className="h-5 w-auto max-w-[72px]" fallbackClassName="h-4 w-4" alt="" />
-              </span>
-              <span className="min-w-0">
-                <span className="block truncate font-mono text-[9px] uppercase tracking-[0.2em] text-smoke">DESA Menu</span>
-                <span className="mt-1 block truncate font-display text-lg uppercase leading-none">La Terrasse</span>
-              </span>
+            <div className="min-w-0">
+              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-smoke">DESA Menu</p>
+              <p className="mt-1 truncate font-display text-lg uppercase leading-none">La Terrasse</p>
             </div>
-            <BrandQr className="h-8 w-8" />
+            {/* Dark graphite chip — no light plate behind the transparent mark */}
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-bone/15 bg-carbon/80 p-1.5">
+              <BrandLogo className="h-full w-full" alt="" />
+            </span>
           </div>
 
           {/* categories */}

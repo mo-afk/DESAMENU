@@ -84,10 +84,13 @@ interface QrProps {
  */
 export function BrandQr({ className = 'h-24 w-24' }: QrProps) {
   return (
-    <div className={`relative flex shrink-0 items-center justify-center bg-bone p-[7%] ${className}`}>
+    <div className={`relative bg-bone ${className}`}>
+      {/* Absolute insets give the code definite geometry: a flex child with a
+          percentage height inside a percentage-padded box is the kind of
+          sizing that can collapse to zero and leave an empty light plate. */}
       <svg
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="h-full w-full text-ink"
+        className="absolute inset-[7%] text-ink"
         shapeRendering="crispEdges"
         aria-hidden="true"
         focusable="false"
@@ -97,10 +100,8 @@ export function BrandQr({ className = 'h-24 w-24' }: QrProps) {
       {/* Cleared zone → dark brand chip → official mark. The logo is a
           transparent PNG of the light mark, so the chip is what keeps it
           legible over the code's light background. */}
-      <span className="absolute left-1/2 top-1/2 flex h-[28%] w-[28%] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-bone">
-        <span className="flex h-[86%] w-[86%] items-center justify-center bg-ink">
-          <BrandLogo className="h-[76%] w-auto max-w-[76%]" alt="" />
-        </span>
+      <span className="absolute left-1/2 top-1/2 flex h-[24%] w-[24%] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-ink">
+        <BrandLogo className="h-[76%] w-auto max-w-[76%]" alt="" />
       </span>
     </div>
   );
