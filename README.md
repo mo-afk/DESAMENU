@@ -35,7 +35,8 @@ inquiries are held in memory.
 | Route             | Page         | Notes                                                       |
 | ----------------- | ------------ | ----------------------------------------------------------- |
 | `/`               | Home         | Full product story: value, capabilities, live demos, process |
-| `/features`       | Features     | The four pillars, in depth                                   |
+| `/features`       | Features     | The four capabilities, plus the games suite as tabs           |
+| `/features/:slug` | Feature detail | Any capability or game in full — 8 pages                    |
 | `/demos`          | Live demos   | 8 venues running DESA Menu (category filter, grid/list)      |
 | `/demos/:slug`    | Demo detail  | Venue story, deployment, metrics                             |
 | `/how-it-works`   | How it works | Five-week onboarding, shoot day, analytics review            |
@@ -76,8 +77,8 @@ the venue photography with real shoots before launch.
 | ----------------- | ---------------------------------------------------- |
 | `DesaHero`        | Headline, CTAs, device mockup, venue marquee          |
 | `DesaValueGrid`   | Four business outcomes                                |
-| `DesaFeatures`    | Video menus, text menus, gamified dining, loyalty cards |
-| `DesaGames`       | Gamified dining ecosystem: the three core games, the custom layer and engagement stats |
+| `DesaFeatures`    | The four capabilities, each linking to its detail page |
+| `DesaGames`       | The games suite as tabs — one panel swaps in place, no scrolling |
 | `DesaDemos`       | Live demo showcase (featured venues from the API)     |
 | `DesaComparison`  | Traditional QR/PDF menus vs DESA Menu                 |
 | `DesaProcess`     | Three-step onboarding                                 |
@@ -94,8 +95,15 @@ Home ships in the initial bundle; every other route is `React.lazy`-loaded with 
 
 ## Gamified dining ecosystem
 
-`DesaGames` presents the suite, and each demo's `games` array drives the chips on
-the demo cards and the games panel on `/demos/:slug`:
+`DesaGames` presents the suite as an **interactive tab set**: clicking *Who Pays?*,
+*Ideal Combo Spinner*, *Taste & Personality Quiz* or *Custom Games* swaps the copy
+and the live mock panel in place, with no page change and no scroll jump (the panel
+area holds a fixed minimum height). The active tab is mirrored into `?game=<slug>`
+using `replace: true`, so tab clicks don't fill up the back button — and the URL is
+shareable.
+
+Each demo's `games` array drives the chips on the demo cards and the games panel on
+`/demos/:slug`:
 
 | Game | What it does |
 | ---- | ------------ |
@@ -107,6 +115,26 @@ the demo cards and the games panel on `/demos/:slug`:
 All four appear across the seed demos; engagement figures quoted on the section
 (1 in 3 tables, +23 min dwell, +41% reorders) come from the lounge deployments in
 the same data set.
+
+## Feature detail pages
+
+`src/lib/features.ts` is the single source of truth for all eight entries — the four
+capabilities and the four games. `DesaFeatures` renders the cards, `DesaGames` renders
+the tabs, and `/features/:slug` renders any entry as a full page, so copy and mock
+panels cannot drift between the three.
+
+| Slug | Page |
+| ---- | ---- |
+| `video-menus` · `text-menus` · `gamified-dining` · `loyalty-cards` | Capabilities |
+| `who-pays` · `combo-spinner` · `taste-quiz` · `custom-games` | Games |
+
+Every detail page carries a **sticky "← Back to Features" bar** under the navbar and a
+**return block at the bottom** with the same action, plus previous/next paging and a
+"Where it runs" list matched from the demos' capabilities and games.
+
+Navigating back is lossless: `ScrollToTop` in `App.tsx` remembers the scroll offset per
+pathname and restores it on `POP`, and because the tab lives in the URL, a visitor
+returns to the exact game they were reading.
 
 Every form on the site — the hero, the `/contact` four-step form, the
 `DesaContact` panel and the footer newsletter — posts through `submitInquiry()`
@@ -191,5 +219,5 @@ content is used.
   shoots — the demos read far stronger with actual rooms and plates.
 - If you deploy the marketing site and the `api/` functions to different
   origins, set `CORS` or a proxy for `/api/*`.
-- The initial bundle is ~463 kB (143 kB gzip) with per-route chunks of
+- The initial bundle is ~479 kB (149 kB gzip) with per-route chunks of
   0.7–13 kB; splitting the vendor code out of `index` would be the next win.

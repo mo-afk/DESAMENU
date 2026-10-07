@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -7,6 +7,7 @@ import Home from './pages/Home';
 /* Home ships in the initial bundle; every other route is split out and
    fetched on navigation. */
 const Features = lazy(() => import('./pages/Features'));
+const FeatureDetail = lazy(() => import('./pages/FeatureDetail'));
 const Demos = lazy(() => import('./pages/Demos'));
 const DemoDetail = lazy(() => import('./pages/DemoDetail'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks'));
@@ -14,11 +15,37 @@ const Notes = lazy(() => import('./pages/Notes'));
 const Note = lazy(() => import('./pages/Note'));
 const Contact = lazy(() => import('./pages/Contact'));
 
+/**
+ * Scroll positions by pathname, so returning from a detail page puts a visitor
+ * back where they left off rather than at the top of the features page.
+ */
+const scrollPositions = new Map<string, number>();
+
 function ScrollToTop() {
   const { pathname } = useLocation();
+  const navigationType = useNavigationType();
+
+  /* Capture the position of the page being left. */
   useEffect(() => {
-    window.scrollTo(0, 0);
+    return () => {
+      scrollPositions.set(pathname, window.scrollY);
+    };
   }, [pathname]);
+
+  /* Restore on back/forward, otherwise start at the top. Lazy-loaded routes
+     can still be mounting on the first frame, so retry briefly. */
+  useEffect(() => {
+    const saved = navigationType === 'POP' ? scrollPositions.get(pathname) : undefined;
+    if (typeof saved !== 'number') {
+      window.scrollTo(0, 0);
+      return;
+    }
+    const restore = () => window.scrollTo(0, saved);
+    restore();
+    const timers = [window.setTimeout(restore, 120), window.setTimeout(restore, 320)];
+    return () => timers.forEach((t) => window.clearTimeout(t));
+  }, [pathname, navigationType]);
+
   return null;
 }
 
@@ -58,6 +85,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/features" element={<Features />} />
+            <Route path="/features/:slug" element={<FeatureDetail />} />
             <Route path="/demos" element={<Demos />} />
             <Route path="/demos/:slug" element={<DemoDetail />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
