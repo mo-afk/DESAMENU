@@ -38,15 +38,26 @@ export default function Navbar() {
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled ? 'border-b border-bone/10 bg-ink/85 backdrop-blur-md' : 'border-b border-transparent bg-transparent'}`}
       >
         <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-5 sm:px-8">
-          <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DESA Menu home">
-            {/* Official brand logo — sized by height so any lockup keeps its ratio */}
-            <BrandLogo className="h-9 w-auto max-w-[190px] shrink-0" />
-            <span className="hidden max-w-[8.5rem] border-l border-bone/15 pl-3 font-mono text-[9px] uppercase leading-[1.7] tracking-[0.25em] text-fog lg:block">
-              {BRAND.tagline}
+          <Link to="/" className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3" aria-label="DESA Menu home">
+            {/* Official brand logo — sized by height so any lockup keeps its
+                ratio. The max-width steps keep logo + wordmark + nav + CTA
+                inside the viewport at every breakpoint (see the width budget
+                in the README); `truncate` below is the final backstop. */}
+            <BrandLogo className="h-8 w-auto max-w-[96px] shrink-0 sm:h-9 sm:max-w-[130px] xl:max-w-[150px] 2xl:max-w-[190px]" />
+            <span className="flex min-w-0 flex-col leading-none">
+              <span className="truncate font-display text-base uppercase tracking-wider xl:text-lg">
+                DESA <span className="text-lime">Menu</span>
+              </span>
+              <span className="mt-1 hidden truncate font-mono text-[9px] uppercase tracking-[0.25em] text-fog 2xl:block">
+                {BRAND.tagline}
+              </span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          {/* Tighter gaps below xl: the brand wordmark now competes for the
+              same row, and this keeps 1024–1279 comfortable even if the logo
+              asset is a wide lockup. */}
+          <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
             {LINKS.map((l) => (
               <Link
                 key={l.to}
@@ -58,7 +69,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex shrink-0 items-center gap-4">
             <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog xl:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
@@ -68,7 +79,7 @@ export default function Navbar() {
             </span>
             <Link
               to="/contact"
-              className="group hidden items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
+              className="group hidden shrink-0 items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
             >
               Book a Demo
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -94,9 +105,11 @@ export default function Navbar() {
             className="fixed inset-0 z-[110] flex flex-col bg-ink"
           >
             <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
-              <div className="flex items-center gap-3 text-bone">
-                <BrandLogo className="h-9 w-auto max-w-[190px] shrink-0" />
-                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-fog">{BRAND.tagline}</span>
+              <div className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3">
+                <BrandLogo className="h-8 w-auto max-w-[96px] shrink-0 sm:h-9 sm:max-w-[130px]" />
+                <span className="truncate font-display text-base uppercase tracking-wider xl:text-lg">
+                  DESA <span className="text-lime">Menu</span>
+                </span>
               </div>
               <button
                 onClick={() => setOpen(false)}
