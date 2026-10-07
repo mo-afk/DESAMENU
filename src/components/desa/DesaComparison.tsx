@@ -8,7 +8,7 @@ const DESA = ['Interactive', 'Premium branded', 'Visually persuasive', 'Built fo
 export default function DesaComparison() {
   return (
     <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
-      <SectionHeading index="04" eyebrow="Positioning" title="Beyond the" accent="QR code." />
+      <SectionHeading index="05" eyebrow="Positioning" title="Beyond the" accent="QR code." />
       <Reveal delay={0.1}>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">
           Most digital menus stop at access. DESA Menu turns the menu into an experience — combining design, motion, interaction, and retention into a

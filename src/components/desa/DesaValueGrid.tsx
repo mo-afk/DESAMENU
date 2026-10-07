@@ -3,10 +3,10 @@ import Reveal from '../Reveal';
 import { DesaTag } from './DesaUI';
 
 const VALUES = [
-  { n: '01', icon: Sparkles, title: 'More engaging ordering', desc: 'Motion and appetite-driven visuals that make guests explore more of the menu.' },
+  { n: '01', icon: Sparkles, title: 'More engaging ordering', desc: 'Motion, appetite-driven visuals and table-side games that make guests explore more of the menu.' },
   { n: '02', icon: Users, title: 'Higher guest retention', desc: 'Loyalty built into the menu itself — not bolted on as an afterthought.' },
   { n: '03', icon: Crown, title: 'Stronger brand presentation', desc: 'Every dish presented inside your visual language, at every table.' },
-  { n: '04', icon: TrendingUp, title: 'Smarter digital upselling', desc: 'Recommendations placed exactly where guests make their decisions.' },
+  { n: '04', icon: TrendingUp, title: 'Smarter digital upselling', desc: 'Spinners, quizzes and recommendations placed exactly where guests make their decisions.' },
 ];
 
 export default function DesaValueGrid() {

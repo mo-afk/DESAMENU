@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-bone/10 bg-ink">
-      <Marquee items={['DESA Menu', 'Video menus', 'Who Pays?', 'Loyalty cards', 'Live demos']} className="border-b border-bone/10 py-5" outline />
+      <Marquee items={['DESA Menu', 'Video menus', 'Who Pays?', 'Ideal Combo Spinner', 'Taste & Personality Quiz', 'Loyalty cards', 'Live demos']} className="border-b border-bone/10 py-5" outline />
 
       <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-12">
@@ -40,7 +40,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-fog">
-              A premium digital menu ecosystem for hospitality. Interactive text menus, cinematic dish video, table-side games and digital loyalty cards —
+              A premium digital menu ecosystem for hospitality. Interactive text menus, cinematic dish video, a full gamified dining ecosystem and digital loyalty cards —
               built for restaurants, cafes, lounges and hotels.
             </p>
             <form onSubmit={subscribe} className="mt-8 max-w-sm">
@@ -77,7 +77,7 @@ export default function Footer() {
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke">The product</p>
               <ul className="mt-4 space-y-3 text-sm text-bone/80">
                 <li>Text &amp; video menus<br /><span className="text-fog">Interactive dish cards</span></li>
-                <li>Who Pays?<br /><span className="text-fog">Branded table games</span></li>
+                <li>Gamified dining suite<br /><span className="text-fog">Who Pays? · Combo Spinner · Taste Quiz</span></li>
                 <li>Digital loyalty cards<br /><span className="text-fog">Retention built in</span></li>
               </ul>
             </div>

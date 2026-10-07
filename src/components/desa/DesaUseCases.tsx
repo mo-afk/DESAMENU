@@ -12,7 +12,7 @@ const USE_CASES = [
 export default function DesaUseCases() {
   return (
     <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
-      <SectionHeading index="06" eyebrow="Use cases" title="Designed for hospitality brands" accent="that care how they are experienced." />
+      <SectionHeading index="07" eyebrow="Use cases" title="Designed for hospitality brands" accent="that care how they are experienced." />
 
       <div className="mt-12 grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 xl:grid-cols-4">
         {USE_CASES.map((u, i) => (

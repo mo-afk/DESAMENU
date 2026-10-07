@@ -36,7 +36,7 @@ export default function DesaDemos() {
   return (
     <section id="desa-demos" className="scroll-mt-20 border-y border-bone/10 bg-coal">
       <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading index="03" eyebrow="Live demos" title="See DESA Menu" accent="in action." />
+        <SectionHeading index="04" eyebrow="Live demos" title="See DESA Menu" accent="in action." />
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">
             Real venues, real menus, live right now — fine dining, lounges and cafes running DESA Menu across nine countries.

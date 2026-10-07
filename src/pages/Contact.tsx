@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Building2, Check, Clock, Mail, Map
 import Reveal from '../components/Reveal';
 import { submitInquiry } from '../lib/api';
 
-const PROJECT_TYPES = ['Video Menu', 'Full DESA Menu suite', 'Interactive / table games', 'Loyalty programme', 'Multi-venue rollout', 'Something else'];
+const PROJECT_TYPES = ['Video Menu', 'Full DESA Menu suite', 'Gamified dining suite (games)', 'Loyalty programme', 'Multi-venue rollout', 'Something else'];
 const BUDGETS = ['Under €3k', '€3k - €6k', '€6k - €12k', '€12k - €25k', '€25k+'];
 const TIMELINES = ['This month', '1 - 2 months', 'Next season', 'Flexible / exploring'];
 const STEPS = ['Venue', 'Scope & timing', 'Details', 'Review'];

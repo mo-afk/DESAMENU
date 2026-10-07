@@ -1,4 +1,4 @@
-import { BadgeCheck, Check, Dices, ListOrdered, Play, Video } from 'lucide-react';
+import { BadgeCheck, Brain, Check, Dices, Disc3, ListOrdered, Play, Puzzle, Video } from 'lucide-react';
 import Reveal from '../Reveal';
 import SectionHeading from '../SectionHeading';
 
@@ -56,16 +56,21 @@ export function GamePanel() {
     <div className="flex h-full flex-col items-center justify-center gap-3">
       <div className="flex items-center gap-2">
         {['A', 'B', 'C'].map((l, i) => (
-          <span key={l} className={`flex h-8 w-8 items-center justify-center border font-mono text-[11px] transition-all ${i === 2 ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-fog'}`}>
+          <span key={l} className={`flex h-8 w-8 items-center justify-center border font-mono text-[11px] transition-all ${i === 2 ? 'border-ember bg-ember text-ink' : 'border-bone/20 text-fog'}`}>
             {l}
           </span>
         ))}
       </div>
       <div className="flex items-center gap-2 border border-bone/15 px-3 py-1.5">
-        <Dices className="h-3 w-3 text-lime" />
+        <Dices className="h-3 w-3 text-honey" />
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/85">
-          Who Pays? — <span className="text-lime">Player 2</span>
+          Who Pays? — <span className="text-honey">Player 2</span>
         </span>
+      </div>
+      <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.15em] text-smoke">
+        <span className="inline-flex items-center gap-1"><Disc3 className="h-3 w-3" />Spinner</span>
+        <span className="inline-flex items-center gap-1"><Brain className="h-3 w-3" />Taste quiz</span>
+        <span className="inline-flex items-center gap-1"><Puzzle className="h-3 w-3" />Custom</span>
       </div>
     </div>
   );
@@ -123,9 +128,9 @@ const FEATURES: Feature[] = [
   {
     n: '03',
     icon: Dices,
-    title: 'Interactive Table Games',
-    desc: 'Add memorable moments to the dining experience with lightweight table-side interactions like “Who Pays?” and other branded mini-games.',
-    bullets: ['Boost guest engagement', 'Make visits more memorable', 'Shareable brand moments'],
+    title: 'Gamified Dining Ecosystem',
+    desc: 'A full suite of table-side games — Who Pays?, the Ideal Combo Spinner and the Taste & Personality Quiz — plus custom games and loyalty micro-interactions.',
+    bullets: ['Three core experiences, every rollout', 'Custom games built to your brand', 'Boost engagement and order value'],
     panel: <GamePanel />,
   },
   {

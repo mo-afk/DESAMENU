@@ -27,7 +27,7 @@ export default function DesaProcess() {
   return (
     <section className="border-y border-bone/10 bg-coal">
       <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading index="05" eyebrow="How it works" title="Concept to guest interaction," accent="three steps." />
+        <SectionHeading index="06" eyebrow="How it works" title="Concept to guest interaction," accent="three steps." />
 
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {STEPS.map((s, i) => (

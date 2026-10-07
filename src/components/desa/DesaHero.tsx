@@ -5,7 +5,7 @@ import { DesaButtonAnchor, DesaTag } from './DesaUI';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const PILLARS = ['Video Menus', 'Interactive Games', 'Loyalty Systems', 'Higher Average Order Value'];
+const PILLARS = ['Video Menus', 'Gamified Dining Suite', 'Loyalty Systems', 'Higher Average Order Value'];
 
 /**
  * Square device mockup of the guest-facing DESA Menu interface.
@@ -184,7 +184,7 @@ export default function DesaHero() {
             </h1>
 
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-8 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">
-              DESA Menu helps restaurants, cafes and lounges replace static QR menus with interactive text menus, cinematic dish videos, table-side games
+              DESA Menu helps restaurants, cafes and lounges replace static QR menus with interactive text menus, cinematic dish videos, a full suite of table games — Who Pays?, the Ideal Combo Spinner and the Taste & Personality Quiz —
               and built-in loyalty systems that elevate guest experience and increase average order value.
             </motion.p>
 

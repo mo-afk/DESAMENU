@@ -1,7 +1,7 @@
 import Reveal from '../Reveal';
 import { DesaButtonAnchor } from './DesaUI';
 
-const PROOF = ['Video Menus', 'Text Menus', 'Table Games', 'Loyalty Cards', 'Branded UI'];
+const PROOF = ['Video Menus', 'Text Menus', 'Gamified Dining Suite', 'Loyalty Cards', 'Branded UI'];
 
 export default function DesaCta() {
   return (

@@ -1,15 +1,18 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Features from './pages/Features';
-import Demos from './pages/Demos';
-import DemoDetail from './pages/DemoDetail';
-import HowItWorks from './pages/HowItWorks';
-import Notes from './pages/Notes';
-import Note from './pages/Note';
-import Contact from './pages/Contact';
+
+/* Home ships in the initial bundle; every other route is split out and
+   fetched on navigation. */
+const Features = lazy(() => import('./pages/Features'));
+const Demos = lazy(() => import('./pages/Demos'));
+const DemoDetail = lazy(() => import('./pages/DemoDetail'));
+const HowItWorks = lazy(() => import('./pages/HowItWorks'));
+const Notes = lazy(() => import('./pages/Notes'));
+const Note = lazy(() => import('./pages/Note'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -17,6 +20,17 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+}
+
+/** Shown while a lazily-imported route chunk downloads. */
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center px-5">
+      <span className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
+        Loading<span className="text-lime">…</span>
+      </span>
+    </div>
+  );
 }
 
 function NotFound() {
@@ -40,6 +54,7 @@ export default function App() {
       <div className="grain min-h-screen bg-ink font-body text-bone">
         <Navbar />
         <main>
+          <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/features" element={<Features />} />
@@ -59,6 +74,7 @@ export default function App() {
             <Route path="/studio" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

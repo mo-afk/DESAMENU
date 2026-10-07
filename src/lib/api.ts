@@ -15,6 +15,7 @@ export interface Project {
   description: string;
   image_url: string;
   services: string[];
+  games: string[];
   metrics: Metric[];
   featured: boolean;
   timeline: string;

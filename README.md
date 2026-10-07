@@ -5,7 +5,8 @@ restaurants, cafes, lounges and hotels. Four capabilities carry the product:
 
 - **Interactive text menus** — fast, phone-first, editable in seconds
 - **Cinematic video dishes** — short in-service films attached to signature plates
-- **Table-side games** — branded experiences like *Who Pays?*
+- **Gamified dining ecosystem** — *Who Pays?*, the *Ideal Combo Spinner*, the *Taste &
+  Personality Quiz*, plus custom table games and loyalty micro-interactions
 - **Digital loyalty cards** — retention and return visits, built in
 
 Built with **Vite + React 19 + TypeScript + Tailwind CSS v4**, `framer-motion`
@@ -55,11 +56,12 @@ configured) production:
 | -------------- | --------------------------------------------------------------------------------------------- |
 | `projects`     | 8 venue demos — La Terrasse, Noir Lounge, Café Atelier, Maison Verre, Velvet Hour, Forma Hotel, Pulse Beach Club, Brasserie Soleil |
 | `testimonials` | 5 operator quotes tied to venues                                                              |
-| `posts`        | 6 field notes on video menus, phone-first design, loyalty, table games, deployment and analytics |
+| `posts`        | 7 field notes on video menus, phone-first design, loyalty, table games, deployment and analytics |
 | `inquiries`    | Empty — populated at runtime when a form is submitted                                          |
 
 Demos span **Fine Dining**, **Lounges** and **Cafes**, and each carries a
-tagline, long-form description, capability list, metrics and a timeline.
+tagline, long-form description, capability list, the `games` suite it runs,
+metrics and a timeline.
 
 Imagery lives in `public/images/`. Dish and venue photography is treated with
 `.img-warm` (warm saturation and contrast) and `.warm-veil` (ember/honey radial
@@ -74,7 +76,8 @@ the venue photography with real shoots before launch.
 | ----------------- | ---------------------------------------------------- |
 | `DesaHero`        | Headline, CTAs, device mockup, venue marquee          |
 | `DesaValueGrid`   | Four business outcomes                                |
-| `DesaFeatures`    | Video menus, text menus, table games, loyalty cards   |
+| `DesaFeatures`    | Video menus, text menus, gamified dining, loyalty cards |
+| `DesaGames`       | Gamified dining ecosystem: the three core games, the custom layer and engagement stats |
 | `DesaDemos`       | Live demo showcase (featured venues from the API)     |
 | `DesaComparison`  | Traditional QR/PDF menus vs DESA Menu                 |
 | `DesaProcess`     | Three-step onboarding                                 |
@@ -84,7 +87,26 @@ the venue photography with real shoots before launch.
 | `DesaUI`          | Shared button and tag primitives                      |
 
 `PageHeader` is the shared header for inner pages (`/features`,
-`/how-it-works`, `/demos`, `/notes`).
+`/how-it-works`, `/demos`, `/notes`). Section indices run 01–07 across the page.
+
+Home ships in the initial bundle; every other route is `React.lazy`-loaded with a
+`Suspense` fallback, so the first paint carries only what the homepage needs.
+
+## Gamified dining ecosystem
+
+`DesaGames` presents the suite, and each demo's `games` array drives the chips on
+the demo cards and the games panel on `/demos/:slug`:
+
+| Game | What it does |
+| ---- | ------------ |
+| **Who Pays?** | Bill roulette that decides who settles the check — the memorable, shareable one. |
+| **Ideal Combo Spinner** | Spin-the-wheel pairing of a meal and a drink, weighted toward the combinations a venue wants to sell. |
+| **Taste & Personality Quiz** | A few preference questions that curate a personal selection of plates and cocktails on the spot. |
+| **Custom games & loyalty micro-interactions** | Built per venue: loyalty streaks, spin-to-unlock rewards, points on reorder, milestone bonuses, table leaderboards. |
+
+All four appear across the seed demos; engagement figures quoted on the section
+(1 in 3 tables, +23 min dwell, +41% reorders) come from the lounge deployments in
+the same data set.
 
 Every form on the site — the hero, the `/contact` four-step form, the
 `DesaContact` panel and the footer newsletter — posts through `submitInquiry()`
@@ -169,5 +191,5 @@ content is used.
   shoots — the demos read far stronger with actual rooms and plates.
 - If you deploy the marketing site and the `api/` functions to different
   origins, set `CORS` or a proxy for `/api/*`.
-- The bundle is a single ~487 kB chunk (146 kB gzip); route-level code
-  splitting would be the next win.
+- The initial bundle is ~463 kB (143 kB gzip) with per-route chunks of
+  0.7–13 kB; splitting the vendor code out of `index` would be the next win.

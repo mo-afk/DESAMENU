@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, Calendar, Clock, Play, Tag, User } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Calendar, Clock, Dices, Play, Tag, User } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import { getProject, getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
@@ -78,6 +78,7 @@ export default function DemoDetail() {
     { icon: User, label: 'Venue', value: demo.client },
     { icon: Calendar, label: 'Live since', value: String(demo.year) },
     { icon: Tag, label: 'Deployment', value: `${demo.industry} · ${demo.category}` },
+    { icon: Dices, label: 'Table games', value: `${demo.games.length} live` },
     { icon: Clock, label: 'Onboarding', value: demo.timeline || '-' },
   ];
 
@@ -108,7 +109,7 @@ export default function DemoDetail() {
       </section>
 
       <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
-        <div className="grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 lg:grid-cols-5">
           {meta.map((m) => (
             <div key={m.label} className="bg-ink p-6">
               <m.icon className="h-5 w-5 text-lime" strokeWidth={1.5} />
@@ -130,6 +131,28 @@ export default function DemoDetail() {
               <p className="mt-10 font-mono text-xs uppercase tracking-[0.3em] text-fog">Running in this venue</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {demo.services.map((s) => (<span key={s} className="border border-bone/20 px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone/80">{s}</span>))}
+              </div>
+            </Reveal>
+            <Reveal delay={0.14}>
+              <div className="mt-10 border border-honey/25 bg-honey/[0.04] p-6 sm:p-8">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-honey">
+                    <Dices className="h-4 w-4" />
+                    Gamified dining ecosystem
+                  </p>
+                  <Link to="/features" className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/70 hover:text-honey">
+                    Explore the full suite
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+                <ul className="mt-5 grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2">
+                  {demo.games.map((g) => (
+                    <li key={g} className="flex items-center gap-3 bg-ink p-4 text-sm text-bone/85">
+                      <span className="h-1.5 w-1.5 shrink-0 bg-honey" />
+                      {g}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           </div>
