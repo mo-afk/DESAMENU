@@ -9,11 +9,13 @@ export interface Project {
   title: string;
   client: string;
   category: string;
+  industry: string;
   year: number;
   tagline: string;
   description: string;
   image_url: string;
   services: string[];
+  games: string[];
   metrics: Metric[];
   featured: boolean;
   timeline: string;
@@ -27,16 +29,6 @@ export interface Testimonial {
   company: string;
   rating: number;
   project_slug: string | null;
-}
-
-export interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  department: string;
-  bio: string;
-  initials: string;
-  years: number;
 }
 
 export interface Post {
@@ -77,7 +69,6 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
 export const getProjects = (params = '') => api<Project[]>(`/api/projects${params}`);
 export const getProject = (slug: string) => api<Project | null>(`/api/projects?slug=${encodeURIComponent(slug)}`);
 export const getTestimonials = () => api<Testimonial[]>('/api/testimonials');
-export const getTeam = () => api<TeamMember[]>('/api/team');
 export const getPosts = (params = '') => api<Post[]>(`/api/posts${params}`);
 export const getPost = (slug: string) => api<Post | null>(`/api/posts?slug=${encodeURIComponent(slug)}`);
 export const submitInquiry = (input: InquiryInput) =>

@@ -15,6 +15,12 @@
   --color-fog: #a3a09a;
   --color-smoke: #6e6c68;
   --color-lime: #d7ff3f;
+
+  /* Warm culinary accents — used where food and drink photography leads,
+     so dishes read as appetising against the dark product palette. */
+  --color-ember: #ff6a1a;
+  --color-honey: #ffab2e;
+  --color-saffron: #ffd166;
 }
 
 html {
@@ -96,6 +102,26 @@ body {
 }
 .group:hover .img-mono {
   filter: grayscale(0.15) contrast(1.02);
+}
+
+/* Food and drink imagery: keep the richness of the plate, add a touch of
+   contrast so highlights catch on dark backgrounds. */
+.img-warm {
+  filter: saturate(1.14) contrast(1.07) brightness(1.05);
+  transition: filter 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .img-warm {
+  filter: saturate(1.3) contrast(1.12) brightness(1.12);
+}
+
+/* Warm light bleeding into a panel from one corner. */
+.warm-veil {
+  background-image: radial-gradient(120% 90% at 85% 0%, rgba(255, 106, 26, 0.18), transparent 62%),
+    radial-gradient(90% 80% at 0% 100%, rgba(255, 171, 46, 0.1), transparent 58%);
+}
+
+.glow-ember {
+  box-shadow: 0 24px 70px -30px rgba(255, 106, 26, 0.55);
 }
 
 .link-sweep {

@@ -23,9 +23,10 @@ function withTimeout(promise) {
 }
 
 function seedFiltered(query) {
-  const { slug, category, featured } = query;
+  const { slug, category, industry, featured } = query;
   let data = [...seedProjects].sort((a, b) => Number(b.featured) - Number(a.featured) || b.year - a.year || a.id - b.id);
   if (category) data = data.filter((p) => p.category === category);
+  if (industry) data = data.filter((p) => p.industry === industry);
   if (featured === 'true') data = data.filter((p) => p.featured);
   if (slug) return data.find((p) => p.slug === slug) || null;
   return data;
@@ -58,16 +59,16 @@ export default async function handler(req, res) {
       return res.status(200).json(seedFiltered(req.query));
     }
     if (req.method === 'POST') {
-      const { slug, title, client, category, year, tagline, description, image_url, services, metrics, featured, timeline } = req.body || {};
+      const { slug, title, client, category, industry, year, tagline, description, image_url, services, games, metrics, featured, timeline } = req.body || {};
       if (!slug || !title || !client) return res.status(400).json({ error: 'slug, title and client are required' });
       const db = await getDb();
       if (db) {
         try {
-          const r = await withTimeout(db.from('projects').insert({ slug, title, client, category, year, tagline, description, image_url, services: services || [], metrics: metrics || [], featured: !!featured, timeline }).select().single());
+          const r = await withTimeout(db.from('projects').insert({ slug, title, client, category, industry, year, tagline, description, image_url, services: services || [], games: games || [], metrics: metrics || [], featured: !!featured, timeline }).select().single());
           if (r.ok && !r.v.error) return res.status(201).json(r.v.data);
         } catch { /* fall through */ }
       }
-      const row = { id: Date.now(), slug, title, client, category, year, tagline, description, image_url, services: services || [], metrics: metrics || [], featured: !!featured, timeline };
+      const row = { id: Date.now(), slug, title, client, category, industry, year, tagline, description, image_url, services: services || [], games: games || [], metrics: metrics || [], featured: !!featured, timeline };
       seedProjects.push(row);
       return res.status(201).json(row);
     }

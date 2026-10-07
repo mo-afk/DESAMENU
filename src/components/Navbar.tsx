@@ -5,10 +5,11 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
 const LINKS = [
-  { to: '/work', label: 'Work' },
-  { to: '/services', label: 'Services' },
-  { to: '/studio', label: 'Studio' },
-  { to: '/journal', label: 'Journal' },
+  { to: '/features', label: 'Features' },
+  { to: '/demos', label: 'Demos' },
+  { to: '/how-it-works', label: 'How It Works' },
+  { to: '/notes', label: 'Notes' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
@@ -24,10 +25,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-  }, [location.pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
@@ -40,11 +37,11 @@ export default function Navbar() {
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled ? 'border-b border-bone/10 bg-ink/85 backdrop-blur-md' : 'border-b border-transparent bg-transparent'}`}
       >
         <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-5 sm:px-8">
-          <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DG home">
+          <Link to="/" className="flex items-center gap-3 text-bone" aria-label="DESA Menu home">
             <Logo className="h-9 w-10" />
-            <span className="hidden flex-col leading-none sm:flex">
-              <span className="font-display text-sm tracking-wide">DG<sup className="text-[9px]">R</sup></span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-fog">Design & Growth</span>
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-sm tracking-wide">DESA <span className="text-lime">Menu</span></span>
+              <span className="mt-1 font-mono text-[9px] uppercase tracking-[0.25em] text-fog">Digital menu ecosystem</span>
             </span>
           </Link>
 
@@ -61,18 +58,18 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog md:inline-flex">
+            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog xl:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
               </span>
-              Booking Q1 2027
+              Onboarding new venues
             </span>
             <Link
               to="/contact"
-              className="group hidden items-center gap-2 bg-bone px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-lime sm:inline-flex"
+              className="group hidden items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
             >
-              Start a project
+              Book a Demo
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <button
@@ -98,7 +95,7 @@ export default function Navbar() {
             <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
               <div className="flex items-center gap-3 text-bone">
                 <Logo className="h-9 w-10" />
-                <span className="font-display text-sm">DG</span>
+                <span className="font-display text-sm">DESA <span className="text-lime">Menu</span></span>
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -109,7 +106,7 @@ export default function Navbar() {
               </button>
             </div>
             <nav className="flex flex-1 flex-col justify-center gap-1 px-5 sm:px-8">
-              {[{ to: '/', label: 'Home' }, ...LINKS, { to: '/contact', label: 'Contact' }].map((l, i) => (
+              {[{ to: '/', label: 'Home' }, ...LINKS].map((l, i) => (
                 <motion.div
                   key={l.to + l.label}
                   initial={{ opacity: 0, x: -32 }}
@@ -118,6 +115,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={l.to}
+                    onClick={() => setOpen(false)}
                     className="group flex items-baseline gap-4 border-b border-bone/10 py-4"
                   >
                     <span className="font-mono text-xs text-lime">0{i + 1}</span>
@@ -129,8 +127,8 @@ export default function Navbar() {
               ))}
             </nav>
             <div className="flex items-center justify-between px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-fog sm:px-8">
-              <span>NYC - LDN - TOKYO</span>
-              <span>hello@dg-agency.co</span>
+              <span>Fine dining · Lounges · Cafes</span>
+              <span>hello@desamenu.com</span>
             </div>
           </motion.div>
         )}
