@@ -74,7 +74,7 @@ export default function Navbar() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog xl:inline-flex">
+            <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog 2xl:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
@@ -82,7 +82,10 @@ export default function Navbar() {
               {t('nav.status')}
             </span>
 
-            <div className="hidden lg:block">
+            {/* Language control, right beside the CTA. Two densities live in
+                the component: the full EN|FR|AR|ES control from xl, the compact
+                badge below it — see LanguageSwitcher for why. */}
+            <div className="hidden shrink-0 md:block">
               <LanguageSwitcher />
             </div>
 
