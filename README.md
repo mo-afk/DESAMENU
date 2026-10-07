@@ -204,6 +204,51 @@ Utility classes include `bg-blueprint`, `text-outline`, `text-outline-faint`,
 `img-warm`, `warm-veil`, `glow-ember`, `link-sweep`, `writing-vertical`, `grain`
 and the marquee animations.
 
+## Languages
+
+The interface ships in **English (default), French, Arabic and Spanish**. The
+switcher sits beside *Book a Demo* in the navbar (a compact globe dropdown) and
+as a four-button row in the mobile menu.
+
+| File | Role |
+| ---- | ---- |
+| `src/i18n/en.ts`               | English dictionary — **the source of truth for the shape** |
+| `src/i18n/fr.ts`, `ar.ts`, `es.ts` | The other three, each annotated `: Dict` |
+| `src/i18n/features-*.ts`       | Per-locale copy for the eight capability/game entries |
+| `src/i18n/core.ts`             | Language registry, detection, dot-path lookup, hooks |
+| `src/i18n/provider.tsx`        | `I18nProvider` — the only component in the layer |
+| `src/i18n/content.ts`          | `useLocalizedFeatures` / `useLocalizedFeature` for `lib/features.ts` |
+| `src/components/LanguageSwitcher.tsx` | Dropdown (navbar) and inline (mobile menu) variants |
+
+How it works:
+
+- **No dependency.** ~250 lines of context in `src/i18n/`, nothing added to
+  `package.json`.
+- **`en.ts` is the schema.** `export type Dict = typeof en` widens every value to
+  `string`; the other locales are annotated `const fr: Dict`, so a missing or
+  misspelled key is a compile error rather than a string that quietly vanishes.
+- **Two accessors.** `t('nav.features')` for one string, `tl('faq.items')`-style
+  array reads via `dict` for lists and objects. Both fall back to English, then to
+  the key path, so a gap is visible instead of blank.
+- **No flash.** An inline script in `index.html` writes `lang`/`dir` onto `<html>`
+  from `localStorage['desa-menu:lang']` before the first paint; the provider then
+  keeps them in step. Switching languages loads the next dictionary first and
+  swaps words and direction in one commit.
+- **Code-split, not bloated.** English rides in the main chunk; FR/AR/ES are
+  separate ~27–34 kB chunks (≈10 kB gzip each) fetched on first use and warmed
+  during idle time. Switching to a language never re-downloads the app.
+- **RTL.** `dir="rtl"` on `<html>` plus logical utilities (`ms-`, `start-`, `end-`)
+  and mirrored chevrons in `src/index.css`; Arabic uses Noto Kufi Arabic and IBM
+  Plex Sans Arabic with letter-spacing and text-transform neutralised.
+- **Copy ownership.** UI chrome, FAQ and feature/game marketing copy are written
+  per locale. Long-form feature essays and all API-driven content (venue demo
+  bodies, field notes, operator quotes) stay English and fall back by design —
+  that is editorial copy tied to real shoots, not interface text.
+
+To add a locale: extend `LANGS`/`LANG_META` in `src/i18n/core.ts`, add the
+dictionary file annotated with `Dict`, add its loader to `LOADERS`, then add the
+code to the `index.html` bootstrap list.
+
 ## Brand assets
 
 The official DESA Menu logo is a transparent PNG served from the DESA CDN and
@@ -256,5 +301,8 @@ content is used.
   shoots — the demos read far stronger with actual rooms and plates.
 - If you deploy the marketing site and the `api/` functions to different
   origins, set `CORS` or a proxy for `/api/*`.
-- The initial bundle is ~479 kB (149 kB gzip) with per-route chunks of
-  0.7–13 kB; splitting the vendor code out of `index` would be the next win.
+- The initial JS is ~503 kB (~158 kB gzip) across four long-lived chunks —
+  `index` (318 kB), `motion` (126 kB), `react` (49 kB) and `icons` (10 kB) — so no
+  single chunk trips Vite's 500 kB warning and a copy change never invalidates
+  React. Per-route chunks are 0.7–13 kB and the locale dictionaries (FR/AR/ES)
+  load on demand at ~10 kB gzip each.

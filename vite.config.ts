@@ -16,6 +16,20 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss(), apiRoutes()],
     envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
     define: processEnvDefines,
+    build: {
+      rollupOptions: {
+        output: {
+          /* Vendor libraries in their own long-lived chunks: app code and the
+             English dictionary then stay small and cacheable, and a copy
+             change never invalidates React. */
+          manualChunks: {
+            react: ['react', 'react-dom', 'react-router-dom'],
+            motion: ['framer-motion'],
+            icons: ['lucide-react'],
+          },
+        },
+      },
+    },
     server: {
       host: true,
       /* The dev server is reached through a proxy host (e.g. *.e2b.app)

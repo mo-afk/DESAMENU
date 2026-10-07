@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Dices } from 'lucide-react';
 import type { Project } from '../lib/api';
+import { useI18n } from '../i18n';
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+  const { t } = useI18n();
   return (
     <Link to={`/demos/${project.slug}`} className="group block">
       <div className={`relative overflow-hidden bg-carbon ${large ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
@@ -22,7 +24,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
           <ArrowUpRight className="h-5 w-5" />
         </div>
         {project.featured && (
-          <span className="absolute right-4 top-4 bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">Featured</span>
+          <span className="absolute right-4 top-4 bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">{t('common.featured')}</span>
         )}
       </div>
       <div className="flex items-start justify-between gap-4 pt-5">

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;700;800&family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Space+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -25,6 +25,45 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------ */
+/* Arabic (RTL)                                                       */
+/* ------------------------------------------------------------------ */
+
+/* The Latin display and mono faces carry no Arabic glyphs, so the whole
+   stack is swapped. Noto Kufi Arabic is geometric and heavy enough to hold
+   a display headline; IBM Plex Sans Arabic keeps the small mono labels
+   legible without the Latin face's mechanical feel. */
+html[lang='ar'] {
+  --font-display: "Noto Kufi Arabic", "Archivo Black", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Sans Arabic", "Space Mono", ui-monospace, monospace;
+  --font-serif: "Noto Kufi Arabic", "Playfair Display", serif;
+}
+
+/* Arabic is a cursive script: letter-spacing pulls the joined forms apart and
+   uppercase is a no-op. Both are decorative here, so they are neutralised for
+   the whole locale rather than patched class by class. */
+html[lang='ar'] :not(svg):not(path) {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* Directional icons are authored for LTR; mirror the ones that carry meaning
+   (arrows, chevrons) so "next" still points forward in Arabic. */
+[dir='rtl'] svg.lucide-arrow-up-right,
+[dir='rtl'] svg.lucide-arrow-right,
+[dir='rtl'] svg.lucide-arrow-left,
+[dir='rtl'] svg.lucide-chevron-right,
+[dir='rtl'] svg.lucide-chevron-left {
+  transform: scaleX(-1);
+}
+
+/* The outgoing-link arrow sits inside a hover-translated button; mirroring it
+   must not cancel that transition. */
+[dir='rtl'] .group:hover svg.lucide-arrow-up-right {
+  transform: scaleX(-1) translate(0.125rem, -0.125rem);
 }
 
 body {

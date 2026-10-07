@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Quote, Star } from 'lucide-react';
 import type { Testimonial } from '../lib/api';
+import { useI18n } from '../i18n';
 
 export default function TestimonialSlider({ items }: { items: Testimonial[] }) {
+  const { t } = useI18n();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused || items.length < 2) return;
-    const t = window.setInterval(() => setIndex((i) => (i + 1) % items.length), 6000);
-    return () => window.clearInterval(t);
+    const timer = window.setInterval(() => setIndex((i) => (i + 1) % items.length), 6000);
+    return () => window.clearInterval(timer);
   }, [paused, items.length]);
 
   if (items.length === 0) return null;
@@ -48,10 +50,10 @@ export default function TestimonialSlider({ items }: { items: Testimonial[] }) {
           {String((index % items.length) + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
         </span>
         <div className="flex gap-3">
-          <button onClick={() => setIndex((i) => (i - 1 + items.length) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label="Previous testimonial">
+          <button onClick={() => setIndex((i) => (i - 1 + items.length) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.prevTestimonial')}>
             <ArrowLeft className="h-4 w-4" />
           </button>
-          <button onClick={() => setIndex((i) => (i + 1) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label="Next testimonial">
+          <button onClick={() => setIndex((i) => (i + 1) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.nextTestimonial')}>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

@@ -2,6 +2,7 @@ import { BadgeCheck, Brain, Dices, Disc3, Play, Puzzle } from 'lucide-react';
 import type { ReactElement } from 'react';
 import type { PanelKey } from '../../lib/features';
 import { DesaTag } from './DesaUI';
+import { useI18n } from '../../i18n';
 
 /* ------------------------------------------------------------------ */
 /* Bespoke mock panels — pure markup, no external assets.              */
@@ -11,6 +12,7 @@ import { DesaTag } from './DesaUI';
 
 /** Video menus — a dish loop with progress. */
 export function VideoPanel() {
+  const { t } = useI18n();
   return (
     <div className="flex h-full flex-col justify-center gap-3">
       <div className="flex items-end gap-2">
@@ -27,7 +29,7 @@ export function VideoPanel() {
       <div className="h-[3px] w-full bg-bone/10">
         <div className="h-full w-2/3 bg-gradient-to-r from-ember to-honey transition-all duration-700 group-hover:w-[88%]" />
       </div>
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">Cinematic dish preview</p>
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">{t('panels.cinematic')}</p>
     </div>
   );
 }
@@ -56,6 +58,7 @@ export function MenuPanel() {
 
 /** Gamified dining — the suite in miniature. */
 export function GamePanel() {
+  const { t } = useI18n();
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3">
       <div className="flex items-center gap-2">
@@ -68,13 +71,13 @@ export function GamePanel() {
       <div className="flex items-center gap-2 border border-bone/15 px-3 py-1.5">
         <Dices className="h-3 w-3 text-honey" />
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/85">
-          Who Pays? — <span className="text-honey">Player 2</span>
+          {t('panels.whoPays')} — <span className="text-honey">{t('device.gameResult')}</span>
         </span>
       </div>
       <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.15em] text-smoke">
-        <span className="inline-flex items-center gap-1"><Disc3 className="h-3 w-3" />Spinner</span>
-        <span className="inline-flex items-center gap-1"><Brain className="h-3 w-3" />Taste quiz</span>
-        <span className="inline-flex items-center gap-1"><Puzzle className="h-3 w-3" />Custom</span>
+        <span className="inline-flex items-center gap-1"><Disc3 className="h-3 w-3" />{t('panels.spinner')}</span>
+        <span className="inline-flex items-center gap-1"><Brain className="h-3 w-3" />{t('panels.tasteTitle')}</span>
+        <span className="inline-flex items-center gap-1"><Puzzle className="h-3 w-3" />{t('games.wholeSuite')}</span>
       </div>
     </div>
   );
@@ -82,11 +85,12 @@ export function GamePanel() {
 
 /** Loyalty — card with stamps. */
 export function LoyaltyPanel() {
+  const { t } = useI18n();
   return (
     <div className="flex h-full flex-col justify-center gap-3">
       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]">
-        <span className="text-lime">DESA Loyalty</span>
-        <span className="text-smoke">3 / 5</span>
+        <span className="text-lime">{t('panels.loyaltyName')}</span>
+        <span className="text-smoke">{t('panels.loyaltyProgress')}</span>
       </div>
       <div className="flex gap-1.5">
         {[0, 1, 2, 3, 4].map((d) => (
@@ -104,12 +108,13 @@ export function LoyaltyPanel() {
 
 /** Who Pays? — bill roulette landing on a seat. */
 export function RoulettePanel() {
-  const seats = ['You', 'Maya', 'Sam', 'Luca'];
+  const { t } = useI18n();
+  const seats = [t('panels.seatYou'), 'Maya', 'Sam', 'Luca'];
   return (
     <div className="flex h-full flex-col justify-between gap-4">
       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]">
-        <span className="text-honey">Who Pays?</span>
-        <span className="text-smoke">Bill roulette</span>
+        <span className="text-honey">{t('panels.whoPays')}</span>
+        <span className="text-smoke">{t('panels.billRoulette')}</span>
       </div>
       <div className="flex items-center gap-2">
         {seats.map((s, i) => (
@@ -129,7 +134,7 @@ export function RoulettePanel() {
       <div className="flex items-center gap-2 border border-bone/15 px-3 py-2">
         <Dices className="h-3 w-3 shrink-0 text-honey" />
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-bone/85">
-          Landing on <span className="text-honey">Sam</span> — Sam covers the round
+          {t('panels.landingOn')} <span className="text-honey">Sam</span> {t('panels.coversRound')}
         </span>
       </div>
     </div>
@@ -138,6 +143,7 @@ export function RoulettePanel() {
 
 /** Ideal Combo Spinner — wheel plus the pairing it lands on. */
 export function SpinnerPanel() {
+  const { t } = useI18n();
   return (
     <div className="flex h-full items-center gap-5">
       <div className="relative h-24 w-24 shrink-0 transition-transform duration-700 group-hover:rotate-[150deg]">
@@ -151,17 +157,17 @@ export function SpinnerPanel() {
         />
         <div aria-hidden className="absolute inset-[26%] rounded-full bg-carbon" />
         <span className="absolute inset-0 flex items-center justify-center font-mono text-[9px] uppercase tracking-[0.15em] text-bone">
-          Spin
+          {t('panels.spinner')}
         </span>
         <span aria-hidden className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 bg-lime" />
       </div>
       <div className="min-w-0">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-honey">Ideal combo</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-honey">{t('panels.idealCombo')}</p>
         <p className="mt-2 font-display text-sm uppercase leading-tight text-bone">
-          Truffle risotto <span className="text-smoke">+</span> Amber sour
+          {t('panels.comboPair')} <span className="text-smoke">+</span> {t('panels.comboPairSecond')}
         </p>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-fog">
-          Combo 7 of 24 — 2 items, both high margin
+          {t('panels.comboCaveat')}
         </p>
       </div>
     </div>
@@ -170,14 +176,15 @@ export function SpinnerPanel() {
 
 /** Taste & Personality Quiz — questions landing on a curated selection. */
 export function QuizPanel() {
-  const answers = ['Bright & citrusy', 'Rich & smoky', 'Something sweet'];
+  const { t, tl } = useI18n();
+  const answers = tl('panels.tasteAnswers');
   return (
     <div className="flex h-full flex-col justify-between gap-3">
       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]">
-        <span className="text-honey">Taste &amp; personality</span>
-        <span className="text-smoke">3 / 4</span>
+        <span className="text-honey">{t('panels.tasteTitle')}</span>
+        <span className="text-smoke">{t('panels.tasteProgress')}</span>
       </div>
-      <p className="text-sm leading-snug text-bone/85">How do you like to start the evening?</p>
+      <p className="text-sm leading-snug text-bone/85">{t('panels.tasteQuestion')}</p>
       <div className="flex flex-wrap gap-1.5">
         {answers.map((a, i) => (
           <span
@@ -194,7 +201,7 @@ export function QuizPanel() {
         <div className="h-full w-3/4 bg-gradient-to-r from-ember to-honey" />
       </div>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-lime">
-        Curated for Sam — 3 plates, 1 cocktail
+        {t('panels.tasteResult')}
       </p>
     </div>
   );
@@ -202,16 +209,8 @@ export function QuizPanel() {
 
 /** Custom games & loyalty micro-interactions — the configurable layer. */
 export function MicroPanel() {
-  const chips = [
-    'Loyalty streaks',
-    'Spin-to-unlock rewards',
-    'Points on reorder',
-    'Birthday bonuses',
-    'Table leaderboards',
-    'Badge hunts',
-    'Refer-a-friend codes',
-    'Seasonal campaigns',
-  ];
+  const { tl } = useI18n();
+  const chips = tl('panels.microChips');
   return (
     <div className="flex h-full flex-wrap items-start gap-2">
       {chips.map((c) => (

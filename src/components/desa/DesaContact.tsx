@@ -1,15 +1,17 @@
 import { Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
 import Reveal from '../Reveal';
 import DesaContactForm from './DesaContactForm';
-
-const CHANNELS = [
-  { icon: Mail, label: 'Email', value: 'hello@desamenu.com', href: 'mailto:hello@desamenu.com' },
-  { icon: MessageCircle, label: 'WhatsApp', value: 'Start a conversation', href: 'https://wa.me/' },
-  { icon: Instagram, label: 'Instagram', value: '@desamenu', href: 'https://instagram.com/desamenu' },
-  { icon: Phone, label: 'Phone', value: '+212 6 00 00 00 00', href: 'tel:+212600000000' },
-];
+import { useI18n } from '../../i18n';
 
 export default function DesaContact() {
+  const { t } = useI18n();
+  /* Contact details are not translated — only the labels around them are. */
+  const CHANNELS = [
+    { icon: Mail, label: t('contact.channelLabels.email'), value: 'hello@desamenu.com', href: 'mailto:hello@desamenu.com', ltr: true },
+    { icon: MessageCircle, label: t('contact.channelLabels.whatsapp'), value: t('contact.channelValues.whatsapp'), href: 'https://wa.me/', ltr: false },
+    { icon: Instagram, label: t('contact.channelLabels.instagram'), value: '@desamenu', href: 'https://instagram.com/desamenu', ltr: true },
+    { icon: Phone, label: t('contact.channelLabels.phone'), value: t('contact.channelValues.phone'), href: 'tel:+212600000000', ltr: true },
+  ];
   return (
     <section id="desa-demo" className="mx-auto max-w-[1600px] scroll-mt-20 px-5 py-20 sm:px-8 lg:py-28">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -17,19 +19,19 @@ export default function DesaContact() {
         <div className="lg:col-span-5">
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
-              <span className="bg-lime px-1.5 py-0.5 font-bold text-ink">07</span>&nbsp;&nbsp;Contact
+              <span className="bg-lime px-1.5 py-0.5 font-bold text-ink">{t('contact.index')}</span>&nbsp;&nbsp;{t('contact.eyebrow')}
             </p>
             <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] tracking-tight sm:text-5xl">
-              Request a <span className="font-serif normal-case italic font-medium text-lime">custom demo.</span>
+              {t('contact.title')} <span className="font-serif normal-case italic font-medium text-lime">{t('contact.accent')}</span>
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-bone/70">
-              Tell us about your venue and we&apos;ll show you how DESA Menu can be tailored to your guest experience.
+              {t('contact.intro')}
             </p>
           </Reveal>
 
           <Reveal delay={0.1}>
             <ul className="mt-10 border-t border-bone/10">
-              {CHANNELS.map(({ icon: Icon, label, value, href }) => (
+              {CHANNELS.map(({ icon: Icon, label, value, href, ltr }) => (
                 <li key={label}>
                   <a
                     href={href}
@@ -42,7 +44,7 @@ export default function DesaContact() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block font-mono text-[10px] uppercase tracking-[0.25em] text-smoke">{label}</span>
-                      <span className="mt-1 block truncate text-sm text-bone/85">{value}</span>
+                      <span className="mt-1 block truncate text-sm text-bone/85" dir={ltr ? 'ltr' : undefined}>{value}</span>
                     </span>
                   </a>
                 </li>

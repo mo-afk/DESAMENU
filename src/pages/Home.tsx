@@ -7,8 +7,10 @@ import DesaDemos from '../components/desa/DesaDemos';
 import DesaComparison from '../components/desa/DesaComparison';
 import DesaProcess from '../components/desa/DesaProcess';
 import DesaUseCases from '../components/desa/DesaUseCases';
+import DesaFaq from '../components/desa/DesaFaq';
 import DesaCta from '../components/desa/DesaCta';
 import DesaContact from '../components/desa/DesaContact';
+import { useI18n } from '../i18n';
 
 /**
  * DESA Menu — the product homepage.
@@ -16,13 +18,15 @@ import DesaContact from '../components/desa/DesaContact';
  * ecosystem and digital loyalty cards, presented as one system.
  */
 export default function Home() {
+  const { t } = useI18n();
+
   useEffect(() => {
     const previous = document.title;
-    document.title = 'DESA Menu — Turn every menu into a premium digital experience';
+    document.title = t('meta.home');
     return () => {
       document.title = previous;
     };
-  }, []);
+  }, [t]);
 
   return (
     <>
@@ -34,6 +38,7 @@ export default function Home() {
       <DesaComparison />
       <DesaProcess />
       <DesaUseCases />
+      <DesaFaq />
       <DesaCta />
       <DesaContact />
     </>

@@ -3,20 +3,24 @@ import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import BrandLogo from './BrandLogo';
-import { BRAND } from '../lib/brand';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useI18n } from '../i18n';
+import type { StringPath } from '../i18n';
 
-const LINKS = [
-  { to: '/features', label: 'Features' },
-  { to: '/demos', label: 'Demos' },
-  { to: '/how-it-works', label: 'How It Works' },
-  { to: '/notes', label: 'Notes' },
-  { to: '/contact', label: 'Contact' },
+/** Routes stay constant across locales; only the labels come from the dictionary. */
+const LINKS: { to: string; key: StringPath }[] = [
+  { to: '/features', key: 'nav.features' },
+  { to: '/demos', key: 'nav.demos' },
+  { to: '/how-it-works', key: 'nav.howItWorks' },
+  { to: '/notes', key: 'nav.notes' },
+  { to: '/contact', key: 'nav.contact' },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { t } = useI18n();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -37,19 +41,19 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled ? 'border-b border-bone/10 bg-ink/85 backdrop-blur-md' : 'border-b border-transparent bg-transparent'}`}
       >
-        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-5 sm:px-8">
-          <Link to="/" className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3" aria-label="DESA Menu home">
+        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between gap-3 px-5 sm:px-8">
+          <Link to="/" className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3" aria-label={t('nav.homeAria')}>
             {/* Official brand logo — sized by height so any lockup keeps its
                 ratio. The max-width steps keep logo + wordmark + nav + CTA
-                inside the viewport at every breakpoint (see the width budget
-                in the README); `truncate` below is the final backstop. */}
+                inside the viewport at every breakpoint; `truncate` below is the
+                final backstop. */}
             <BrandLogo className="h-8 w-auto max-w-[96px] shrink-0 sm:h-9 sm:max-w-[130px] xl:max-w-[150px] 2xl:max-w-[190px]" />
             <span className="flex min-w-0 flex-col leading-none">
               <span className="truncate font-display text-base uppercase tracking-wider xl:text-lg">
                 DESA <span className="text-lime">Menu</span>
               </span>
               <span className="mt-1 hidden truncate font-mono text-[9px] uppercase tracking-[0.25em] text-fog 2xl:block">
-                {BRAND.tagline}
+                {t('nav.tagline')}
               </span>
             </span>
           </Link>
@@ -64,30 +68,35 @@ export default function Navbar() {
                 to={l.to}
                 className={`link-sweep font-mono text-xs uppercase tracking-[0.25em] text-bone/80 hover:text-bone ${location.pathname.startsWith(l.to) ? 'active text-bone' : ''}`}
               >
-                {l.label}
+                {t(l.key)}
               </Link>
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-4">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <span className="hidden items-center gap-2 border border-bone/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fog xl:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
               </span>
-              Onboarding new venues
+              {t('nav.status')}
             </span>
+
+            <div className="hidden lg:block">
+              <LanguageSwitcher />
+            </div>
+
             <Link
               to="/contact"
               className="group hidden shrink-0 items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
             >
-              Book a Demo
+              {t('nav.cta')}
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <button
               onClick={() => setOpen(true)}
               className="inline-flex h-11 w-11 items-center justify-center border border-bone/20 text-bone lg:hidden"
-              aria-label="Open menu"
+              aria-label={t('nav.openMenu')}
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -102,9 +111,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[110] flex flex-col bg-ink"
+            className="fixed inset-0 z-[110] flex flex-col overflow-y-auto bg-ink"
           >
-            <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
+            <div className="flex h-[72px] shrink-0 items-center justify-between px-5 sm:px-8">
               <div className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3">
                 <BrandLogo className="h-8 w-auto max-w-[96px] shrink-0 sm:h-9 sm:max-w-[130px]" />
                 <span className="truncate font-display text-base uppercase tracking-wider xl:text-lg">
@@ -113,16 +122,16 @@ export default function Navbar() {
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="inline-flex h-11 w-11 items-center justify-center border border-bone/20 text-bone"
-                aria-label="Close menu"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-bone/20 text-bone"
+                aria-label={t('nav.closeMenu')}
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col justify-center gap-1 px-5 sm:px-8">
-              {[{ to: '/', label: 'Home' }, ...LINKS].map((l, i) => (
+            <nav className="flex flex-1 flex-col justify-center gap-1 px-5 py-8 sm:px-8">
+              {[{ to: '/', key: 'nav.home' as StringPath }, ...LINKS].map((l, i) => (
                 <motion.div
-                  key={l.to + l.label}
+                  key={l.to}
                   initial={{ opacity: 0, x: -32 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.08 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -133,16 +142,19 @@ export default function Navbar() {
                     className="group flex items-baseline gap-4 border-b border-bone/10 py-4"
                   >
                     <span className="font-mono text-xs text-lime">0{i + 1}</span>
-                    <span className="font-display text-5xl uppercase tracking-tight text-bone transition-colors group-hover:text-lime sm:text-6xl">
-                      {l.label}
+                    <span className="font-display text-4xl uppercase tracking-tight text-bone transition-colors group-hover:text-lime sm:text-5xl">
+                      {t(l.key)}
                     </span>
                   </Link>
                 </motion.div>
               ))}
             </nav>
-            <div className="flex items-center justify-between px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-fog sm:px-8">
-              <span>Fine dining · Lounges · Cafes</span>
-              <span>hello@desamenu.com</span>
+            <div className="shrink-0 space-y-5 px-5 pb-8 sm:px-8">
+              <LanguageSwitcher variant="inline" />
+              <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">
+                <span>{t('nav.venues')}</span>
+                <a href="mailto:hello@desamenu.com" className="hover:text-lime">hello@desamenu.com</a>
+              </div>
             </div>
           </motion.div>
         )}

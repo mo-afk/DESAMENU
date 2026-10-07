@@ -1,4 +1,5 @@
 import BrandLogo from '../BrandLogo';
+import { useI18n } from '../../i18n';
 
 /* ------------------------------------------------------------------ */
 /* Mock QR components — pure markup, no external QR library.          */
@@ -120,18 +121,20 @@ interface StandProps {
  * QR (branded in its centre) and the DESA Menu mark along the bottom.
  */
 export default function DesaQrStand({ venue = 'La Terrasse', table = 'Table 07', className = '' }: StandProps) {
+  const { t } = useI18n();
+  const aria = t('demos.stand.ariaTemplate').replace('{venue}', venue).replace('{table}', table);
   return (
-    <div className={`flex flex-col items-center ${className}`} role="img" aria-label={`DESA Menu table stand for ${venue}: a branded QR code, a scan-for-the-menu prompt and the DESA Menu logo.`}>
+    <div className={`flex flex-col items-center ${className}`} role="img" aria-label={aria}>
       <div className="w-full max-w-[260px] border border-bone/20 bg-coal/95 px-6 py-7 text-center shadow-[0_40px_90px_-45px_rgba(0,0,0,0.95)] backdrop-blur-sm">
         <BrandQr className="mx-auto h-32 w-32" />
 
-        <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.25em] text-lime">Scan for the menu</p>
+        <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.25em] text-lime">{t('demos.stand.kicker')}</p>
         <p className="mt-2 font-display text-lg uppercase leading-none">{venue}</p>
         <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-fog">{table}</p>
 
         <span className="mt-5 flex items-center justify-center gap-2.5 border-t border-bone/10 pt-4">
           <BrandLogo className="h-4 w-auto max-w-[96px]" alt="" loading="lazy" />
-          <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-smoke">DESA Menu</span>
+          <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-smoke">{t('hero.badge')}</span>
         </span>
       </div>
 

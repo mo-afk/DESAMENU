@@ -6,6 +6,7 @@ import SectionHeading from '../SectionHeading';
 import { getProjects } from '../../lib/api';
 import type { Project } from '../../lib/api';
 import { DesaTag } from './DesaUI';
+import { useI18n } from '../../i18n';
 
 /**
  * Live demo showcase on the homepage.
@@ -13,6 +14,8 @@ import { DesaTag } from './DesaUI';
  * single-sourced from the content layer.
  */
 export default function DesaDemos() {
+  const { t, dict } = useI18n();
+  const d = dict.demos;
   const [demos, setDemos] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,10 +39,10 @@ export default function DesaDemos() {
   return (
     <section id="desa-demos" className="scroll-mt-20 border-y border-bone/10 bg-coal">
       <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading index="04" eyebrow="Live demos" title="See DESA Menu" accent="in action." />
+        <SectionHeading index={d.index} eyebrow={d.eyebrow} title={d.title} accent={d.accent} />
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">
-            Real venues, real menus, live right now — fine dining, lounges and cafes running DESA Menu across nine countries.
+            {d.intro}
           </p>
         </Reveal>
 
@@ -48,7 +51,7 @@ export default function DesaDemos() {
             ? [0, 1, 2].map((i) => <div key={i} className="aspect-[16/11] animate-pulse bg-carbon" />)
             : demos.map((demo, i) => (
                 <Reveal key={demo.id} delay={(i % 3) * 0.08}>
-                  <Link to={`/demos/${demo.slug}`} className="group block" aria-label={`${demo.title} — ${demo.industry} demo`}>
+                  <Link to={`/demos/${demo.slug}`} className="group block" aria-label={`${demo.title} — ${demo.industry}`}>
                     <div className="relative aspect-[16/11] overflow-hidden border border-bone/15 bg-carbon">
                       <img
                         src={demo.image_url}
@@ -59,12 +62,12 @@ export default function DesaDemos() {
                       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
                       <div aria-hidden className="warm-veil pointer-events-none absolute inset-0" />
 
-                      <span className="absolute left-4 top-4 inline-flex items-center gap-2 border border-bone/20 bg-ink/80 px-3 py-1.5 backdrop-blur-sm">
+                      <span className="absolute start-4 top-4 inline-flex items-center gap-2 border border-bone/20 bg-ink/80 px-3 py-1.5 backdrop-blur-sm">
                         <span className="h-1.5 w-1.5 animate-pulse bg-lime" />
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone/85">Live demo</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone/85">{d.live}</span>
                       </span>
 
-                      <span className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center border border-bone/25 bg-ink/70 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="absolute end-4 top-4 flex h-11 w-11 items-center justify-center border border-bone/25 bg-ink/70 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
                         <Play className="h-4 w-4 translate-x-px text-lime" />
                       </span>
 
@@ -98,21 +101,21 @@ export default function DesaDemos() {
         <Reveal delay={0.1}>
           <div className="mt-16 flex flex-col gap-6 border-t border-bone/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-md text-sm leading-relaxed text-fog">
-              Want to see how DESA Menu would look with your dishes, your branding and your menu structure?
+              {d.intro}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/demos"
                 className="group inline-flex items-center gap-2 border border-bone/25 px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
               >
-                View More Demos
+                {t('common.viewMoreDemos')}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 to="/contact"
                 className="group inline-flex items-center gap-2 bg-lime px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone"
               >
-                Request a Private Walkthrough
+                {t('common.privateWalkthrough')}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
