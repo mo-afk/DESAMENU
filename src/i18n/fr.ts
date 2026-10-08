@@ -319,7 +319,7 @@ export const fr: Dict = {
     accent: 'démo sur mesure.',
     intro: 'Parlez-nous de votre maison et nous vous montrerons comment DESA Menu s’adapte à votre expérience client.',
     channelLabels: { email: 'E-mail', whatsapp: 'WhatsApp', instagram: 'Instagram', phone: 'Téléphone' },
-    channelValues: { whatsapp: 'Démarrer la conversation', phone: '+212 6 00 00 00 00' },
+    channelValues: { whatsapp: 'Démarrer la conversation' },
     form: {
       name: 'Nom *',
       business: 'Établissement / société *',

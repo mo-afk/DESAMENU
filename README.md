@@ -301,9 +301,10 @@ content is used.
 
 ## Before launch
 
-- Replace the placeholder contact details: `hello@desamenu.com`, the WhatsApp
-  link and the phone number (search for `wa.me` and `+212`), and the location
-  strings in `Contact`, `Footer` and `DesaContact`.
+- Set the operating locations in `Contact` (`contactPage.sidebar.locations`) —
+  Casablanca and Dubai are placeholders. The official contact details (email,
+  phone / WhatsApp, Instagram) are no longer scattered: they live in one place,
+  `CONTACT` in `src/lib/brand.ts`, and every surface imports from there.
 - Swap the AI-generated venue photography in `public/images/` for real venue
   shoots — the demos read far stronger with actual rooms and plates.
 - If you deploy the marketing site and the `api/` functions to different

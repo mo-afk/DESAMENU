@@ -1,16 +1,18 @@
 import { Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
 import Reveal from '../Reveal';
 import DesaContactForm from './DesaContactForm';
+import { CONTACT } from '../../lib/brand';
 import { useI18n } from '../../i18n';
 
 export default function DesaContact() {
   const { t } = useI18n();
-  /* Contact details are not translated — only the labels around them are. */
+  /* Contact details come from the brand config and are not translated — only
+     the labels around them are (the WhatsApp row shows a call to action). */
   const CHANNELS = [
-    { icon: Mail, label: t('contact.channelLabels.email'), value: 'hello@desamenu.com', href: 'mailto:hello@desamenu.com', ltr: true },
-    { icon: MessageCircle, label: t('contact.channelLabels.whatsapp'), value: t('contact.channelValues.whatsapp'), href: 'https://wa.me/', ltr: false },
-    { icon: Instagram, label: t('contact.channelLabels.instagram'), value: '@desamenu', href: 'https://instagram.com/desamenu', ltr: true },
-    { icon: Phone, label: t('contact.channelLabels.phone'), value: t('contact.channelValues.phone'), href: 'tel:+212600000000', ltr: true },
+    { icon: Mail, label: t('contact.channelLabels.email'), value: CONTACT.email, href: CONTACT.emailHref, ltr: true },
+    { icon: MessageCircle, label: t('contact.channelLabels.whatsapp'), value: t('contact.channelValues.whatsapp'), href: CONTACT.whatsappHref, ltr: false },
+    { icon: Instagram, label: t('contact.channelLabels.instagram'), value: CONTACT.instagramHandle, href: CONTACT.instagram, ltr: true },
+    { icon: Phone, label: t('contact.channelLabels.phone'), value: CONTACT.phone, href: CONTACT.phoneHref, ltr: true },
   ];
   return (
     <section id="desa-demo" className="mx-auto max-w-[1600px] scroll-mt-20 px-5 py-20 sm:px-8 lg:py-28">

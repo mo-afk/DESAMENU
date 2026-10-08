@@ -322,7 +322,7 @@ export const en = {
     accent: 'custom demo.',
     intro: "Tell us about your venue and we'll show you how DESA Menu can be tailored to your guest experience.",
     channelLabels: { email: 'Email', whatsapp: 'WhatsApp', instagram: 'Instagram', phone: 'Phone' },
-    channelValues: { whatsapp: 'Start a conversation', phone: '+212 6 00 00 00 00' },
+    channelValues: { whatsapp: 'Start a conversation' },
     form: {
       name: 'Name *',
       business: 'Venue / business *',

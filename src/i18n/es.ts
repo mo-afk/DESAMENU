@@ -320,7 +320,7 @@ export const es: Dict = {
     accent: 'demo a medida.',
     intro: 'Cuéntenos cómo es su local y le mostraremos cómo se adapta DESA Menu a la experiencia de sus clientes.',
     channelLabels: { email: 'Correo', whatsapp: 'WhatsApp', instagram: 'Instagram', phone: 'Teléfono' },
-    channelValues: { whatsapp: 'Iniciar conversación', phone: '+212 6 00 00 00 00' },
+    channelValues: { whatsapp: 'Iniciar conversación' },
     form: {
       name: 'Nombre *',
       business: 'Local / empresa *',

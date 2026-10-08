@@ -37,3 +37,27 @@ export const BRAND = {
   /** The agency that builds and operates DESA Menu. */
   agency: 'DESA Agency',
 } as const;
+
+/**
+ * Official DESA contact details — the single source of truth for the email
+ * address, phone / WhatsApp number and Instagram profile shown across the site
+ * (navbar, footer, contact sections and the contact page sidebar). Every
+ * surface imports from here, so updating a value in this one file updates the
+ * whole application. Phone and WhatsApp are the same number.
+ */
+export const CONTACT = {
+  /** Official email address. */
+  email: 'desacontact.01@gmail.com',
+  /** Clickable `mailto:` form of the email. */
+  emailHref: 'mailto:desacontact.01@gmail.com',
+  /** Official phone / WhatsApp number, formatted for display. */
+  phone: '+212 638-212496',
+  /** Clickable `tel:` form of the number (digits only, country code first). */
+  phoneHref: 'tel:+212638212496',
+  /** Clickable WhatsApp deep link for the same number. */
+  whatsappHref: 'https://wa.me/212638212496',
+  /** Official Instagram profile. */
+  instagram: 'https://instagram.com/desa_menu/',
+  /** Instagram handle, formatted for display. */
+  instagramHandle: '@desa_menu',
+} as const;

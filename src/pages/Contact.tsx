@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Building2, Check, Clock, Mail, MapPin, Phone } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import { submitInquiry } from '../lib/api';
+import { CONTACT } from '../lib/brand';
 import { useI18n } from '../i18n';
 
 interface FormState {
@@ -208,12 +209,12 @@ export default function Contact() {
                 <div className="bg-ink p-6">
                   <Mail className="h-5 w-5 text-lime" strokeWidth={1.5} />
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{c.sidebar.newBusiness}</p>
-                  <a href="mailto:hello@desamenu.com" className="link-sweep mt-1 inline-block font-display text-lg uppercase">hello@desamenu.com</a>
+                  <a href={CONTACT.emailHref} dir="ltr" className="link-sweep mt-1 inline-block font-display text-lg uppercase">{CONTACT.email}</a>
                 </div>
                 <div className="bg-ink p-6">
                   <Phone className="h-5 w-5 text-lime" strokeWidth={1.5} />
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{c.sidebar.preferToTalk}</p>
-                  <a href="tel:+12125550194" dir="ltr" className="link-sweep mt-1 inline-block font-display text-lg uppercase">+212 6 00 00 00 00</a>
+                  <a href={CONTACT.phoneHref} dir="ltr" className="link-sweep mt-1 inline-block font-display text-lg uppercase">{CONTACT.phone}</a>
                 </div>
                 <div className="bg-ink p-6">
                   <MapPin className="h-5 w-5 text-lime" strokeWidth={1.5} />
@@ -232,7 +233,7 @@ export default function Contact() {
                 <div className="bg-ink p-6">
                   <Building2 className="h-5 w-5 text-lime" strokeWidth={1.5} />
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{c.sidebar.support}</p>
-                  <p className="mt-1 text-sm text-bone/80">hello@desamenu.com<br />support@desamenu.com</p>
+                  <a href={CONTACT.emailHref} dir="ltr" className="link-sweep mt-1 inline-block text-sm text-bone/80 hover:text-bone">{CONTACT.email}</a>
                 </div>
               </div>
             </Reveal>

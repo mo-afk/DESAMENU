@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
+import { CONTACT } from '../lib/brand';
 import { useI18n } from '../i18n';
 import type { StringPath } from '../i18n';
 
@@ -156,7 +157,7 @@ export default function Navbar() {
               <LanguageSwitcher variant="inline" />
               <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">
                 <span>{t('nav.venues')}</span>
-                <a href="mailto:hello@desamenu.com" className="hover:text-lime">hello@desamenu.com</a>
+                <a href={CONTACT.emailHref} dir="ltr" className="hover:text-lime">{CONTACT.email}</a>
               </div>
             </div>
           </motion.div>

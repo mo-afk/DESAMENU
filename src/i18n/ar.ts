@@ -324,7 +324,7 @@ export const ar: Dict = {
     accent: 'مخصّصاً.',
     intro: 'حدّثنا عن مكانك وسنوضّح لك كيف يُصمَّم DESA Menu ليلائم تجربة ضيوفك.',
     channelLabels: { email: 'البريد الإلكتروني', whatsapp: 'واتساب', instagram: 'إنستغرام', phone: 'الهاتف' },
-    channelValues: { whatsapp: 'ابدأ المحادثة', phone: '+212 6 00 00 00 00' },
+    channelValues: { whatsapp: 'ابدأ المحادثة' },
     form: {
       name: 'الاسم *',
       business: 'المكان / النشاط *',

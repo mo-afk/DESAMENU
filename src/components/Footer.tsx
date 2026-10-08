@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Check, Instagram, Mail, MessageCircle } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import Marquee from './Marquee';
+import { CONTACT } from '../lib/brand';
 import { submitInquiry } from '../lib/api';
 import { useI18n } from '../i18n';
 import type { StringPath } from '../i18n';
@@ -95,14 +96,24 @@ export default function Footer() {
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke">{t('footer.contactTitle')}</p>
               <ul className="mt-4 space-y-3 text-sm">
-                <li><a href="mailto:hello@desamenu.com" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.email')} <ArrowUpRight className="h-3 w-3" /></a></li>
-                <li><a href="https://wa.me/" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.whatsapp')} <ArrowUpRight className="h-3 w-3" /></a></li>
-                <li><a href="https://instagram.com/desamenu" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.instagram')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.emailHref} className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.email')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.whatsapp')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.instagram')} <ArrowUpRight className="h-3 w-3" /></a></li>
                 <li className="flex gap-3 pt-2">
-                  {[Instagram, MessageCircle, Mail].map((Icon, i) => (
-                    <span key={i} className="flex h-9 w-9 items-center justify-center border border-bone/15 text-bone/70">
+                  {[
+                    { Icon: Instagram, href: CONTACT.instagram, label: t('footer.instagram'), external: true },
+                    { Icon: MessageCircle, href: CONTACT.whatsappHref, label: t('footer.whatsapp'), external: true },
+                    { Icon: Mail, href: CONTACT.emailHref, label: t('footer.email'), external: false },
+                  ].map(({ Icon, href, label, external }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      aria-label={label}
+                      className="flex h-9 w-9 items-center justify-center border border-bone/15 text-bone/70 transition-colors hover:border-lime hover:text-lime"
+                    >
                       <Icon className="h-4 w-4" />
-                    </span>
+                    </a>
                   ))}
                 </li>
               </ul>
@@ -113,7 +124,7 @@ export default function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-bone/10 pt-6 font-mono text-[10px] uppercase tracking-[0.25em] text-smoke sm:flex-row sm:items-center sm:justify-between">
           <span>{t('footer.legal')}</span>
           <span className="hidden md:inline">{t('footer.segments')}</span>
-          <a href="mailto:hello@desamenu.com" dir="ltr" className="hover:text-bone">hello@desamenu.com</a>
+          <a href={CONTACT.emailHref} dir="ltr" className="hover:text-bone">{CONTACT.email}</a>
         </div>
 
         {/* Micro-footer — the agency credit behind the product */}
