@@ -5,7 +5,7 @@ import Reveal from '../Reveal';
 import SectionHeading from '../SectionHeading';
 import { getProjects } from '../../lib/api';
 import type { Project } from '../../lib/api';
-import { DesaTag } from './DesaUI';
+import { FeaturePills } from '../FeaturePills';
 import { useI18n } from '../../i18n';
 
 /**
@@ -83,13 +83,10 @@ export default function DesaDemos() {
                       <div>
                         <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">{demo.title}</h3>
                         <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{demo.client}</p>
-                        <ul className="mt-4 flex flex-wrap gap-2">
-                          {demo.services.slice(0, 3).map((tag) => (
-                            <li key={tag}>
-                              <DesaTag>{tag}</DesaTag>
-                            </li>
-                          ))}
-                        </ul>
+                        {/* Tailored capabilities, so the three venues can be
+                            compared card by card: modules in neutral, games
+                            in honey. */}
+                        <FeaturePills features={demo.features} className="mt-4" />
                       </div>
                       <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
                     </div>

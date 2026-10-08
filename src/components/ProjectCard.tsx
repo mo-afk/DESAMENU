@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Dices } from 'lucide-react';
 import type { Project } from '../lib/api';
+import { FeaturePills } from './FeaturePills';
 import { useI18n } from '../i18n';
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
@@ -32,14 +33,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
           <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">{project.title}</h3>
           <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-fog">{project.client}</p>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-bone/70">{project.tagline}</p>
-          {project.games.length > 0 && (
-            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.15em] text-honey/90">
-              {project.games.slice(0, 2).map((g) => (
-                <span key={g} className="inline-flex items-center gap-1"><Dices className="h-3 w-3" />{g}</span>
-              ))}
-              {project.games.length > 2 && <span className="text-smoke">+{project.games.length - 2} more</span>}
-            </p>
-          )}
+          <FeaturePills features={project.features} className="mt-4" />
         </div>
         <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
       </div>
@@ -57,9 +51,12 @@ export function ProjectRow({ project, index }: { project: Project; index: number
       </div>
       <div className="hidden sm:col-span-4 sm:block">
         <p className="text-sm text-bone/60">{project.tagline}</p>
+        <FeaturePills features={project.features} size="sm" limit={3} className="mt-3" />
       </div>
       <div className="col-span-10 col-start-3 flex items-center justify-between sm:col-span-2 sm:col-start-auto sm:justify-end sm:gap-4">
-        <span className="inline-flex items-center gap-2 border border-honey/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-honey"><Dices className="h-3 w-3" />{project.games.length} game{project.games.length === 1 ? '' : 's'}</span>
+        {project.games.length > 0 && (
+          <span className="inline-flex items-center gap-2 border border-honey/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-honey"><Dices className="h-3 w-3" />{project.games.length} game{project.games.length === 1 ? '' : 's'}</span>
+        )}
         <ArrowUpRight className="h-5 w-5 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
       </div>
     </Link>

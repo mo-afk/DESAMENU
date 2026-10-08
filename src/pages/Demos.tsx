@@ -10,7 +10,7 @@ import type { Project } from '../lib/api';
 import { useI18n } from '../i18n';
 
 /** Every live DESA Menu deployment, filterable by venue type. */
-const PLURAL: Record<string, string> = { Lounge: 'Lounges', Cafe: 'Cafes', Hotel: 'Hotels' };
+const PLURAL: Record<string, string> = { 'Fine Dining': 'Fine Dining', Lounge: 'Lounges', Bistro: 'Bistros', Cafe: 'Cafes' };
 export default function Demos() {
   const { t, dict } = useI18n();
   const d = dict.demos;
@@ -114,7 +114,7 @@ export default function Demos() {
               </ul>
             </div>
             <div className="lg:col-span-5">
-              <DesaQrStand venue="La Terrasse" table="Table 07" />
+              <DesaQrStand venue="JUVIA" table="Table 07" />
             </div>
           </div>
         </Reveal>

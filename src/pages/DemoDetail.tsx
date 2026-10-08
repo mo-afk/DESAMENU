@@ -6,6 +6,7 @@ import Reveal from '../components/Reveal';
 import DesaQrStand from '../components/desa/DesaQr';
 import { getProject, getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
+import { FeaturePills } from '../components/FeaturePills';
 import { useI18n } from '../i18n';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -82,7 +83,9 @@ export default function DemoDetail() {
     { icon: User, label: dl.venue, value: demo.client },
     { icon: Calendar, label: dl.liveSince, value: String(demo.year) },
     { icon: Tag, label: dl.deployment, value: `${demo.industry} · ${demo.category}` },
-    { icon: Dices, label: dl.tableGames, value: `${demo.games.length}${dl.gamesLiveSuffix}` },
+    ...(demo.games.length > 0
+      ? [{ icon: Dices, label: dl.tableGames, value: `${demo.games.length}${dl.gamesLiveSuffix}` }]
+      : []),
     { icon: Clock, label: dl.onboarding, value: demo.timeline || '-' },
   ];
 
@@ -100,6 +103,9 @@ export default function DemoDetail() {
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="display-type display-page mt-6 break-words font-display uppercase tracking-tight">{demo.title}</motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-4 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{demo.tagline}</motion.p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.22 }} className="mt-6">
+          <FeaturePills features={demo.features} />
+        </motion.div>
       </section>
 
       <section className="mx-auto mt-10 max-w-[1600px] px-5 sm:px-8">
@@ -137,6 +143,7 @@ export default function DemoDetail() {
                 {demo.services.map((s) => (<span key={s} className="border border-bone/20 px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone/80">{s}</span>))}
               </div>
             </Reveal>
+            {demo.games.length > 0 && (
             <Reveal delay={0.14}>
               <div className="mt-10 border border-honey/25 bg-honey/[0.04] p-6 sm:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-3">
@@ -159,6 +166,7 @@ export default function DemoDetail() {
                 </ul>
               </div>
             </Reveal>
+            )}
             <Reveal delay={0.16}>
               <div className="mt-10 grid gap-10 border border-bone/15 bg-coal p-8 sm:p-10 lg:grid-cols-[260px_1fr] lg:items-center">
                 <DesaQrStand venue={demo.title} table={demo.client} className="mx-auto" />

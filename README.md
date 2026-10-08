@@ -55,14 +55,21 @@ configured) production:
 
 | Collection     | Contents                                                                                      |
 | -------------- | --------------------------------------------------------------------------------------------- |
-| `projects`     | 8 venue demos — La Terrasse, Noir Lounge, Café Atelier, Maison Verre, Velvet Hour, Forma Hotel, Pulse Beach Club, Brasserie Soleil |
-| `testimonials` | 5 operator quotes tied to venues                                                              |
+| `projects`     | 3 venue demos — JUVIA (Italian fine dining & lounge), LE MANOIR (café, gastronomie & lounge), PAUSE À PARIS (café, boulangerie & bistro), each with its own feature pills |
+| `testimonials` | 3 operator quotes, one per venue                                                              |
 | `posts`        | 7 field notes on video menus, phone-first design, loyalty, table games, deployment and analytics |
 | `inquiries`    | Empty — populated at runtime when a form is submitted                                          |
 
-Demos span **Fine Dining**, **Lounges** and **Cafes**, and each carries a
+Demos span **Fine Dining**, **Lounges** and **Bistro**, and each carries a
 tagline, long-form description, capability list, the `games` suite it runs,
 metrics and a timeline.
+
+Every venue also carries `features` — the tailored capabilities shown as pill
+badges on the showcase cards, the `/demos` grid and list rows, and the detail
+page header. Each pill is `{ label, kind }`, and `kind` decides how it reads:
+`game` pills take the honey accent and the dice mark, `module` pills stay
+neutral. That is what makes the three venues comparable at a glance — you can
+see which ones run table games and which sell speed instead.
 
 Imagery lives in `public/images/`. Dish and venue photography is treated with
 `.img-warm` (warm saturation and contrast) and `.warm-veil` (ember/honey radial
