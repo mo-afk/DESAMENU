@@ -19,7 +19,7 @@ export default function SectionHeading({ index, eyebrow, title, accent, linkTo, 
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
             <span className="bg-lime px-1.5 py-0.5 font-bold text-ink">{index}</span>&nbsp;&nbsp;{eyebrow}
           </p>
-          <h2 className="display-type display-section mt-4 break-words font-display uppercase tracking-tight">
+          <h2 className="display-type display-section mt-4 font-display uppercase tracking-tight">
             {title} {accent && <span className="font-serif normal-case italic font-medium">{accent}</span>}
           </h2>
         </div>

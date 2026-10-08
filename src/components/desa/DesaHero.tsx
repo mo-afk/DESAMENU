@@ -188,15 +188,17 @@ export default function DesaHero() {
                 repeated per line. `break-words` is the backstop: if a locale
                 ever ships a word wider than the column, it breaks inside the
                 line instead of running past the edge. */}
-            <h1 className="display-type display-hero mt-8 break-words font-display uppercase leading-[0.92] tracking-tight">
+            <h1 className="display-type display-hero mt-8 font-display uppercase leading-[0.92] tracking-tight">
               <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08, ease: EASE }} className="block">
                 {h.titleLine1}
               </motion.span>
               <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} className="block">
-                {h.titleLine2Pre} <span className="text-outline">{h.titleLine2Accent}</span>
+                {h.titleLine2Pre ? `${h.titleLine2Pre} ` : ''}
+                <span className="text-outline">{h.titleLine2Accent}</span>
               </motion.span>
               <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.32, ease: EASE }} className="block">
-                {h.titleLine3Pre} <span className="font-serif normal-case italic font-medium tracking-normal text-lime">{h.titleLine3Accent}</span>
+                {h.titleLine3Pre ? `${h.titleLine3Pre} ` : ''}
+                <span className="font-serif normal-case italic font-medium tracking-normal text-lime">{h.titleLine3Accent}</span>
               </motion.span>
             </h1>
 

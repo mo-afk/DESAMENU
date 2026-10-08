@@ -122,7 +122,7 @@ export default function FeatureDetail() {
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">{feature.n}</span>
             </div>
 
-            <h1 className="display-type display-narrow mt-6 max-w-4xl break-words font-display uppercase tracking-tight">
+            <h1 className="display-type display-narrow mt-6 max-w-4xl font-display uppercase tracking-tight">
               {feature.title}
             </h1>
             <p className="mt-5 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{feature.tagline}</p>

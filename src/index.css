@@ -79,24 +79,30 @@ html[lang='ar'] .font-serif {
 /* ------------------------------------------------------------------ */
 
 /* `.display-type` is the marker every display heading carries alongside its
-   size class, so locale-specific rules — the Arabic leading above, hyphenation
-   below — reach all of them through one selector instead of a class list that
-   drifts as headings are added.
+   size class, so locale-specific rules — the Arabic leading above, word
+   breaking below — reach all of them through one selector instead of a class
+   list that drifts as headings are added.
 
-   Hyphenation only engages when a single word cannot fit its line, which at
-   these sizes happens on the narrowest phones: without it the browser breaks
-   the word at an arbitrary character (French "TRANSFORMEZ" becomes
-   "TRANSFOR/MEZ"), with it the break lands on a real syllable boundary
-   ("TRANSFOR-MEZ"). Above ~360px the longest word in every dictionary fits
-   whole, so the rule is inert. Arabic is excluded: it is cursive, and browsers
-   carry no hyphenation dictionary for it. */
-.display-type {
-  hyphens: auto;
-  overflow-wrap: break-word;
-}
+   Titles break between words and only between words. A headline that splits as
+   "EXPÉ-RIENCE" or "experi-ence" reads as a typographic error, not a design
+   choice, so hyphenation is off and no word is ever broken to save a line. The
+   dictionaries are written to fit instead: the longest word in any locale is
+   the French "TRANSPORTEZ" — eleven characters of Archivo Black, 271px at the
+   hero's 2.1rem floor — which fills 97% of the narrowest column this layout
+   serves (a 320px viewport) and under 85% of any wider phone. Arabic is
+   included even though browsers carry no hyphenation dictionary for it: the
+   cursive script has no syllable boundaries to break on.
 
-html[lang='ar'] .display-type {
+   `h1` rides along with the class so a heading that has not been given a size
+   class is covered too. Markup no longer needs `break-words` on a heading —
+   the declarations below are `!important` and would override that utility
+   anyway. */
+.display-type,
+h1 {
   hyphens: none !important;
+  -webkit-hyphens: none !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
 /* Every headline sizes against its own container (`cqw`, which falls back to
@@ -113,9 +119,9 @@ html[lang='ar'] .display-type {
 
 /* Hero headline — container-queried against the copy column, which drops to
    7/12 of the layout at `lg`, so it tracks the column rather than the page.
-   The 2.25rem floor keeps the headline bold on small screens; the 11cqw
-   preferred value is what makes it fill the column on a phone, and `break-words`
-   on the markup is the backstop that stops a long word ever scrolling the page. */
+   The 2.1rem floor keeps the headline bold on small screens and is the size the
+   longest word has to fit at; the 9.5cqw preferred value then takes over on
+   wider phones and fills the column. */
 .display-hero {
   /* `cqw` measures the copy column, which narrows to 7/12 of the layout at
      `lg` — the right unit, but a browser without container-query support would
@@ -124,13 +130,13 @@ html[lang='ar'] .display-type {
      the baseline and the cqw value replaces it only where it can be honoured.
      (Two stacked declarations would say the same thing in one rule, but the
      minifier strips the first as dead code — an @supports block survives.) */
-  font-size: clamp(2.25rem, 9vw, 5rem) !important;
+  font-size: clamp(2.1rem, 7.8vw, 4.75rem) !important;
   line-height: 0.92;
 }
 
 @supports (container-type: inline-size) {
   .display-hero {
-    font-size: clamp(2.25rem, 11cqw, 5rem) !important;
+    font-size: clamp(2.1rem, 9.5cqw, 4.75rem) !important;
   }
 }
 
