@@ -67,7 +67,7 @@ function NotFound() {
   return (
     <div className="flex min-h-[80vh] flex-col items-center justify-center px-5 text-center">
       <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{t('common.error404')}</p>
-      <h1 className="display-page mt-4 break-words font-display uppercase">{t('notFound.title')}<span className="text-outline">?</span></h1>
+      <h1 className="display-type display-page mt-4 break-words font-display uppercase">{t('notFound.title')}<span className="text-outline">?</span></h1>
       <p className="mt-4 max-w-sm text-bone/60">{t('notFound.body')}</p>
       <div className="mt-8 flex gap-4">
         <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">{t('notFound.home')}</Link>

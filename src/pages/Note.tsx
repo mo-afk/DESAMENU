@@ -89,7 +89,7 @@ export default function Note() {
               <span className="text-fog">{formatDate(post.published_at)}</span>
               <span className="inline-flex items-center gap-1 text-fog"><Clock className="h-3.5 w-3.5" />{post.read_time} {n.minRead}</span>
             </div>
-            <h1 className="display-page mt-5 break-words font-display uppercase tracking-tight">{post.title}</h1>
+            <h1 className="display-type display-page mt-5 break-words font-display uppercase tracking-tight">{post.title}</h1>
             <div className="mt-6 flex items-center gap-4 border-t border-bone/10 pt-6">
               <span className="flex h-12 w-12 items-center justify-center bg-bone font-display text-sm text-ink">{post.author.split(' ').map((w) => w[0]).join('')}</span>
               <div>

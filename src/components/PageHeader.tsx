@@ -28,7 +28,7 @@ export default function PageHeader({ index, eyebrow, title, description, childre
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-          className="display-page mt-6 break-words font-display uppercase tracking-tight"
+          className="display-type display-page mt-6 break-words font-display uppercase tracking-tight"
         >
           {title}
         </motion.h1>

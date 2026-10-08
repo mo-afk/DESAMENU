@@ -175,7 +175,7 @@ export default function DesaHero() {
               fluid size — so the type tracks its own column rather than the
               window. Without those two, "TRANSFORMEZ" sets a min-content floor
               wider than a phone and the line is clipped at the edge. */}
-          <div className="min-w-0 [container-type:inline-size] lg:col-span-7">
+          <div className="w-full min-w-0 max-w-full overflow-hidden [container-type:inline-size] lg:col-span-7">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }} className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 border border-bone/20 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-bone/80">
                 <Sparkles className="h-3.5 w-3.5 text-lime" />
@@ -188,7 +188,7 @@ export default function DesaHero() {
                 repeated per line. `break-words` is the backstop: if a locale
                 ever ships a word wider than the column, it breaks inside the
                 line instead of running past the edge. */}
-            <h1 className="display-hero mt-8 break-words font-display uppercase tracking-tight">
+            <h1 className="display-type display-hero mt-8 break-words font-display uppercase tracking-tight">
               <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08, ease: EASE }} className="block">
                 {h.titleLine1}
               </motion.span>

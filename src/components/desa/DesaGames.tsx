@@ -129,7 +129,7 @@ export default function DesaGames() {
             >
               <div className="flex flex-col lg:col-span-6">
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-honey">{active.kindLabel}</p>
-                <h3 className="display-card mt-4 break-words font-display uppercase tracking-tight">{active.title}</h3>
+                <h3 className="display-type display-card mt-4 break-words font-display uppercase tracking-tight">{active.title}</h3>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-bone/75">{active.short}</p>
 
                 <ul className="mt-7 space-y-3 border-t border-bone/10 pt-6">
