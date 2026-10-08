@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;700;800&family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Space+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -25,6 +25,161 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------ */
+/* Arabic (RTL)                                                       */
+/* ------------------------------------------------------------------ */
+
+/* The Latin display and mono faces carry no Arabic glyphs, so the whole
+   stack is swapped. Noto Kufi Arabic is geometric and heavy enough to hold
+   a display headline; IBM Plex Sans Arabic keeps the small mono labels
+   legible without the Latin face's mechanical feel. */
+html[lang='ar'] {
+  --font-display: "Noto Kufi Arabic", "Archivo Black", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Sans Arabic", "Space Mono", ui-monospace, monospace;
+  --font-serif: "Noto Kufi Arabic", "Playfair Display", serif;
+}
+
+/* Arabic is a cursive script: letter-spacing pulls the joined forms apart and
+   uppercase is a no-op. Both are decorative here, so they are neutralised for
+   the whole locale rather than patched class by class. */
+html[lang='ar'] :not(svg):not(path) {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* Arabic sits far taller than Latin caps: ascenders and descenders reach well
+   past the Latin line box, so the compressed leading that gives the Latin
+   headlines their weight stacks one Arabic line onto the next. Every display
+   heading gets the room Kufi actually needs, while Latin keeps its tight
+   setting. Scoped to headings so the wordmark, marquee and watermark — all
+   single-line — keep their own metrics. */
+html[lang='ar'] .display-type,
+html[lang='ar'] h1,
+html[lang='ar'] h2,
+html[lang='ar'] h3,
+html[lang='ar'] h4,
+html[lang='ar'] h5,
+html[lang='ar'] h6 {
+  line-height: 1.35 !important;
+}
+
+/* Arabic is cursive and carries no italic: a synthesised oblique on a Kufi
+   face reads as a rendering fault rather than emphasis. The serif accents
+   (which are italic in every Latin locale) therefore stand upright. */
+html[lang='ar'] .italic,
+html[lang='ar'] .font-serif {
+  font-style: normal !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Display type scale                                                  */
+/* ------------------------------------------------------------------ */
+
+/* `.display-type` is the marker every display heading carries alongside its
+   size class, so locale-specific rules — the Arabic leading above, word
+   breaking below — reach all of them through one selector instead of a class
+   list that drifts as headings are added.
+
+   Titles break between words and only between words. A headline that splits as
+   "EXPÉ-RIENCE" or "experi-ence" reads as a typographic error, not a design
+   choice, so hyphenation is off and no word is ever broken to save a line. The
+   dictionaries are written to fit instead: the longest word in any locale is
+   the French "TRANSPORTEZ" — eleven characters of Archivo Black, 271px at the
+   hero's 2.1rem floor — which fills 97% of the narrowest column this layout
+   serves (a 320px viewport) and under 85% of any wider phone. Arabic is
+   included even though browsers carry no hyphenation dictionary for it: the
+   cursive script has no syllable boundaries to break on.
+
+   `h1` rides along with the class so a heading that has not been given a size
+   class is covered too. Markup no longer needs `break-words` on a heading —
+   the declarations below are `!important` and would override that utility
+   anyway. */
+.display-type,
+h1 {
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* Every headline sizes against its own container (`cqw`, which falls back to
+   the viewport where no container is declared) instead of a fixed step, and is
+   clamped between the smallest size that stays legible and the largest that
+   still fits the longest word the dictionaries contain. A French
+   "TRANSFORMEZ" or a Spanish "interacciones" therefore cannot run past the
+   edge of the column it sits in, at any width.
+
+   Each class also carries the tight Latin leading the display faces want; the
+   Arabic rule above raises it for the locales that need the room. The ceilings
+   are the sizes these headings had at their widest breakpoint, so desktop type
+   is unchanged and only the small end of each scale moves. */
+
+/* Hero headline — container-queried against the copy column, which drops to
+   7/12 of the layout at `lg`, so it tracks the column rather than the page.
+   The 2.1rem floor keeps the headline bold on small screens and is the size the
+   longest word has to fit at; the 9.5cqw preferred value then takes over on
+   wider phones and fills the column. */
+.display-hero {
+  /* `cqw` measures the copy column, which narrows to 7/12 of the layout at
+     `lg` — the right unit, but a browser without container-query support would
+     discard the whole declaration and fall back to the user agent's own h1
+     size. That is the "headline got small" failure, so the vw value below is
+     the baseline and the cqw value replaces it only where it can be honoured.
+     (Two stacked declarations would say the same thing in one rule, but the
+     minifier strips the first as dead code — an @supports block survives.) */
+  font-size: clamp(2.1rem, 7.8vw, 4.75rem) !important;
+  line-height: 0.92;
+}
+
+@supports (container-type: inline-size) {
+  .display-hero {
+    font-size: clamp(2.1rem, 9.5cqw, 4.75rem) !important;
+  }
+}
+
+/* Full-width page headings: Contact, PageHeader, demo and note titles. */
+.display-page {
+  font-size: clamp(1.4rem, 7vw, 6rem);
+  line-height: 0.94;
+}
+
+/* Headings inside a narrow measure — `max-w-4xl` on the feature detail page,
+   where a long compound word sets the ceiling. */
+.display-narrow {
+  font-size: clamp(1.4rem, 5.6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+/* Section headings: section intro rows, value grid, closing CTA, contact. */
+.display-section {
+  font-size: clamp(1.45rem, 5vw, 4.5rem);
+  line-height: 0.95;
+}
+
+/* Card and tab-panel titles living in a half-width column, where the worst
+   token in any locale ("interactions", "interacciones") has to fit 216px. */
+.display-card {
+  font-size: clamp(1.1rem, 3.4vw, 2rem);
+  line-height: 1.05;
+}
+
+/* Directional icons are authored for LTR; mirror the ones that carry meaning
+   (arrows, chevrons) so "next" still points forward in Arabic. */
+[dir='rtl'] svg.lucide-arrow-up-right,
+[dir='rtl'] svg.lucide-arrow-right,
+[dir='rtl'] svg.lucide-arrow-left,
+[dir='rtl'] svg.lucide-chevron-right,
+[dir='rtl'] svg.lucide-chevron-left {
+  transform: scaleX(-1);
+}
+
+/* The outgoing-link arrow sits inside a hover-translated button; mirroring it
+   must not cancel that transition. */
+[dir='rtl'] .group:hover svg.lucide-arrow-up-right {
+  transform: scaleX(-1) translate(0.125rem, -0.125rem);
 }
 
 body {

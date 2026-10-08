@@ -4,28 +4,32 @@ import DesaValueGrid from '../components/desa/DesaValueGrid';
 import DesaFeatures from '../components/desa/DesaFeatures';
 import DesaGames from '../components/desa/DesaGames';
 import DesaUseCases from '../components/desa/DesaUseCases';
+import { useI18n } from '../i18n';
 
 /** Deep dive on the DESA Menu capabilities, including the games suite. */
 export default function Features() {
+  const { t, dict } = useI18n();
+  const f = dict.features.page;
+
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Features — DESA Menu';
+    document.title = t('meta.features');
     return () => {
       document.title = previous;
     };
-  }, []);
+  }, [t]);
 
   return (
     <div className="pt-[72px]">
       <PageHeader
-        index="01"
-        eyebrow="Features"
+        index={f.index}
+        eyebrow={dict.features.eyebrow}
         title={
           <>
-            Everything your menu needs to do — <span className="text-outline">in one system.</span>
+            {f.titlePre} <span className="text-outline">{f.titleAccent}</span>
           </>
         }
-        description="Interactive text menus, cinematic dish video, a full gamified dining ecosystem — Who Pays?, the Ideal Combo Spinner, the Taste & Personality Quiz — plus digital loyalty and the analytics that show what guests actually look at."
+        description={f.description}
       />
       <DesaValueGrid />
       <DesaFeatures />

@@ -3,6 +3,17 @@ export interface Metric {
   label: string;
 }
 
+/**
+ * One tailored capability of a venue, as shown in the pills on the demo cards.
+ * `kind` decides how it is signed: games take the honey accent and the dice
+ * mark, modules stay neutral — so the row of pills shows at a glance which
+ * venues run table games.
+ */
+export interface ProjectFeature {
+  label: string;
+  kind: 'module' | 'game';
+}
+
 export interface Project {
   id: number;
   slug: string;
@@ -15,6 +26,14 @@ export interface Project {
   description: string;
   image_url: string;
   services: string[];
+  /** Tailored capabilities, in priority order — rendered as pills. */
+  features: ProjectFeature[];
+  /**
+   * The venue's own live menu, opened in a new tab from "View Live Menu".
+   * `'#'` is the placeholder: until it is replaced the button renders in a
+   * disabled state rather than opening a blank tab.
+   */
+  externalMenuUrl: string;
   games: string[];
   metrics: Metric[];
   featured: boolean;

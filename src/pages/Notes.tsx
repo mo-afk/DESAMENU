@@ -5,9 +5,12 @@ import PageHeader from '../components/PageHeader';
 import Reveal from '../components/Reveal';
 import { formatDate, getPosts } from '../lib/api';
 import type { Post } from '../lib/api';
+import { useI18n } from '../i18n';
 
 /** Field notes from DESA Menu deployments — menu craft, retention, analytics. */
 export default function Notes() {
+  const { t, dict } = useI18n();
+  const n = dict.notes;
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,17 +18,17 @@ export default function Notes() {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Notes — DESA Menu';
+    document.title = t('meta.notes');
     return () => {
       document.title = previous;
     };
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     let active = true;
     getPosts()
       .then((data) => { if (active) setPosts(data); })
-      .catch((e) => { if (active) setError(e instanceof Error ? e.message : 'Failed to load notes'); })
+      .catch((e) => { if (active) setError(e instanceof Error ? e.message : String(e)); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
@@ -37,18 +40,18 @@ export default function Notes() {
   return (
     <div className="pt-[72px]">
       <PageHeader
-        index="04"
-        eyebrow="Notes"
+        index={n.index}
+        eyebrow={n.eyebrow}
         title={
           <>
-            Field notes from <span className="text-outline">the floor.</span>
+            {n.page.titlePre} <span className="text-outline">{n.page.titleAccent}</span>
           </>
         }
-        description="What we learn filming dishes, rebuilding menus and watching guests order — practical notes from 120+ hospitality deployments."
+        description={n.page.description}
       >
         <div className="mt-8 flex flex-wrap gap-2">
           {categories.map((c) => (
-            <button key={c} onClick={() => setFilter(c)} className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}>{c}</button>
+            <button key={c} onClick={() => setFilter(c)} className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}>{c === 'All' ? n.filterAll : c}</button>
           ))}
         </div>
       </PageHeader>
@@ -60,9 +63,9 @@ export default function Notes() {
             <div className="grid gap-8 md:grid-cols-3">{[0, 1, 2].map((i) => <div key={i} className="aspect-[4/3] animate-pulse bg-carbon" />)}</div>
           </div>
         ) : error ? (
-          <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">Could not load notes: {error}</p>
+          <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{n.errorPrefix}{error}</p>
         ) : visible.length === 0 ? (
-          <p className="border border-bone/15 p-10 text-center font-mono text-sm text-fog">No notes in this category yet.</p>
+          <p className="border border-bone/15 p-10 text-center font-mono text-sm text-fog">{n.emptyCategory}</p>
         ) : (
           <>
             {featured && (
@@ -74,9 +77,9 @@ export default function Notes() {
                   </div>
                   <div className="flex flex-col justify-center p-8 sm:p-12">
                     <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]">
-                      <span className="bg-lime px-3 py-1 font-bold text-ink">Featured</span>
+                      <span className="bg-lime px-3 py-1 font-bold text-ink">{n.featured}</span>
                       <span className="text-fog">{featured.category}</span>
-                      <span className="inline-flex items-center gap-1 text-fog"><Clock className="h-3.5 w-3.5" />{featured.read_time} min</span>
+                      <span className="inline-flex items-center gap-1 text-fog"><Clock className="h-3.5 w-3.5" />{featured.read_time} {n.minShort}</span>
                     </div>
                     <h2 className="mt-5 font-display text-3xl uppercase leading-[0.95] tracking-tight transition-colors group-hover:text-lime sm:text-4xl lg:text-5xl">{featured.title}</h2>
                     <p className="mt-4 line-clamp-3 leading-relaxed text-bone/65">{featured.excerpt}</p>
@@ -94,11 +97,11 @@ export default function Notes() {
                     </div>
                     <div className="mt-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">
                       <span>{post.category}</span>
-                      <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{post.read_time} min</span>
+                      <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{post.read_time} {n.minShort}</span>
                     </div>
                     <h3 className="mt-2 font-display text-xl uppercase leading-tight tracking-tight transition-colors group-hover:text-lime">{post.title}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-bone/60">{post.excerpt}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 group-hover:text-lime">Read note <ArrowUpRight className="h-4 w-4" /></span>
+                    <span className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 group-hover:text-lime">{n.readNote} <ArrowUpRight className="h-4 w-4" /></span>
                   </Link>
                 </Reveal>
               ))}

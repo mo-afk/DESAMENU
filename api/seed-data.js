@@ -9,222 +9,150 @@
  * venue's own service numbers.
  */
 export const projects = [
+  /* ---------------------------------------------------------------- JUVIA */
   {
     id: 1,
-    slug: 'la-terrasse',
-    title: 'La Terrasse',
-    client: 'La Terrasse',
-    category: 'Video Menu',
+    slug: 'juvia',
+    title: 'JUVIA',
+    client: 'Juvia',
+    category: 'Italian Fine Dining & Lounge',
     industry: 'Fine Dining',
     year: 2026,
-    tagline: 'Fine dining where every dish is filmed on the pass before it is ordered.',
-    description: "La Terrasse had a menu nobody read and a kitchen capable of far more. Guests ordered the same three safe dishes, and the most ambitious work went unnoticed at the back of a laminated page.\n\nWe filmed eight plates on the pass, cut them to six-second loops and rebuilt the categories around how guests actually decide — light to rich, not starter to dessert. The signature dish sits first with a film that loads in under a second on 4G. Each dish carries a short tasting note written with the head chef.\n\nAverage spend per cover rose in the first month, and the kitchen now sells the plates it is proud of. Phase two added the loyalty card, which recognises returning guests by seat and greets them by name.",
-    image_url: '/images/demo-terrace.jpg',
-    services: ['Video menu', 'Dish film production', 'Menu architecture', 'Loyalty card'],
-    games: ['Who Pays?', 'Ideal Combo Spinner', 'Taste & Personality Quiz', 'Loyalty micro-interactions'],
+    tagline: 'Full video-enabled luxury menu with interactive table games and social connectivity.',
+    description:
+      'Juvia serves Italian fine dining with a lounge that runs late, and the two halves of the room were selling against each other. Guests who arrived for dinner never saw the lounge menu; guests who came for drinks never saw the kitchen. Everything the house was proud of sat in the middle of a printed card nobody read.\n\nWe filmed twelve plates and four signature cocktails on the pass, cut them to six-second loops, and rebuilt the menu as one continuous evening — aperitivo, pasta, secondi, then the lounge list, so a table can move through the whole night without changing a document. The menu ships in four languages (EN, FR, AR and ES) with full right-to-left support, because the room is rarely one nationality after nine.\n\nWho Pays? sits on the bill and the Ideal Combo Spinner pairs courses with the cellar, both branded to the room. The Instagram, Facebook and TikTok links live inside the menu, so a dish that photographs well can leave the table with the guest instead of being described to a friend the next morning.',
+    image_url: '/images/demo-noir.jpg',
+    services: [
+      'Cinematic dish videos',
+      'Multi-language menu — EN, FR, AR, ES',
+      'Social links — Instagram, Facebook, TikTok',
+      'Interactive table games',
+    ],
+    features: [
+      { label: 'Video Menu', kind: 'module' },
+      { label: 'Multi-Language', kind: 'module' },
+      { label: 'Social Links', kind: 'module' },
+      { label: 'Who Pays?', kind: 'game' },
+      { label: 'Ideal Combo', kind: 'game' },
+    ],
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://juvia-menu.vercel.app/',
+    games: ['Who Pays?', 'Ideal Combo Spinner'],
     metrics: [
-      { value: '+34%', label: 'Average spend per cover' },
+      { value: '+38%', label: 'Average spend per cover' },
       { value: '61%', label: 'Of guests open a dish video' },
-      { value: '4.9', label: 'Guest experience rating' }
+      { value: '1 in 3', label: 'Tables play a table game' },
     ],
     featured: true,
-    timeline: 'Live in 5 weeks'
+    timeline: 'Live in 5 weeks',
   },
+
+  /* ------------------------------------------------------------ LE MANOIR */
   {
     id: 2,
-    slug: 'noir-lounge',
-    title: 'Noir Lounge',
-    client: 'Noir Lounge',
-    category: 'Interactive Menu',
+    slug: 'le-manoir',
+    title: 'LE MANOIR',
+    client: 'Le Manoir',
+    category: 'Café, Gastronomie & Lounge',
     industry: 'Lounge',
     year: 2026,
-    tagline: 'A cocktail lounge where the table game became part of the night.',
-    description: "Noir Lounge sells atmosphere, but a static PDF killed the mood the moment it loaded. Tables of four were ordering two rounds and leaving.\n\nWe built an interactive menu for a dark room: bold type, zero glare, drink cards with tasting notes, and the full games suite: Who Pays? to settle the round, the Ideal Combo Spinner to pair the next drink, and a Taste & Personality Quiz that reads the table and curates a round for it. Each game is branded, weightless and takes fifteen seconds — long enough to be memorable, short enough to sell another round.\n\nDwell time extended, second-round orders became normal rather than occasional, and the games are now the most shared part of the venue on social.",
-    image_url: '/images/demo-noir.jpg',
-    services: ['Interactive menu', 'Full games suite', 'Drink cards', 'Menu analytics'],
-    games: ['Who Pays?', 'Ideal Combo Spinner', 'Taste & Personality Quiz', 'Custom table games'],
+    tagline: 'Gourmet lounge experience featuring cinematic video menus and personalized taste quizzes.',
+    description:
+      'Le Manoir is a café by day, a gastronomic kitchen in the evening and a lounge after that — three services, one address, and a menu that had grown into a small book trying to speak to all of them at once. Regulars knew what they wanted. New guests asked the floor team to choose for them.\n\nWe filmed the plates that carry the kitchen and rewrote the categories around the hour rather than the course, so the same menu reads correctly at eleven in the morning and at eleven at night. It ships in four languages with full right-to-left support, and the house keeps its Instagram and Facebook audience inside the menu rather than a link people promise to look at later.\n\nThe Taste & Personality Quiz is the piece that changed the floor: three questions and a curated selection of plates and cocktails, built with the kitchen, so a first-time guest is recommended rather than sold to. The quiz is exclusive to Le Manoir — no other DESA Menu venue runs that combination — and it is why tables that would have ordered safe now order the tasting plate.',
+    image_url: '/images/work-verre.jpg',
+    services: [
+      'Cinematic dish videos',
+      'Multi-language menu — EN, FR, AR, ES',
+      'Social integration — Instagram, Facebook',
+      'Taste & Personality Quiz',
+    ],
+    features: [
+      { label: 'Video Menu', kind: 'module' },
+      { label: 'Multi-Language', kind: 'module' },
+      { label: 'Social Links', kind: 'module' },
+      { label: 'Personality Quiz', kind: 'game' },
+    ],
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://videomenulemanoir2.vercel.app/',
+    games: ['Taste & Personality Quiz'],
     metrics: [
-      { value: '+41%', label: 'Second-round reorders' },
-      { value: '23 min', label: 'Longer average dwell time' },
-      { value: '1 in 3', label: 'Tables play Who Pays?' }
+      { value: '+27%', label: 'Paired-beverage uplift' },
+      { value: '×2', label: 'Discovery of new dishes' },
+      { value: '4.9', label: 'Guest experience rating' },
     ],
     featured: true,
-    timeline: 'Live in 4 weeks'
+    timeline: 'Live in 6 weeks',
   },
+
+  /* ------------------------------------------------------- PAUSE À PARIS */
   {
     id: 3,
-    slug: 'cafe-atelier',
-    title: 'Café Atelier',
-    client: 'Café Atelier',
-    category: 'Text Menu',
-    industry: 'Cafe',
-    year: 2025,
-    tagline: 'A specialty coffee bar that serves the queue faster than it forms.',
-    description: "Café Atelier serves 400 covers a day out of 60 square metres. Every second a guest spends deciding is a second the queue grows, and the printed board was the bottleneck.\n\nWe built a fast text menu: one screen, no scrolling required, with the day's brew rotation updated in seconds from the counter. Highlighted items rotate by time of day, so mornings show pastries and afternoons show cold brew. The Ideal Combo Spinner pairs a pastry with a brew in one tap — and nudges the pairing toward the margin the counter wants. Regulars scan once and their loyalty card opens with their usual order pinned.\n\nOrder-to-serve time dropped, average ticket rose, and the cafe has not reprinted a menu since.",
-    image_url: '/images/demo-atelier.jpg',
-    services: ['Fast text menu', 'Daily rotation', 'Loyalty card', 'Counter operations'],
-    games: ['Ideal Combo Spinner', 'Loyalty micro-interactions'],
-    metrics: [
-      { value: '-22%', label: 'Time from scan to order' },
-      { value: '+18%', label: 'Average ticket value' },
-      { value: '0', label: 'Reprints since launch' }
-    ],
-    featured: true,
-    timeline: 'Live in 3 weeks'
-  },
-  {
-    id: 4,
-    slug: 'maison-verre',
-    title: 'Maison Verre',
-    client: 'Maison Verre',
-    category: 'Video Menu',
-    industry: 'Fine Dining',
-    year: 2025,
-    tagline: 'Rooftop dining that sells the view and the plate in one scroll.',
-    description: "Maison Verre is a rooftop restaurant where the view sells the reservation and the menu has to live up to it. The team wanted guests to explore beyond the tasting menu without adding service pressure.\n\nWe built a layered video menu: signature plates carry film and provenance, the wine list pairs by mood rather than region, and a sommelier panel recommends by course. Golden-hour photography was shot the same day as the dish films, so the digital menu looks like the room it belongs to.\n\nPaired beverage uplift moved the most, and the venue now plans wine orders against real demand from the menu analytics.",
-    image_url: '/images/work-verre.jpg',
-    services: ['Video menu', 'Wine pairing system', 'Course recommendations'],
-    games: ['Taste & Personality Quiz', 'Who Pays?'],
-    metrics: [
-      { value: '+27%', label: 'Paired beverage uplift' },
-      { value: '2.1x', label: 'More tasting-menu selections' },
-      { value: '5 weeks', label: 'From kickoff to live' }
-    ],
-    featured: true,
-    timeline: 'Live in 5 weeks'
-  },
-  {
-    id: 5,
-    slug: 'velvet-hour',
-    title: 'Velvet Hour',
-    client: 'Velvet Hour',
-    category: 'Interactive Menu',
-    industry: 'Lounge',
-    year: 2025,
-    tagline: 'A cocktail bar that turned its menu into the best icebreaker in the room.',
-    description: "Velvet Hour's bar team creates twelve new drinks a season. The printed menu could not keep up, so guests kept ordering the same classics while the new work stayed invisible.\n\nWe shipped a seasonal interactive menu that updates the night the drinks launch, with a mood-based discovery flow — bright, bitter, smoky, sweet — instead of a list. The Ideal Combo Spinner was adapted for a cocktail setting: a short, shareable way to decide the next round that also surfaces the season's newest drinks, with Who Pays? to settle who orders it.\n\nDiscovery of new drinks tripled, and seasonal launches now land with an audience instead of a reprint.",
-    image_url: '/images/work-velvet.jpg',
-    services: ['Interactive menu', 'Ideal Combo Spinner', 'Seasonal updates', 'Who Pays?'],
-    games: ['Ideal Combo Spinner', 'Who Pays?'],
-    metrics: [
-      { value: '3x', label: 'Orders of new seasonal drinks' },
-      { value: '+31%', label: 'Revenue per table' },
-      { value: 'Same-day', label: 'Menu update turnaround' }
-    ],
-    featured: false,
-    timeline: 'Live in 4 weeks'
-  },
-  {
-    id: 6,
-    slug: 'forma-hotel',
-    title: 'Forma Hotel',
-    client: 'Forma Hotel',
-    category: 'Loyalty',
-    industry: 'Hotel',
-    year: 2025,
-    tagline: 'A boutique hotel that recognises a guest before they reach the desk.',
-    description: "Forma Hotel runs a restaurant, a bar and in-room dining across 42 rooms. Each outlet had its own printed menu, and none of them knew a returning guest when they saw one.\n\nWe deployed one DESA Menu across all three outlets with a single guest identity. In-room dining scans from the room QR and carries the stay details; the restaurant menu remembers preferences and dietary notes from previous visits; the bar's loyalty card tracks across outlets.\n\nReturn-guest rates rose, in-room dining orders grew, and the front desk finally has one view of who is in the building and what they like.",
-    image_url: '/images/work-forma.jpg',
-    services: ['Multi-outlet deployment', 'Guest identity', 'Loyalty card', 'In-room dining menu'],
-    games: ['Taste & Personality Quiz', 'Loyalty micro-interactions'],
-    metrics: [
-      { value: '+46%', label: 'Returning-guest rate' },
-      { value: '+2.4x', label: 'In-room dining orders' },
-      { value: '3', label: 'Outlets on one system' }
-    ],
-    featured: false,
-    timeline: 'Live in 7 weeks'
-  },
-  {
-    id: 7,
-    slug: 'pulse-beach-club',
-    title: 'Pulse Beach Club',
-    client: 'Pulse',
-    category: 'Loyalty',
-    industry: 'Lounge',
-    year: 2024,
-    tagline: 'A beach club that keeps the summer going until next summer.',
-    description: "Pulse Beach Club lives on seasonal volume: thousands of guests, most of them once a year, most of them never heard from again after September.\n\nThe problem was memory. We built a loyalty system that travels with the guest across the season and across years: sunbed bookings, food and drink, and event tickets all feed one card. Off-season, the same system sends a single well-timed message before the calendar opens.\n\nThe club now enters each season with a warm list instead of a cold one, and opening-weekend bookings come from guests who were already there last year.",
-    image_url: '/images/work-pulse.jpg',
-    services: ['Loyalty system', 'Season-pass logic', 'Off-season messaging'],
-    games: ['Ideal Combo Spinner', 'Custom table games', 'Loyalty micro-interactions'],
-    metrics: [
-      { value: '38k', label: 'Loyalty cards issued' },
-      { value: '2.7x', label: 'Opening-weekend bookings' },
-      { value: '+29%', label: 'Repeat spend per guest' }
-    ],
-    featured: false,
-    timeline: 'Live in 6 weeks'
-  },
-  {
-    id: 8,
-    slug: 'brasserie-soleil',
-    title: 'Brasserie Soleil',
-    client: 'Brasserie Soleil',
-    category: 'Video Menu',
-    industry: 'Fine Dining',
-    year: 2024,
-    tagline: 'A neighbourhood brasserie that upsets the classics with film.',
-    description: "Brasserie Soleil serves the same canon as every brasserie in the city: steak frites, onion soup, crème brûlée. The team wanted guests to order past the classics they already knew.\n\nWe filmed the seasonal specials and the dishes the kitchen wanted to sell, then placed them where guests actually look: the first card in each category. Short tasting notes in the voice of the owner explain why each dish exists. Search answers the question every brasserie guest asks — what can I eat quickly before the theatre.\n\nSeasonal specials now outsell the static classics on busy nights, and the kitchen has stopped guessing which dishes guests notice.",
+    slug: 'pause-a-paris',
+    title: 'PAUSE À PARIS',
+    client: 'Pause à Paris',
+    category: 'Café, Boulangerie & French Bistro',
+    industry: 'Bistro',
+    year: 2026,
+    tagline: 'High-conversion bistro menu optimized for direct digital ordering and visual dish discovery.',
+    description:
+      'Pause à Paris is a café, a bakery counter and a bistro sharing one small room, which means the queue at the counter is the whole business. Every guest who hesitated over a laminated list was two minutes of somebody else\'s lunch.\n\nWe built the shortest possible path from sitting down to a confirmed order. A visual menu of the pâtisserie, the plat du jour and the bakery counter, filmed and photographed so the pastry case is legible from the back of the room, with direct ordering from the table: no app, no account, no waiting to catch an eye. Orders land in the kitchen and at the counter at the same time.\n\nThere are no games here on purpose. The bistro story is speed — fewer questions at the counter, more covers at lunch, and a menu that can change the daily special at seven in the morning without a reprint. The result reads as a visual menu that happens to take orders, rather than an ordering system that happens to list food.',
     image_url: '/images/demo-brasserie.jpg',
-    services: ['Video menu', 'Who Pays?', 'Seasonal specials', 'Tasting notes'],
-    games: ['Who Pays?', 'Taste & Personality Quiz'],
-    metrics: [
-      { value: '+24%', label: 'Seasonal special orders' },
-      { value: '48%', label: 'Of guests use menu search' },
-      { value: '6 sec', label: 'Average dish video length' }
+    services: [
+      'Optimized video & visual menu',
+      'Direct digital ordering from the table',
+      'Fast-ordering flow — no app, no account',
+      'Streamlined bistro UX',
     ],
-    featured: false,
-    timeline: 'Live in 4 weeks'
-  }
+    features: [
+      { label: 'Video Menu', kind: 'module' },
+      { label: 'Direct Ordering', kind: 'module' },
+      { label: 'Fast Ordering', kind: 'module' },
+      { label: 'Streamlined UX', kind: 'module' },
+    ],
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://videomenu-pause-a-paris.vercel.app/',
+    games: [],
+    metrics: [
+      { value: '−22%', label: 'Scan-to-order time' },
+      { value: '+31%', label: 'Orders placed directly' },
+      { value: '2.4k', label: 'Orders a week at peak' },
+    ],
+    featured: true,
+    timeline: 'Live in 4 weeks',
+  },
 ];
 
 export const testimonials = [
   {
     id: 1,
-    quote: 'We spent years assuming guests wanted a printed menu. They wanted to see the food. The first month with DESA Menu moved our average spend by a third — the kitchen noticed before the numbers did.',
-    author: 'Camille Roux',
+    quote:
+      'Guests order the dishes we film. The kitchen finally sells the plates it is proud of, and the lounge menu sells itself after nine.',
+    author: 'Marco Bellini',
     role: 'Owner',
-    company: 'La Terrasse',
+    company: 'JUVIA',
     rating: 5,
-    project_slug: 'la-terrasse'
+    project_slug: 'juvia',
   },
   {
     id: 2,
-    quote: 'Our room is dark, our guests are two drinks in, and the old PDF was unreadable. DESA built something that fits the room. The games suite alone changed how long people stay — Who Pays? settles the round, the spinner sells the next one.',
-    author: 'Leo Fontaine',
-    role: 'Founder',
-    company: 'Noir Lounge',
+    quote:
+      'The quiz does the recommending for us. First-time guests order like regulars, and it never feels like a sales pitch.',
+    author: 'Claire Fontaine',
+    role: 'General Manager',
+    company: 'LE MANOIR',
     rating: 5,
-    project_slug: 'noir-lounge'
+    project_slug: 'le-manoir',
   },
   {
     id: 3,
-    quote: 'We serve four hundred people a day in a room the size of a van. The menu had to be faster than the queue, and now it is. Regulars scan once and their usual is already there.',
-    author: 'Amel Benali',
-    role: 'Head of Coffee',
-    company: 'Café Atelier',
+    quote:
+      'Ordering from the table cut the counter queue to nothing over lunch. We serve more coffee and apologise far less.',
+    author: 'Julien Moreau',
+    role: 'Manager',
+    company: 'PAUSE À PARIS',
     rating: 5,
-    project_slug: 'cafe-atelier'
+    project_slug: 'pause-a-paris',
   },
-  {
-    id: 4,
-    quote: 'Three outlets, three printed menus, and no idea who our returning guests were. Now one system knows. Our front desk finally recognises people before they reach the desk.',
-    author: 'Priya Nair',
-    role: 'General Manager',
-    company: 'Forma Hotel',
-    rating: 5,
-    project_slug: 'forma-hotel'
-  },
-  {
-    id: 5,
-    quote: 'We used to end every September with a clean slate and no relationship with the people who spent the summer with us. The spinner and the loyalty streak handle both in one season.',
-    author: 'Marcus Webb',
-    role: 'Director',
-    company: 'Pulse Beach Club',
-    rating: 5,
-    project_slug: 'pulse-beach-club'
-  }
 ];
 
 export const posts = [

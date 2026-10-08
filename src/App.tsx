@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigatio
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import { useI18n } from './i18n';
 
 /* Home ships in the initial bundle; every other route is split out and
    fetched on navigation. */
@@ -51,24 +52,26 @@ function ScrollToTop() {
 
 /** Shown while a lazily-imported route chunk downloads. */
 function RouteFallback() {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-5">
       <span className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
-        Loading<span className="text-lime">…</span>
+        {t('common.loading')}<span className="text-lime">…</span>
       </span>
     </div>
   );
 }
 
 function NotFound() {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-[80vh] flex-col items-center justify-center px-5 text-center">
-      <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">Error 404</p>
-      <h1 className="mt-4 font-display text-7xl uppercase sm:text-9xl">Lost<span className="text-outline">?</span></h1>
-      <p className="mt-4 max-w-sm text-bone/60">This page left the pass and never came back. Let us get you somewhere better.</p>
+      <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{t('common.error404')}</p>
+      <h1 className="display-type display-page mt-4 font-display uppercase">{t('notFound.title')}<span className="text-outline">?</span></h1>
+      <p className="mt-4 max-w-sm text-bone/60">{t('notFound.body')}</p>
       <div className="mt-8 flex gap-4">
-        <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">Home</Link>
-        <Link to="/demos" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">Live demos</Link>
+        <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">{t('notFound.home')}</Link>
+        <Link to="/demos" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">{t('notFound.demos')}</Link>
       </div>
     </div>
   );

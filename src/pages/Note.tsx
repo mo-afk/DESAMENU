@@ -9,7 +9,11 @@ import type { Post } from '../lib/api';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** A single field note. */
+import { useI18n } from '../i18n';
+
 export default function Note() {
+  const { t, dict } = useI18n();
+  const n = dict.notes;
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [related, setRelated] = useState<Post[]>([]);
@@ -22,11 +26,11 @@ export default function Note() {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = post ? `${post.title} — DESA Menu` : 'Notes — DESA Menu';
+    document.title = post ? `${post.title} — DESA Menu` : t('meta.notes');
     return () => {
       document.title = previous;
     };
-  }, [post]);
+  }, [post, t]);
 
   useEffect(() => {
     let active = true;
@@ -37,7 +41,7 @@ export default function Note() {
         if (!active) return;
         if (!p) {
           setPost(null);
-          setError('Note not found.');
+          setError(n.notFound);
           setLoadedSlug(slug);
           return;
         }
@@ -47,12 +51,12 @@ export default function Note() {
         setLoadedSlug(slug);
       } catch (e) {
         if (!active) return;
-        setError(e instanceof Error ? e.message : 'Failed to load note');
+        setError(e instanceof Error ? e.message : n.loadError);
         setLoadedSlug(slug);
       }
     })();
     return () => { active = false; };
-  }, [slug]);
+  }, [slug, n.notFound, n.loadError]);
 
   if (loading) {
     return (
@@ -68,8 +72,8 @@ export default function Note() {
   if (error || !post) {
     return (
       <div className="mx-auto max-w-4xl px-5 pb-24 pt-40 sm:px-8">
-        <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || 'Not found'}</p>
-        <Link to="/notes" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to notes</Link>
+        <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || n.notFound}</p>
+        <Link to="/notes" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> {n.backToNotes}</Link>
       </div>
     );
   }
@@ -78,14 +82,14 @@ export default function Note() {
     <div className="pt-[72px]">
       <section className="bg-blueprint border-b border-bone/10">
         <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
-          <Link to="/notes" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All notes</Link>
+          <Link to="/notes" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> {n.backToNotes}</Link>
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
             <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]">
               <span className="border border-lime/60 px-3 py-1 text-lime">{post.category}</span>
               <span className="text-fog">{formatDate(post.published_at)}</span>
-              <span className="inline-flex items-center gap-1 text-fog"><Clock className="h-3.5 w-3.5" />{post.read_time} min read</span>
+              <span className="inline-flex items-center gap-1 text-fog"><Clock className="h-3.5 w-3.5" />{post.read_time} {n.minRead}</span>
             </div>
-            <h1 className="mt-5 font-display text-4xl uppercase leading-[0.95] tracking-tight sm:text-5xl lg:text-6xl">{post.title}</h1>
+            <h1 className="display-type display-page mt-5 font-display uppercase tracking-tight">{post.title}</h1>
             <div className="mt-6 flex items-center gap-4 border-t border-bone/10 pt-6">
               <span className="flex h-12 w-12 items-center justify-center bg-bone font-display text-sm text-ink">{post.author.split(' ').map((w) => w[0]).join('')}</span>
               <div>
@@ -113,10 +117,10 @@ export default function Note() {
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-col gap-4 border border-bone/15 bg-coal p-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-display text-xl uppercase">Want this thinking in your venue?</p>
-              <p className="mt-1 text-sm text-fog">Tell us about your menu. We reply within one business day.</p>
+              <p className="font-display text-xl uppercase">{n.ctaTitle}</p>
+              <p className="mt-1 text-sm text-fog">{n.ctaBody}</p>
             </div>
-            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone">Book a demo <ArrowUpRight className="h-4 w-4" /></Link>
+            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone">{n.ctaButton} <ArrowUpRight className="h-4 w-4" /></Link>
           </div>
         </Reveal>
       </article>
@@ -124,15 +128,15 @@ export default function Note() {
       {related.length > 0 && (
         <section className="border-t border-bone/10">
           <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">Keep reading</p>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{n.keepReading}</p>
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               {related.map((r) => (
                 <Link key={r.id} to={`/notes/${r.slug}`} className="group grid gap-5 border border-bone/15 bg-coal p-5 sm:grid-cols-5 sm:p-6">
                   <div className="overflow-hidden sm:col-span-2"><img src={r.image_url} alt={r.title} loading="lazy" className="img-warm aspect-[16/10] h-full w-full object-cover group-hover:scale-[1.04]" /></div>
                   <div className="sm:col-span-3">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{r.category} — {r.read_time} min</p>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{r.category} — {r.read_time} {n.minShort}</p>
                     <h3 className="mt-2 font-display text-xl uppercase leading-tight group-hover:text-lime">{r.title}</h3>
-                    <span className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 group-hover:text-lime">Read <ArrowUpRight className="h-4 w-4" /></span>
+                    <span className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 group-hover:text-lime">{n.read} <ArrowUpRight className="h-4 w-4" /></span>
                   </div>
                 </Link>
               ))}

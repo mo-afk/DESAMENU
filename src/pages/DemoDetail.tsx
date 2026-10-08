@@ -3,13 +3,19 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Dices, Play, Tag, User } from 'lucide-react';
 import Reveal from '../components/Reveal';
+import DesaQrStand from '../components/desa/DesaQr';
 import { getProject, getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
+import { FeaturePills } from '../components/FeaturePills';
+import LiveMenuButton from '../components/LiveMenuButton';
+import { useI18n } from '../i18n';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** A single live DESA Menu demo — the venue, what runs there and the numbers. */
 export default function DemoDetail() {
+  const { t, dict } = useI18n();
+  const dl = dict.demos.detail;
   const { slug } = useParams<{ slug: string }>();
   const [demo, setDemo] = useState<Project | null>(null);
   const [next, setNext] = useState<Project | null>(null);
@@ -22,11 +28,11 @@ export default function DemoDetail() {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = demo ? `${demo.title} — DESA Menu demo` : 'Live demo — DESA Menu';
+    document.title = demo ? `${demo.title} — DESA Menu` : t('meta.demoDetail');
     return () => {
       document.title = previous;
     };
-  }, [demo]);
+  }, [demo, t]);
 
   useEffect(() => {
     let active = true;
@@ -37,7 +43,7 @@ export default function DemoDetail() {
         if (!active) return;
         if (!d) {
           setDemo(null);
-          setError('Demo not found.');
+          setError(dl.notFound);
           setLoadedSlug(slug);
           return;
         }
@@ -53,7 +59,7 @@ export default function DemoDetail() {
       }
     })();
     return () => { active = false; };
-  }, [slug]);
+  }, [slug, dl.notFound]);
 
   if (loading) {
     return (
@@ -68,34 +74,42 @@ export default function DemoDetail() {
   if (error || !demo) {
     return (
       <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8">
-        <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || 'Not found'}</p>
-        <Link to="/demos" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> Back to demos</Link>
+        <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || dl.notFound}</p>
+        <Link to="/demos" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> {t('common.allDemos')}</Link>
       </div>
     );
   }
 
   const meta = [
-    { icon: User, label: 'Venue', value: demo.client },
-    { icon: Calendar, label: 'Live since', value: String(demo.year) },
-    { icon: Tag, label: 'Deployment', value: `${demo.industry} · ${demo.category}` },
-    { icon: Dices, label: 'Table games', value: `${demo.games.length} live` },
-    { icon: Clock, label: 'Onboarding', value: demo.timeline || '-' },
+    { icon: User, label: dl.venue, value: demo.client },
+    { icon: Calendar, label: dl.liveSince, value: String(demo.year) },
+    { icon: Tag, label: dl.deployment, value: `${demo.industry} · ${demo.category}` },
+    ...(demo.games.length > 0
+      ? [{ icon: Dices, label: dl.tableGames, value: `${demo.games.length}${dl.gamesLiveSuffix}` }]
+      : []),
+    { icon: Clock, label: dl.onboarding, value: demo.timeline || '-' },
   ];
 
   return (
     <div className="pt-[72px]">
       <section className="mx-auto max-w-[1600px] px-5 pt-12 sm:px-8 lg:pt-16">
-        <Link to="/demos" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> All demos</Link>
+        <Link to="/demos" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> {t('common.allDemos')}</Link>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-6 flex flex-wrap items-center gap-3">
           <span className="inline-flex items-center gap-2 border border-lime/40 px-3 py-1.5">
             <span className="h-1.5 w-1.5 animate-pulse bg-lime" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-lime">Live demo</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-lime">{dict.demos.live}</span>
           </span>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-honey">{demo.industry}</span>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">{demo.category}</span>
         </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="mt-6 font-display text-5xl uppercase leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">{demo.title}</motion.h1>
+        <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="display-type display-page mt-6 font-display uppercase tracking-tight">{demo.title}</motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-4 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{demo.tagline}</motion.p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.22 }} className="mt-6 flex flex-wrap items-center gap-4">
+          <FeaturePills features={demo.features} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.3 }} className="mt-8">
+          <LiveMenuButton url={demo.externalMenuUrl} venue={demo.title} size="lg" />
+        </motion.div>
       </section>
 
       <section className="mx-auto mt-10 max-w-[1600px] px-5 sm:px-8">
@@ -122,26 +136,27 @@ export default function DemoDetail() {
         <div className="mt-14 grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">The venue</p>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{dl.theVenue}</p>
               <div className="mt-6 space-y-5 text-base leading-relaxed text-bone/80 sm:text-lg">
                 {demo.description.split('\n\n').map((para, i) => <p key={i}>{para}</p>)}
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-10 font-mono text-xs uppercase tracking-[0.3em] text-fog">Running in this venue</p>
+              <p className="mt-10 font-mono text-xs uppercase tracking-[0.3em] text-fog">{dl.runningHere}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {demo.services.map((s) => (<span key={s} className="border border-bone/20 px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone/80">{s}</span>))}
               </div>
             </Reveal>
+            {demo.games.length > 0 && (
             <Reveal delay={0.14}>
               <div className="mt-10 border border-honey/25 bg-honey/[0.04] p-6 sm:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-honey">
                     <Dices className="h-4 w-4" />
-                    Gamified dining ecosystem
+                    {dl.gamified}
                   </p>
                   <Link to="/features" className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/70 hover:text-honey">
-                    Explore the full suite
+                    {dl.exploreSuite}
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Link>
                 </div>
@@ -155,11 +170,33 @@ export default function DemoDetail() {
                 </ul>
               </div>
             </Reveal>
+            )}
+            <Reveal delay={0.16}>
+              <div className="mt-10 grid gap-10 border border-bone/15 bg-coal p-8 sm:p-10 lg:grid-cols-[260px_1fr] lg:items-center">
+                <DesaQrStand venue={demo.title} table={demo.client} className="mx-auto" />
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{dict.demos.stand.onTheTable}</p>
+                  <h2 className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight sm:text-3xl">
+                    {dict.demos.stand.venueTitle} <span className="font-serif normal-case italic font-medium text-lime">{dict.demos.stand.venueTitleAccent}</span>
+                  </h2>
+                  <p className="mt-4 text-sm leading-relaxed text-bone/70">
+                    {dict.demos.stand.venueBody}
+                  </p>
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {dict.demos.stand.venuePoints.map((item) => (
+                      <li key={item} className="border border-bone/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
           </div>
           <div className="lg:col-span-5">
             <Reveal delay={0.05}>
               <div className="glow-ember border border-ember/40 bg-ember/[0.05] p-8">
-                <p className="font-mono text-xs uppercase tracking-[0.3em] text-honey">Service results</p>
+                <p className="font-mono text-xs uppercase tracking-[0.3em] text-honey">{dl.results}</p>
                 <div className="mt-6 space-y-6">
                   {demo.metrics.map((m) => (
                     <div key={m.label} className="border-b border-bone/10 pb-6 last:border-0 last:pb-0">
@@ -172,7 +209,7 @@ export default function DemoDetail() {
             </Reveal>
             <Reveal delay={0.12}>
               <Link to="/contact" className="group mt-6 flex items-center justify-between bg-bone p-6 text-ink transition-colors hover:bg-lime">
-                <span className="font-display text-lg uppercase">Want this in your venue?</span>
+                <span className="font-display text-lg uppercase">{dl.wantThis}</span>
                 <ArrowUpRight className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
               </Link>
             </Reveal>
@@ -184,7 +221,7 @@ export default function DemoDetail() {
         <section className="border-t border-bone/10">
           <Link to={`/demos/${next.slug}`} className="group mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-12 sm:px-8 lg:py-16">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">Next demo</p>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{dl.next}</p>
               <p className="mt-3 font-display text-4xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-6xl">{next.title}</p>
               <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-fog">{next.industry} — {next.category}</p>
             </div>

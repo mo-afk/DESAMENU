@@ -55,14 +55,21 @@ configured) production:
 
 | Collection     | Contents                                                                                      |
 | -------------- | --------------------------------------------------------------------------------------------- |
-| `projects`     | 8 venue demos — La Terrasse, Noir Lounge, Café Atelier, Maison Verre, Velvet Hour, Forma Hotel, Pulse Beach Club, Brasserie Soleil |
-| `testimonials` | 5 operator quotes tied to venues                                                              |
+| `projects`     | 3 venue demos — JUVIA (Italian fine dining & lounge), LE MANOIR (café, gastronomie & lounge), PAUSE À PARIS (café, boulangerie & bistro), each with its own feature pills |
+| `testimonials` | 3 operator quotes, one per venue                                                              |
 | `posts`        | 7 field notes on video menus, phone-first design, loyalty, table games, deployment and analytics |
 | `inquiries`    | Empty — populated at runtime when a form is submitted                                          |
 
-Demos span **Fine Dining**, **Lounges** and **Cafes**, and each carries a
+Demos span **Fine Dining**, **Lounges** and **Bistro**, and each carries a
 tagline, long-form description, capability list, the `games` suite it runs,
 metrics and a timeline.
+
+Every venue also carries `features` — the tailored capabilities shown as pill
+badges on the showcase cards, the `/demos` grid and list rows, and the detail
+page header. Each pill is `{ label, kind }`, and `kind` decides how it reads:
+`game` pills take the honey accent and the dice mark, `module` pills stay
+neutral. That is what makes the three venues comparable at a glance — you can
+see which ones run table games and which sell speed instead.
 
 Imagery lives in `public/images/`. Dish and venue photography is treated with
 `.img-warm` (warm saturation and contrast) and `.warm-veil` (ember/honey radial
@@ -204,6 +211,88 @@ Utility classes include `bg-blueprint`, `text-outline`, `text-outline-faint`,
 `img-warm`, `warm-veil`, `glow-ember`, `link-sweep`, `writing-vertical`, `grain`
 and the marquee animations.
 
+## Languages
+
+The interface ships in **English (default), French, Arabic and Spanish**. The
+switcher sits beside *Book a Demo* in the navbar (a compact globe dropdown) and
+as a four-button row in the mobile menu.
+
+| File | Role |
+| ---- | ---- |
+| `src/i18n/en.ts`               | English dictionary — **the source of truth for the shape** |
+| `src/i18n/fr.ts`, `ar.ts`, `es.ts` | The other three, each annotated `: Dict` |
+| `src/i18n/features-*.ts`       | Per-locale copy for the eight capability/game entries |
+| `src/i18n/core.ts`             | Language registry, detection, dot-path lookup, hooks |
+| `src/i18n/provider.tsx`        | `I18nProvider` — the only component in the layer |
+| `src/i18n/content.ts`          | `useLocalizedFeatures` / `useLocalizedFeature` for `lib/features.ts` |
+| `src/components/LanguageSwitcher.tsx` | Dropdown (navbar) and inline (mobile menu) variants |
+
+How it works:
+
+- **No dependency.** ~250 lines of context in `src/i18n/`, nothing added to
+  `package.json`.
+- **`en.ts` is the schema.** `export type Dict = typeof en` widens every value to
+  `string`; the other locales are annotated `const fr: Dict`, so a missing or
+  misspelled key is a compile error rather than a string that quietly vanishes.
+- **Two accessors.** `t('nav.features')` for one string, `tl('faq.items')`-style
+  array reads via `dict` for lists and objects. Both fall back to English, then to
+  the key path, so a gap is visible instead of blank.
+- **No flash.** An inline script in `index.html` writes `lang`/`dir` onto `<html>`
+  from `localStorage['desa-menu:lang']` before the first paint; the provider then
+  keeps them in step. Switching languages loads the next dictionary first and
+  swaps words and direction in one commit.
+- **Code-split, not bloated.** English rides in the main chunk; FR/AR/ES are
+  separate ~27–34 kB chunks (≈10 kB gzip each) fetched on first use and warmed
+  during idle time. Switching to a language never re-downloads the app.
+- **RTL.** `dir="rtl"` on `<html>` plus logical utilities (`ms-`, `start-`, `end-`)
+  and mirrored chevrons in `src/index.css`; Arabic uses Noto Kufi Arabic and IBM
+  Plex Sans Arabic with letter-spacing and text-transform neutralised.
+- **Copy ownership.** UI chrome, FAQ and feature/game marketing copy are written
+  per locale. Long-form feature essays and all API-driven content (venue demo
+  bodies, field notes, operator quotes) stay English and fall back by design —
+  that is editorial copy tied to real shoots, not interface text.
+
+To add a locale: extend `LANGS`/`LANG_META` in `src/i18n/core.ts`, add the
+dictionary file annotated with `Dict`, add its loader to `LOADERS`, then add the
+code to the `index.html` bootstrap list.
+
+## Brand assets
+
+The official DESA Menu logo is a transparent PNG served from the DESA CDN and
+declared once in `src/lib/brand.ts`:
+
+```ts
+export const BRAND_LOGO_URL = 'https://pub-…r2.dev/image.png_…-removebg-preview.png';
+```
+
+Every in-app surface reads it from there through `<BrandLogo />`
+(`src/components/BrandLogo.tsx`), which sizes the mark by height (`h-9 w-auto`)
+so any lockup keeps its own aspect ratio:
+
+| Surface                        | Where                                            |
+| ------------------------------ | ------------------------------------------------ |
+| Navbar + mobile menu           | `components/Navbar.tsx`                          |
+| Footer mark + agency credit    | `components/Footer.tsx`                          |
+| In-app menu header preview     | `components/desa/DesaHero.tsx`                   |
+| QR stands (demos + detail)     | `components/desa/DesaQr.tsx`                     |
+| Favicon, `og:image`, Twitter   | `index.html` (static — keep in sync by hand)      |
+
+`<BrandLogo />` falls back to the inline SVG monogram (`components/Logo.tsx`)
+if the hosted file cannot be reached, so a blocked or offline request never
+leaves the interface without a mark.
+
+Because the asset is transparent, the mark carries no backing of its own: every
+surface it sits on is dark. The one exception is the mock QR code in `DesaQr`,
+whose code area has to stay light — the mark there sits on a dark chip inside
+the code's cleared zone. That chip is the single place to flip if the artwork
+ever changes from a light mark to a dark one.
+
+Favicon and `og:image` use the same URL, so a light mark on a light browser
+theme (or a social platform that composites transparency onto white) is the one
+place transparency works against us; `public/favicon.svg` stays wired as the
+`alternate icon` for that case, and a solid-background 1200×630 card is the
+proper long-term `og:image`.
+
 ## Deployment
 
 Deploys to Vercel as a static SPA (`dist/`) plus the `api/` functions. Set the
@@ -212,12 +301,16 @@ content is used.
 
 ## Before launch
 
-- Replace the placeholder contact details: `hello@desamenu.com`, the WhatsApp
-  link and the phone number (search for `wa.me` and `+212`), and the location
-  strings in `Contact`, `Footer` and `DesaContact`.
+- Set the operating locations in `Contact` (`contactPage.sidebar.locations`) —
+  Casablanca and Dubai are placeholders. The official contact details (email,
+  phone / WhatsApp, Instagram) are no longer scattered: they live in one place,
+  `CONTACT` in `src/lib/brand.ts`, and every surface imports from there.
 - Swap the AI-generated venue photography in `public/images/` for real venue
   shoots — the demos read far stronger with actual rooms and plates.
 - If you deploy the marketing site and the `api/` functions to different
   origins, set `CORS` or a proxy for `/api/*`.
-- The initial bundle is ~479 kB (149 kB gzip) with per-route chunks of
-  0.7–13 kB; splitting the vendor code out of `index` would be the next win.
+- The initial JS is ~503 kB (~158 kB gzip) across four long-lived chunks —
+  `index` (318 kB), `motion` (126 kB), `react` (49 kB) and `icons` (10 kB) — so no
+  single chunk trips Vite's 500 kB warning and a copy change never invalidates
+  React. Per-route chunks are 0.7–13 kB and the locale dictionaries (FR/AR/ES)
+  load on demand at ~10 kB gzip each.
