@@ -35,8 +35,8 @@ export const projects = [
       { label: 'Who Pays?', kind: 'game' },
       { label: 'Ideal Combo', kind: 'game' },
     ],
-    // Replace with the venue's real menu URL — the button opens it in a new tab.
-    externalMenuUrl: '#',
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://juvia-menu.vercel.app/',
     games: ['Who Pays?', 'Ideal Combo Spinner'],
     metrics: [
       { value: '+38%', label: 'Average spend per cover' },
@@ -72,8 +72,8 @@ export const projects = [
       { label: 'Social Links', kind: 'module' },
       { label: 'Personality Quiz', kind: 'game' },
     ],
-    // Replace with the venue's real menu URL — the button opens it in a new tab.
-    externalMenuUrl: '#',
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://videomenulemanoir2.vercel.app/',
     games: ['Taste & Personality Quiz'],
     metrics: [
       { value: '+27%', label: 'Paired-beverage uplift' },
@@ -109,8 +109,8 @@ export const projects = [
       { label: 'Fast Ordering', kind: 'module' },
       { label: 'Streamlined UX', kind: 'module' },
     ],
-    // Replace with the venue's real menu URL — the button opens it in a new tab.
-    externalMenuUrl: '#',
+    // The venue's own live menu — opened in a new tab by "View Live Menu".
+    externalMenuUrl: 'https://videomenu-pause-a-paris.vercel.app/',
     games: [],
     metrics: [
       { value: '−22%', label: 'Scan-to-order time' },
