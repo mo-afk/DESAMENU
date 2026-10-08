@@ -6,6 +6,7 @@ import SectionHeading from '../SectionHeading';
 import { getProjects } from '../../lib/api';
 import type { Project } from '../../lib/api';
 import { FeaturePills } from '../FeaturePills';
+import LiveMenuButton from '../LiveMenuButton';
 import { useI18n } from '../../i18n';
 
 /**
@@ -51,7 +52,11 @@ export default function DesaDemos() {
             ? [0, 1, 2].map((i) => <div key={i} className="aspect-[16/11] animate-pulse bg-carbon" />)
             : demos.map((demo, i) => (
                 <Reveal key={demo.id} delay={(i % 3) * 0.08}>
-                  <Link to={`/demos/${demo.slug}`} className="group block" aria-label={`${demo.title} — ${demo.industry}`}>
+                  {/* The card is no longer one big anchor: the venue link is stretched over
+                    the card from the title, so the external "View Live Menu"
+                    anchor can sit on top of it instead of inside it — nested
+                    anchors are invalid and the inner one stops working. */}
+                <article className="group relative">
                     <div className="relative aspect-[16/11] overflow-hidden border border-bone/15 bg-carbon">
                       <img
                         src={demo.image_url}
@@ -80,17 +85,26 @@ export default function DesaDemos() {
                     </div>
 
                     <div className="flex items-start justify-between gap-4 pt-5">
-                      <div>
-                        <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">{demo.title}</h3>
+                      <div className="min-w-0">
+                        <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">
+                          <Link
+                            to={`/demos/${demo.slug}`}
+                            aria-label={`${demo.title} — ${demo.industry}`}
+                            className="after:absolute after:inset-0"
+                          >
+                            {demo.title}
+                          </Link>
+                        </h3>
                         <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{demo.client}</p>
                         {/* Tailored capabilities, so the three venues can be
                             compared card by card: modules in neutral, games
                             in honey. */}
                         <FeaturePills features={demo.features} className="mt-4" />
+                        <LiveMenuButton url={demo.externalMenuUrl} venue={demo.title} className="relative z-10 mt-4" />
                       </div>
                       <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
                     </div>
-                  </Link>
+                </article>
                 </Reveal>
               ))}
         </div>

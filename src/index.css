@@ -117,8 +117,21 @@ html[lang='ar'] .display-type {
    preferred value is what makes it fill the column on a phone, and `break-words`
    on the markup is the backstop that stops a long word ever scrolling the page. */
 .display-hero {
-  font-size: clamp(2.25rem, 11cqw, 5rem);
+  /* `cqw` measures the copy column, which narrows to 7/12 of the layout at
+     `lg` — the right unit, but a browser without container-query support would
+     discard the whole declaration and fall back to the user agent's own h1
+     size. That is the "headline got small" failure, so the vw value below is
+     the baseline and the cqw value replaces it only where it can be honoured.
+     (Two stacked declarations would say the same thing in one rule, but the
+     minifier strips the first as dead code — an @supports block survives.) */
+  font-size: clamp(2.25rem, 9vw, 5rem) !important;
   line-height: 0.92;
+}
+
+@supports (container-type: inline-size) {
+  .display-hero {
+    font-size: clamp(2.25rem, 11cqw, 5rem) !important;
+  }
 }
 
 /* Full-width page headings: Contact, PageHeader, demo and note titles. */

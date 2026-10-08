@@ -28,6 +28,12 @@ export interface Project {
   services: string[];
   /** Tailored capabilities, in priority order — rendered as pills. */
   features: ProjectFeature[];
+  /**
+   * The venue's own live menu, opened in a new tab from "View Live Menu".
+   * `'#'` is the placeholder: until it is replaced the button renders in a
+   * disabled state rather than opening a blank tab.
+   */
+  externalMenuUrl: string;
   games: string[];
   metrics: Metric[];
   featured: boolean;

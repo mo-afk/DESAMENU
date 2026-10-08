@@ -36,6 +36,8 @@ export const es: Dict = {
     featured: 'Destacado',
     prevTestimonial: 'Testimonio anterior',
     nextTestimonial: 'Testimonio siguiente',
+    viewLiveMenu: 'Ver la carta en vivo',
+    liveMenuSoon: 'El enlace a la carta en vivo estará disponible pronto',
     eyebrowIndexSeparator: ' — ',
   },
 

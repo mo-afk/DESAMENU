@@ -35,6 +35,8 @@ export const fr: Dict = {
     featured: 'À la une',
     prevTestimonial: 'Témoignage précédent',
     nextTestimonial: 'Témoignage suivant',
+    viewLiveMenu: 'Voir le menu',
+    liveMenuSoon: 'Le lien vers le menu en ligne arrive bientôt',
     eyebrowIndexSeparator: ' — ',
   },
 

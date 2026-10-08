@@ -7,6 +7,7 @@ import DesaQrStand from '../components/desa/DesaQr';
 import { getProject, getProjects } from '../lib/api';
 import type { Project } from '../lib/api';
 import { FeaturePills } from '../components/FeaturePills';
+import LiveMenuButton from '../components/LiveMenuButton';
 import { useI18n } from '../i18n';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -103,8 +104,11 @@ export default function DemoDetail() {
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="display-type display-page mt-6 break-words font-display uppercase tracking-tight">{demo.title}</motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-4 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{demo.tagline}</motion.p>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.22 }} className="mt-6">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.22 }} className="mt-6 flex flex-wrap items-center gap-4">
           <FeaturePills features={demo.features} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.3 }} className="mt-8">
+          <LiveMenuButton url={demo.externalMenuUrl} venue={demo.title} size="lg" />
         </motion.div>
       </section>
 

@@ -40,6 +40,8 @@ export const ar: Dict = {
     featured: 'مميّز',
     prevTestimonial: 'الشهادة السابقة',
     nextTestimonial: 'الشهادة التالية',
+    viewLiveMenu: 'مشاهدة المنيو الحقيقي',
+    liveMenuSoon: 'رابط القائمة الحقيقية قريباً',
     eyebrowIndexSeparator: ' — ',
   },
 

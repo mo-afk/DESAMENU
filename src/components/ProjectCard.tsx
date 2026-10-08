@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Dices } from 'lucide-react';
 import type { Project } from '../lib/api';
 import { FeaturePills } from './FeaturePills';
+import LiveMenuButton from './LiveMenuButton';
 import { useI18n } from '../i18n';
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   const { t } = useI18n();
   return (
-    <Link to={`/demos/${project.slug}`} className="group block">
+    /* Stretched title link rather than a wrapping anchor: the external
+       "View Live Menu" link has to live outside the venue link. */
+    <article className="group relative">
       <div className={`relative overflow-hidden bg-carbon ${large ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
         <img
           src={project.image_url}
@@ -29,36 +32,44 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         )}
       </div>
       <div className="flex items-start justify-between gap-4 pt-5">
-        <div>
-          <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">{project.title}</h3>
+        <div className="min-w-0">
+          <h3 className="font-display text-xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-2xl">
+            <Link to={`/demos/${project.slug}`} className="after:absolute after:inset-0">{project.title}</Link>
+          </h3>
           <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-fog">{project.client}</p>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-bone/70">{project.tagline}</p>
           <FeaturePills features={project.features} className="mt-4" />
+          <LiveMenuButton url={project.externalMenuUrl} venue={project.title} className="relative z-10 mt-4" />
         </div>
         <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
       </div>
-    </Link>
+    </article>
   );
 }
 
 export function ProjectRow({ project, index }: { project: Project; index: number }) {
   return (
-    <Link to={`/demos/${project.slug}`} className="group grid grid-cols-12 items-center gap-4 border-b border-bone/10 py-6 transition-colors hover:bg-bone/[0.03] sm:gap-6 sm:px-4">
+    /* Same stretched-link arrangement as the card, so the row's external
+       action is reachable without nesting anchors. */
+    <article className="group relative grid grid-cols-12 items-center gap-4 border-b border-bone/10 py-6 transition-colors hover:bg-bone/[0.03] sm:gap-6 sm:px-4">
       <span className="col-span-2 font-mono text-xs text-fog sm:col-span-1">{String(index + 1).padStart(2, '0')}</span>
       <div className="col-span-10 sm:col-span-5">
-        <h3 className="font-display text-2xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-4xl">{project.title}</h3>
+        <h3 className="font-display text-2xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-4xl">
+          <Link to={`/demos/${project.slug}`} className="after:absolute after:inset-0">{project.title}</Link>
+        </h3>
         <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-fog">{project.client} - {project.industry}</p>
       </div>
       <div className="hidden sm:col-span-4 sm:block">
         <p className="text-sm text-bone/60">{project.tagline}</p>
         <FeaturePills features={project.features} size="sm" limit={3} className="mt-3" />
       </div>
-      <div className="col-span-10 col-start-3 flex items-center justify-between sm:col-span-2 sm:col-start-auto sm:justify-end sm:gap-4">
+      <div className="col-span-10 col-start-3 flex flex-wrap items-center justify-between gap-3 sm:col-span-3 sm:col-start-auto sm:justify-end sm:gap-4">
         {project.games.length > 0 && (
           <span className="inline-flex items-center gap-2 border border-honey/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-honey"><Dices className="h-3 w-3" />{project.games.length} game{project.games.length === 1 ? '' : 's'}</span>
         )}
+        <LiveMenuButton url={project.externalMenuUrl} venue={project.title} className="relative z-10" />
         <ArrowUpRight className="h-5 w-5 text-fog transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-lime" />
       </div>
-    </Link>
+    </article>
   );
 }

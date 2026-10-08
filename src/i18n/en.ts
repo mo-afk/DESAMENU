@@ -37,6 +37,8 @@ export const en = {
     featured: 'Featured',
     prevTestimonial: 'Previous testimonial',
     nextTestimonial: 'Next testimonial',
+    viewLiveMenu: 'View Live Menu',
+    liveMenuSoon: 'The live menu link is coming soon',
     eyebrowIndexSeparator: ' — ',
   },
 
