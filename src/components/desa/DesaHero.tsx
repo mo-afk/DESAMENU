@@ -63,7 +63,7 @@ function DesaDeviceMockup() {
           <div className="flex items-center justify-between gap-3 px-4 py-3.5">
             <div className="min-w-0">
               <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-smoke">{d.appName}</p>
-              <p className="mt-1 truncate font-display text-lg uppercase leading-none">{d.venue}</p>
+              <p className="mt-1 truncate font-display text-lg uppercase leading-tight">{d.venue}</p>
             </div>
             {/* Dark graphite chip — no light plate behind the transparent mark */}
             <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-bone/15 bg-carbon/80 p-1.5">
@@ -107,7 +107,7 @@ function DesaDeviceMockup() {
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3">
                 <div>
                   <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-honey">{d.signature}</p>
-                  <p className="mt-0.5 font-display text-sm uppercase leading-none">{d.dish}</p>
+                  <p className="mt-0.5 font-display text-sm uppercase leading-tight">{d.dish}</p>
                 </div>
                 <span className="font-mono text-[11px] text-bone" dir="ltr">{d.price}</span>
               </div>
@@ -168,8 +168,14 @@ export default function DesaHero() {
 
       <div className="relative mx-auto max-w-[1600px] px-5 pb-16 pt-32 sm:px-8 lg:pb-24 lg:pt-40">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-10">
-          {/* Copy */}
-          <div className="lg:col-span-7">
+          {/* Copy.
+              `min-w-0` lets the grid track shrink below the width of the
+              longest word instead of pushing the column past the viewport, and
+              `container-type` makes the column the reference for the headline's
+              fluid size — so the type tracks its own column rather than the
+              window. Without those two, "TRANSFORMEZ" sets a min-content floor
+              wider than a phone and the line is clipped at the edge. */}
+          <div className="min-w-0 [container-type:inline-size] lg:col-span-7">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }} className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 border border-bone/20 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-bone/80">
                 <Sparkles className="h-3.5 w-3.5 text-lime" />
@@ -178,19 +184,23 @@ export default function DesaHero() {
               <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-fog">{h.disciplines}</span>
             </motion.div>
 
-            <h1 className="mt-8 font-display uppercase leading-[0.88] tracking-tight">
-              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08, ease: EASE }} className="block text-[12vw] sm:text-[9vw] lg:text-[5.4vw]">
+            {/* One size for the whole block, set on the h1 rather than
+                repeated per line. `break-words` is the backstop: if a locale
+                ever ships a word wider than the column, it breaks inside the
+                line instead of running past the edge. */}
+            <h1 className="display-hero mt-8 break-words font-display uppercase tracking-tight">
+              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08, ease: EASE }} className="block">
                 {h.titleLine1}
               </motion.span>
-              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} className="block text-[12vw] sm:text-[9vw] lg:text-[5.4vw]">
+              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} className="block">
                 {h.titleLine2Pre} <span className="text-outline">{h.titleLine2Accent}</span>
               </motion.span>
-              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.32, ease: EASE }} className="block text-[12vw] sm:text-[9vw] lg:text-[5.4vw]">
+              <motion.span initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.32, ease: EASE }} className="block">
                 {h.titleLine3Pre} <span className="font-serif normal-case italic font-medium tracking-normal text-lime">{h.titleLine3Accent}</span>
               </motion.span>
             </h1>
 
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-8 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-8 max-w-2xl break-words text-base leading-relaxed text-bone/70 sm:text-lg">
               {h.sub}
             </motion.p>
 
@@ -217,7 +227,7 @@ export default function DesaHero() {
           </div>
 
           {/* Visual */}
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.35, ease: EASE }} className="lg:col-span-5">
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.35, ease: EASE }} className="min-w-0 lg:col-span-5">
             <DesaDeviceMockup />
           </motion.div>
         </div>

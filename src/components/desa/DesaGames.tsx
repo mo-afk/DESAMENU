@@ -94,7 +94,7 @@ export default function DesaGames() {
                 >
                   <item.icon className={`mt-0.5 h-6 w-6 shrink-0 transition-colors ${selected ? 'text-honey' : 'text-smoke group-hover:text-fog'}`} strokeWidth={1.5} />
                   <span className="min-w-0">
-                    <span className={`block font-display text-base uppercase leading-tight tracking-tight transition-colors sm:text-lg ${selected ? 'text-bone' : 'text-bone/70'}`}>
+                    <span className={`block break-words font-display text-base uppercase leading-tight tracking-tight transition-colors sm:text-lg ${selected ? 'text-bone' : 'text-bone/70'}`}>
                       {item.title}
                     </span>
                     <span className={`mt-1.5 block font-mono text-[9px] uppercase tracking-[0.2em] ${selected ? 'text-honey' : 'text-smoke'}`}>
@@ -125,11 +125,11 @@ export default function DesaGames() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: EASE }}
-              className="grid gap-10 p-8 lg:min-h-[430px] lg:grid-cols-12 lg:gap-14 lg:p-12"
+              className="grid gap-10 p-6 sm:p-8 lg:min-h-[430px] lg:grid-cols-12 lg:gap-14 lg:p-12"
             >
               <div className="flex flex-col lg:col-span-6">
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-honey">{active.kindLabel}</p>
-                <h3 className="mt-4 font-display text-3xl uppercase leading-[0.95] tracking-tight sm:text-4xl">{active.title}</h3>
+                <h3 className="display-card mt-4 break-words font-display uppercase tracking-tight">{active.title}</h3>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-bone/75">{active.short}</p>
 
                 <ul className="mt-7 space-y-3 border-t border-bone/10 pt-6">

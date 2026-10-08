@@ -17,7 +17,7 @@ export default function DesaValueGrid() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
               <span className="bg-lime px-1.5 py-0.5 font-bold text-ink">{v.index}</span>&nbsp;&nbsp;{v.eyebrow}
             </p>
-            <h2 className="mt-4 max-w-3xl font-display text-3xl uppercase leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="display-section mt-4 max-w-3xl break-words font-display uppercase tracking-tight">
               {v.title} <span className="font-serif normal-case italic font-medium">{v.accent}</span>
             </h2>
           </Reveal>

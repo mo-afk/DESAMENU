@@ -152,7 +152,7 @@ export const ES_FEATURES = {
   },
 
   'custom-games': {
-    title: 'Juegos de mesa a medida y microinteracciones de fidelidad',
+    title: 'Juegos de mesa a medida y micro-interacciones de fidelidad',
     kindLabel: 'Juego interactivo',
     short: 'Funciones de juego personalizables, pensadas para elevar la interacción en mesa y el ticket medio.',
     tagline: 'La capa que los operadores nos piden inventar — hecha para su marca, medida como todo lo demás.',

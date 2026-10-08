@@ -13,7 +13,7 @@ export default function DesaCta() {
       <div className="relative mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8 lg:py-32">
         <Reveal>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{c.eyebrow}</p>
-          <h2 className="mx-auto mt-6 max-w-5xl font-display text-4xl uppercase leading-[0.92] sm:text-6xl lg:text-7xl">
+          <h2 className="display-section mx-auto mt-6 max-w-5xl break-words font-display uppercase">
             {c.title} <span className="font-serif normal-case italic font-medium text-lime">{c.accent}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">

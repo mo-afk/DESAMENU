@@ -98,7 +98,7 @@ export default function DemoDetail() {
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-honey">{demo.industry}</span>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">{demo.category}</span>
         </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="mt-6 font-display text-5xl uppercase leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">{demo.title}</motion.h1>
+        <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease: EASE }} className="display-page mt-6 break-words font-display uppercase tracking-tight">{demo.title}</motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-4 max-w-2xl font-serif text-xl italic text-bone/75 sm:text-2xl">{demo.tagline}</motion.p>
       </section>
 

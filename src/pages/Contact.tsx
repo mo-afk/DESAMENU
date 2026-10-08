@@ -94,7 +94,7 @@ export default function Contact() {
       <section className="bg-blueprint border-b border-bone/10">
         <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-20">
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{c.index} - {c.eyebrow}</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="mt-6 font-display text-6xl uppercase leading-[0.9] sm:text-8xl lg:text-[7vw]">{dict.contact.title} <span className="font-serif font-medium italic normal-case text-lime">{dict.contact.accent}</span></motion.h1>
+          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="display-page mt-6 break-words font-display uppercase">{dict.contact.title} <span className="font-serif font-medium italic normal-case text-lime">{dict.contact.accent}</span></motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">{c.intro}</motion.p>
         </div>
       </section>

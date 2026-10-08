@@ -98,7 +98,7 @@ export default function Demos() {
           <div className="mt-20 grid gap-12 border-t border-bone/10 pt-14 lg:grid-cols-12 lg:items-center lg:gap-16">
             <div className="lg:col-span-7">
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{d.stand.onTheTable}</p>
-              <h2 className="mt-4 max-w-xl font-display text-3xl uppercase leading-[0.95] tracking-tight sm:text-4xl">
+              <h2 className="display-section mt-4 max-w-2xl break-words font-display uppercase tracking-tight">
                 {d.stand.title} <span className="font-serif normal-case italic font-medium">{d.stand.titleAccent}</span>
               </h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-bone/70">

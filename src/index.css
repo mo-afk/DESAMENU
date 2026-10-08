@@ -50,6 +50,78 @@ html[lang='ar'] :not(svg):not(path) {
   text-transform: none !important;
 }
 
+/* Arabic sits far taller than Latin caps: ascenders and descenders reach well
+   past the Latin line box, so the compressed leading that gives the Latin
+   headlines their weight stacks one Arabic line onto the next. Every display
+   heading gets the room Kufi actually needs, while Latin keeps its tight
+   setting. Scoped to headings so the wordmark, marquee and watermark — all
+   single-line — keep their own metrics. */
+html[lang='ar'] h1,
+html[lang='ar'] h2,
+html[lang='ar'] h3,
+html[lang='ar'] h4,
+html[lang='ar'] h5,
+html[lang='ar'] h6 {
+  line-height: 1.34 !important;
+}
+
+/* Arabic is cursive and carries no italic: a synthesised oblique on a Kufi
+   face reads as a rendering fault rather than emphasis. The serif accents
+   (which are italic in every Latin locale) therefore stand upright. */
+html[lang='ar'] .italic,
+html[lang='ar'] .font-serif {
+  font-style: normal !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Display type scale                                                  */
+/* ------------------------------------------------------------------ */
+
+/* Every headline sizes against its own container (`cqw`, which falls back to
+   the viewport where no container is declared) instead of a fixed step, and is
+   clamped between the smallest size that stays legible and the largest that
+   still fits the longest word the dictionaries contain. A French
+   "TRANSFORMEZ" or a Spanish "interacciones" therefore cannot run past the
+   edge of the column it sits in, at any width.
+
+   Each class also carries the tight Latin leading the display faces want; the
+   Arabic rule above raises it for the locales that need the room. The ceilings
+   are the sizes these headings had at their widest breakpoint, so desktop type
+   is unchanged and only the small end of each scale moves. */
+
+/* Hero headline — container-queried against the copy column, which drops to
+   7/12 of the layout at `lg`, so it tracks the column rather than the page. */
+.display-hero {
+  font-size: clamp(1.45rem, 9cqw, 5rem);
+  line-height: 0.92;
+}
+
+/* Full-width page headings: Contact, PageHeader, demo and note titles. */
+.display-page {
+  font-size: clamp(1.4rem, 7vw, 6rem);
+  line-height: 0.94;
+}
+
+/* Headings inside a narrow measure — `max-w-4xl` on the feature detail page,
+   where a long compound word sets the ceiling. */
+.display-narrow {
+  font-size: clamp(1.4rem, 5.6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+/* Section headings: section intro rows, value grid, closing CTA, contact. */
+.display-section {
+  font-size: clamp(1.45rem, 5vw, 4.5rem);
+  line-height: 0.95;
+}
+
+/* Card and tab-panel titles living in a half-width column, where the worst
+   token in any locale ("interactions", "interacciones") has to fit 216px. */
+.display-card {
+  font-size: clamp(1.1rem, 3.4vw, 2rem);
+  line-height: 1.05;
+}
+
 /* Directional icons are authored for LTR; mirror the ones that carry meaning
    (arrows, chevrons) so "next" still points forward in Arabic. */
 [dir='rtl'] svg.lucide-arrow-up-right,

@@ -21,7 +21,7 @@ export default function DesaContact() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">
               <span className="bg-lime px-1.5 py-0.5 font-bold text-ink">{t('contact.index')}</span>&nbsp;&nbsp;{t('contact.eyebrow')}
             </p>
-            <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] tracking-tight sm:text-5xl">
+            <h2 className="display-section mt-4 break-words font-display uppercase tracking-tight">
               {t('contact.title')} <span className="font-serif normal-case italic font-medium text-lime">{t('contact.accent')}</span>
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-bone/70">
