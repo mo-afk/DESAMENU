@@ -52,6 +52,9 @@ export default function apiRoutes(): Plugin {
             headers: req.headers,
             query: Object.fromEntries(new URLSearchParams(search)),
             body,
+            // Set by the dev middleware, never from a client-supplied header or
+            // body. Production Vercel requests do not carry this flag.
+            localDev: true,
           };
 
           const shimRes = {
@@ -107,6 +110,14 @@ export default function apiRoutes(): Plugin {
 
       server.middlewares.use(middleware);
       server.config.logger.info(`[api] serving ${routes.size} serverless handler(s) locally: /api/*`);
+      // Check the server-side environment after vite.config.ts has loaded
+      // .env/.env.local. Never log the key itself.
+      const key = process.env.RESEND_API_KEY?.trim();
+      server.config.logger.info(
+        key && key !== 're_your_key_here'
+          ? '[api] contact: RESEND_API_KEY loaded (email delivery enabled)'
+          : '[api] contact: no RESEND_API_KEY (local mock; no email sent)',
+      );
     },
   };
 }

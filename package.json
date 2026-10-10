@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "icons": "node scripts/build-favicons.mjs",
     "lint": "eslint .",
+    "test": "node --test",
     "preview": "vite preview"
   },
   "dependencies": {

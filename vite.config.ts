@@ -6,6 +6,17 @@ import faviconRedirect from './vite-plugin-favicon';
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
+  /* Vite re-evaluates this config on .env changes without replacing the Node
+     process. Remove only values we previously copied from files, so removing
+     a key switches the handler back to local mock mode instead of retaining a
+     stale key. Preserve any value changed by the host in the meantime. */
+  const state = globalThis as typeof globalThis & { __desaViteFileEnv?: Map<string, string> };
+  for (const [key, value] of state.__desaViteFileEnv ?? []) {
+    if (process.env[key] === value) delete process.env[key];
+  }
+  const injected = new Map<string, string>();
+  state.__desaViteFileEnv = injected;
+
   /* Expose VITE_* / NEXT_PUBLIC_* vars to client code as process.env.* */
   const env = loadEnv(mode, process.cwd(), ['VITE_', 'NEXT_PUBLIC_']);
   const processEnvDefines: Record<string, string> = {};
@@ -23,7 +34,10 @@ export default defineConfig(({ mode }) => {
      the host always wins over a file value. */
   const fileEnv = loadEnv(mode, process.cwd(), '');
   for (const [key, value] of Object.entries(fileEnv)) {
-    if (process.env[key] === undefined) process.env[key] = value;
+    if (process.env[key] === undefined) {
+      process.env[key] = value;
+      injected.set(key, value);
+    }
   }
   /* Note: there is intentionally NO hardcoded fallback key here. Copy
      .env.example to .env.local and fill in RESEND_API_KEY for local dev,

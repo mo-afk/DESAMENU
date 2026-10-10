@@ -9,8 +9,9 @@ import { Resend } from 'resend';
  * watching a dashboard. Nothing about the form's UX changes: the caller gets
  * JSON back and stays on the page.
  *
- * Configuration (all optional except the API key):
- *   RESEND_API_KEY  required — without it the route answers 503
+ * Configuration (all optional except the API key in production):
+ *   RESEND_API_KEY  required in production; without it Vite dev logs the
+ *                   validated lead locally instead of emailing it
  *   LEADS_INBOX     where leads go (default: the official DESA address)
  *   LEADS_FROM      sender identity; `onboarding@resend.dev` only works while
  *                   the account has no verified domain
@@ -143,17 +144,6 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  /* RESEND_API_KEY must be set in the environment (Vercel dashboard in
-     production, .env.local in local dev — see .env.example). When the key is
-     missing we answer 503 instead of attempting the send, so misconfiguration
-     is visible immediately rather than surfacing as a mysterious network
-     error. */
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('api/contact: RESEND_API_KEY is not set');
-    return res.status(503).json({ error: 'Email delivery is not configured on this server.' });
-  }
-
   const body = req.body && typeof req.body === 'object' ? req.body : {};
   const lead = {
     name: clean(body.name, LIMITS.name),
@@ -175,6 +165,19 @@ export default async function handler(req, res) {
   }
   if (!lead.email && lead.phone.replace(/\D/g, '').length < 6) {
     return res.status(400).json({ error: 'Please leave an email address or a phone number.' });
+  }
+
+  // The example file contains a placeholder, not a usable key. Only the
+  // Vite dev middleware can opt in to the local mock; a production request
+  // without a real key still fails rather than falsely claiming delivery.
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  if (!apiKey || apiKey === 're_your_key_here') {
+    if (req.localDev === true) {
+      console.info('api/contact: local mock submission (NOT emailed):', lead);
+      return res.status(200).json({ ok: true, id: null, mocked: true });
+    }
+    console.error('api/contact: RESEND_API_KEY is not configured');
+    return res.status(503).json({ error: 'Email delivery is not configured on this server.' });
   }
 
   const { subject, html, text } = buildEmail(lead);
