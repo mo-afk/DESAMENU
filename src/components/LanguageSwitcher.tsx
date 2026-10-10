@@ -117,7 +117,7 @@ function CompactDropdown({ className = '' }: { className?: string }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={t('nav.switchAria')}
-        className={`inline-flex h-10 items-center gap-2 border bg-coal/80 ps-3 pe-2.5 font-mono text-[10px] uppercase tracking-[0.15em] backdrop-blur-sm transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-lime ${
+        className={`inline-flex h-12 items-center gap-2 border bg-coal/80 ps-3 pe-2.5 font-mono text-[10px] uppercase tracking-[0.15em] backdrop-blur-sm transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-lime ${
           open
             ? 'border-honey/60 bg-carbon/80 text-bone'
             : 'border-bone/10 text-bone/80 hover:border-honey/50 hover:text-bone'
@@ -144,7 +144,7 @@ function CompactDropdown({ className = '' }: { className?: string }) {
                   <button
                     type="button"
                     onClick={() => choose(code)}
-                    className={`flex w-full items-center justify-between gap-4 px-4 py-3 text-start transition-colors focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-lime ${
+                    className={`flex min-h-12 w-full items-center justify-between gap-4 px-4 py-3 text-start transition-colors focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-lime ${
                       active ? 'bg-lime/10 text-lime' : 'text-bone/80 hover:bg-bone/[0.05] hover:text-bone'
                     }`}
                   >
@@ -181,7 +181,7 @@ function InlineRow() {
             type="button"
             onClick={() => setLang(code)}
             aria-pressed={active}
-            className={`inline-flex items-center gap-2 border px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] transition-colors ${
+            className={`inline-flex min-h-12 items-center gap-2 border px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] transition-colors ${
               active
                 ? 'border-lime bg-lime/15 text-lime'
                 : 'border-bone/10 bg-coal/80 text-bone/70 hover:border-honey/50 hover:text-bone'

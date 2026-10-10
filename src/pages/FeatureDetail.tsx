@@ -67,11 +67,11 @@ export default function FeatureDetail() {
 
   if (!feature) {
     return (
-      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8">
+      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8 md:px-12">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{t('common.error404')}</p>
         <h1 className="mt-4 font-display text-5xl uppercase sm:text-6xl">{t('notFound.title')}</h1>
         <p className="mt-4 max-w-md text-bone/60">{fd.notFoundBody}</p>
-        <Link to="/features" className="mt-8 inline-flex items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-bone">
+        <Link to="/features" className="mt-8 inline-flex items-center gap-2 bg-lime px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-bone">
           <ArrowLeft className="h-4 w-4" /> {fd.backToFeaturesLabel}
         </Link>
       </div>
@@ -87,10 +87,10 @@ export default function FeatureDetail() {
     <div className="pt-[72px]">
       {/* ------------------------- sticky back bar ------------------------- */}
       <div className="sticky top-[72px] z-40 border-b border-bone/10 bg-ink/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-5 py-3 sm:px-8">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-5 py-3 sm:px-8 md:px-12">
           <Link
             to="/features"
-            className="group inline-flex items-center gap-2 border border-bone/25 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
+            className="group inline-flex min-h-12 items-center gap-2 border border-bone/25 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
           >
             <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
             {fd.backToFeaturesLabel}
@@ -112,7 +112,7 @@ export default function FeatureDetail() {
 
       {/* ------------------------------- hero ------------------------------ */}
       <section className="bg-blueprint border-b border-bone/10">
-        <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 lg:py-20">
+        <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12 lg:py-20">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 border border-honey/40 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-honey">
@@ -148,7 +148,7 @@ export default function FeatureDetail() {
       </section>
 
       {/* ------------------------------ body ------------------------------- */}
-      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
+      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>
@@ -261,7 +261,7 @@ export default function FeatureDetail() {
       {/* --------------------------- related ------------------------------- */}
       {related.length > 0 && (
         <section className="border-t border-bone/10">
-          <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
+          <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{t('features.detail.related')}</p>
             <div className="mt-8 grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-3">
               {related.map((r) => (
@@ -281,7 +281,7 @@ export default function FeatureDetail() {
 
       {/* ------------------------ bottom return block ---------------------- */}
       <section className="border-t border-bone/10 bg-coal">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-8 px-5 py-14 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-8 px-5 py-14 sm:px-8 md:px-12 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{fd.endOfPage}</p>
             <p className="mt-3 font-display text-2xl uppercase leading-tight tracking-tight sm:text-3xl">{fd.backToWhere}</p>
@@ -307,7 +307,7 @@ export default function FeatureDetail() {
         </div>
         {next && (
           <Link to={`/features/${next.slug}`} className="group block border-t border-bone/10 transition-colors hover:bg-ink">
-            <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-10 sm:px-8">
+            <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-10 sm:px-8 md:px-12">
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{dict.demos.detail.next}</p>
                 <p className="mt-3 font-display text-3xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-5xl">{next.title}</p>

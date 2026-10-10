@@ -31,8 +31,8 @@ export default function LiveMenuButton({
     'inline-flex items-center gap-2 border font-mono uppercase tracking-[0.2em] transition-colors';
   const look =
     size === 'lg'
-      ? 'border-bone/25 px-6 py-3.5 text-xs text-bone hover:bg-bone hover:text-ink'
-      : 'border-bone/20 px-4 py-2.5 text-[10px] text-bone/80 hover:border-lime hover:text-lime';
+      ? 'border-bone/25 px-6 py-4 text-xs text-bone hover:bg-bone hover:text-ink'
+      : 'border-bone/20 min-h-12 px-4 py-2.5 text-[10px] text-bone/80 hover:border-lime hover:text-lime';
 
   if (isPlaceholder(url)) {
     return (

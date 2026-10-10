@@ -103,8 +103,8 @@ function NotFound() {
       <h1 className="display-type display-page mt-4 font-display uppercase">{t('notFound.title')}<span className="text-outline">?</span></h1>
       <p className="mt-4 max-w-sm text-bone/60">{t('notFound.body')}</p>
       <div className="mt-8 flex gap-4">
-        <Link to="/" className="bg-bone px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">{t('notFound.home')}</Link>
-        <Link to="/demos" className="border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">{t('notFound.demos')}</Link>
+        <Link to="/" className="bg-bone px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink hover:bg-lime">{t('notFound.home')}</Link>
+        <Link to="/demos" className="border border-bone/25 px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] hover:bg-bone hover:text-ink">{t('notFound.demos')}</Link>
       </div>
     </div>
   );
@@ -119,7 +119,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="grain min-h-screen bg-ink font-body text-bone">
+      <div className="grain min-h-screen overflow-x-hidden bg-ink font-body text-bone">
         <Navbar />
         <main>
           <Suspense fallback={<RouteFallback />}>

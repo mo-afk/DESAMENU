@@ -17,7 +17,7 @@ export default function DesaContact() {
     { icon: Phone, label: t('contact.channelLabels.phone'), value: CONTACT.phone, href: CONTACT.phoneHref, ltr: true },
   ];
   return (
-    <section id="desa-demo" className="mx-auto max-w-[1600px] scroll-mt-20 px-5 py-20 sm:px-8 lg:py-28">
+    <section id="desa-demo" className="mx-auto max-w-[1600px] scroll-mt-20 px-5 py-20 sm:px-8 md:px-12 lg:py-28">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* Intro */}
         <div className="lg:col-span-5">

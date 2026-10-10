@@ -13,7 +13,7 @@ export default function DesaFeatures() {
   const f = dict.features;
   const capabilities = useLocalizedFeatures(CAPABILITIES);
   return (
-    <section id="desa-features" className="mx-auto scroll-mt-20 max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+    <section id="desa-features" className="mx-auto scroll-mt-20 max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
       <SectionHeading index={f.index} eyebrow={f.eyebrow} title={f.title} accent={f.accent} />
       <Reveal delay={0.1}>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">

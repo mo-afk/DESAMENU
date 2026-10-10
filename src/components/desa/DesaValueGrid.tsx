@@ -11,7 +11,7 @@ export default function DesaValueGrid() {
   const v = dict.value;
   return (
     <section id="desa-value" className="scroll-mt-20 border-b border-bone/10 bg-coal">
-      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 md:px-12 lg:py-24">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">

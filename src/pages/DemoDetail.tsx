@@ -63,7 +63,7 @@ export default function DemoDetail() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-32 sm:px-8">
+      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-32 sm:px-8 md:px-12">
         <div className="h-16 w-2/3 animate-pulse bg-carbon" />
         <div className="mt-8 aspect-[16/8] animate-pulse bg-carbon" />
         <div className="mt-8 grid gap-6 md:grid-cols-3">{[0, 1, 2].map((i) => <div key={i} className="h-32 animate-pulse bg-carbon" />)}</div>
@@ -73,7 +73,7 @@ export default function DemoDetail() {
 
   if (error || !demo) {
     return (
-      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8">
+      <div className="mx-auto max-w-[1600px] px-5 pb-24 pt-40 sm:px-8 md:px-12">
         <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || dl.notFound}</p>
         <Link to="/demos" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> {t('common.allDemos')}</Link>
       </div>
@@ -92,7 +92,7 @@ export default function DemoDetail() {
 
   return (
     <div className="pt-[72px]">
-      <section className="mx-auto max-w-[1600px] px-5 pt-12 sm:px-8 lg:pt-16">
+      <section className="mx-auto max-w-[1600px] px-5 pt-12 sm:px-8 md:px-12 lg:pt-16">
         <Link to="/demos" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> {t('common.allDemos')}</Link>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-6 flex flex-wrap items-center gap-3">
           <span className="inline-flex items-center gap-2 border border-lime/40 px-3 py-1.5">
@@ -112,9 +112,10 @@ export default function DemoDetail() {
         </motion.div>
       </section>
 
-      <section className="mx-auto mt-10 max-w-[1600px] px-5 sm:px-8">
+      <section className="mx-auto mt-10 max-w-[1600px] px-5 sm:px-8 md:px-12">
         <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: EASE }} className="group relative overflow-hidden">
-          <img src={demo.image_url} alt={demo.title} className="img-warm aspect-[16/8] w-full object-cover" />
+          {/* Taller crop on phones so the venue photo reads; cinematic strip from sm up. */}
+          <img src={demo.image_url} alt={demo.title} className="img-warm aspect-[16/10] w-full object-cover sm:aspect-[16/8]" />
           <div aria-hidden className="warm-veil pointer-events-none absolute inset-0" />
           <span className="absolute left-5 top-5 flex h-14 w-14 items-center justify-center border border-bone/25 bg-ink/70 backdrop-blur-sm">
             <Play className="h-5 w-5 translate-x-px text-lime" />
@@ -122,8 +123,8 @@ export default function DemoDetail() {
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
-        <div className="grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 lg:grid-cols-5">
+      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12">
+        <div className="grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {meta.map((m) => (
             <div key={m.label} className="bg-ink p-6">
               <m.icon className="h-5 w-5 text-lime" strokeWidth={1.5} />
@@ -219,7 +220,7 @@ export default function DemoDetail() {
 
       {next && (
         <section className="border-t border-bone/10">
-          <Link to={`/demos/${next.slug}`} className="group mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-12 sm:px-8 lg:py-16">
+          <Link to={`/demos/${next.slug}`} className="group mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-12 sm:px-8 md:px-12 lg:py-16">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{dl.next}</p>
               <p className="mt-3 font-display text-4xl uppercase tracking-tight transition-colors group-hover:text-lime sm:text-6xl">{next.title}</p>

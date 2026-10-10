@@ -39,7 +39,7 @@ export default function DesaDemos() {
 
   return (
     <section id="desa-demos" className="scroll-mt-20 border-y border-bone/10 bg-coal">
-      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
         <SectionHeading index={d.index} eyebrow={d.eyebrow} title={d.title} accent={d.accent} />
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">

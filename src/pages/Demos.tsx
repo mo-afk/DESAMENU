@@ -53,7 +53,7 @@ export default function Demos() {
         description={d.page.description}
       />
 
-      <section className="mx-auto max-w-[1600px] px-5 py-12 sm:px-8 lg:py-16">
+      <section className="mx-auto max-w-[1600px] px-5 py-12 sm:px-8 md:px-12 lg:py-16">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap gap-2">
             {industries.map((c) => (
@@ -61,7 +61,7 @@ export default function Demos() {
                 type="button"
                 key={c}
                 onClick={() => setFilter(c)}
-                className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}
+                className={`inline-flex min-h-12 items-center border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}
               >
                 {c === 'All' ? d.filterAll : (PLURAL[c] ?? c)}
                 <span className="ms-2 opacity-60">{c === 'All' ? demos.length : demos.filter((item) => item.industry === c).length}</span>
@@ -69,8 +69,8 @@ export default function Demos() {
             ))}
           </div>
           <div className="flex gap-2">
-            <button type="button" onClick={() => setView('grid')} aria-label={d.gridView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'grid' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><LayoutGrid className="h-4 w-4" /></button>
-            <button type="button" onClick={() => setView('list')} aria-label={d.listView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'list' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><Rows3 className="h-4 w-4" /></button>
+            <button type="button" onClick={() => setView('grid')} aria-label={d.gridView} className={`flex h-12 w-12 items-center justify-center border transition-colors ${view === 'grid' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><LayoutGrid className="h-4 w-4" /></button>
+            <button type="button" onClick={() => setView('list')} aria-label={d.listView} className={`flex h-12 w-12 items-center justify-center border transition-colors ${view === 'list' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><Rows3 className="h-4 w-4" /></button>
           </div>
         </div>
 

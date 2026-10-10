@@ -10,7 +10,7 @@ export default function DesaCta() {
       <img src="/images/texture-ink.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
 
-      <div className="relative mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8 lg:py-32">
+      <div className="relative mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8 md:px-12 lg:py-32">
         <Reveal>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-lime">{c.eyebrow}</p>
           <h2 className="display-type display-section mx-auto mt-6 max-w-5xl font-display uppercase">

@@ -58,7 +58,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-bone/10 bg-ink">
       <Marquee items={dict.footer.marquee} className="border-b border-bone/10 py-5" outline />
 
-      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 md:px-12 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Link to="/" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-bone" aria-label={t('nav.homeAria')}>
@@ -76,7 +76,7 @@ export default function Footer() {
                   onChange={(e) => { setEmail(e.target.value); setStatus('idle'); }}
                   placeholder={t('footer.newsletterPlaceholder')}
                   dir="ltr"
-                  className="w-full bg-transparent px-4 py-3 text-sm text-bone placeholder:text-smoke focus:outline-none"
+                  className="w-full bg-transparent px-4 py-3.5 text-sm text-bone placeholder:text-smoke focus:outline-none"
                 />
                 <button type="submit" disabled={status === 'sending'} aria-busy={status === 'sending'} className="flex items-center gap-2 bg-bone px-5 font-mono text-xs uppercase tracking-widest text-ink transition-colors hover:bg-lime disabled:cursor-not-allowed disabled:opacity-60" aria-label={t('footer.subscribeAria')}>
                   {status === 'sending' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : status === 'done' ? <Check className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
@@ -93,7 +93,7 @@ export default function Footer() {
               <ul className="mt-4 space-y-3 text-sm">
                 {EXPLORE.map((item) => (
                   <li key={item.to}>
-                    <Link to={item.to} className="link-sweep text-bone/80 hover:text-bone">{t(item.key)}</Link>
+                    <Link to={item.to} className="link-sweep py-1 inline-block text-bone/80 hover:text-bone">{t(item.key)}</Link>
                   </li>
                 ))}
               </ul>
@@ -113,10 +113,10 @@ export default function Footer() {
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke">{t('footer.contactTitle')}</p>
               <ul className="mt-4 space-y-3 text-sm">
-                <li><a href={CONTACT.emailHref} className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.email')} <ArrowUpRight className="h-3 w-3" /></a></li>
-                <li><a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.whatsapp')} <ArrowUpRight className="h-3 w-3" /></a></li>
-                <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.instagram')} <ArrowUpRight className="h-3 w-3" /></a></li>
-                <li><a href={CONTACT.tiktok} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.tiktok')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.emailHref} className="link-sweep inline-flex items-center gap-1 py-1 text-bone/80 hover:text-bone">{t('footer.email')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 py-1 text-bone/80 hover:text-bone">{t('footer.whatsapp')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 py-1 text-bone/80 hover:text-bone">{t('footer.instagram')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.tiktok} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 py-1 text-bone/80 hover:text-bone">{t('footer.tiktok')} <ArrowUpRight className="h-3 w-3" /></a></li>
                 <li className="flex gap-3 pt-2">
                   {[
                     { Icon: Instagram, href: CONTACT.instagram, label: t('footer.instagram'), external: true },
@@ -129,7 +129,7 @@ export default function Footer() {
                       href={href}
                       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       aria-label={label}
-                      className="flex h-9 w-9 items-center justify-center border border-bone/15 text-bone/70 transition-colors hover:border-lime hover:text-lime"
+                      className="flex h-12 w-12 items-center justify-center border border-bone/15 text-bone/70 transition-colors hover:border-lime hover:text-lime"
                     >
                       <Icon className="h-4 w-4" />
                     </a>

@@ -15,7 +15,7 @@ interface Props {
 export default function PageHeader({ index, eyebrow, title, description, children }: Props) {
   return (
     <section className="bg-blueprint border-b border-bone/10">
-      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 md:px-12 lg:py-24">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}

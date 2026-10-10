@@ -105,14 +105,14 @@ export default function Contact() {
   return (
     <div className="pt-[72px]">
       <section className="bg-blueprint border-b border-bone/10">
-        <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:py-20">
+        <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 md:px-12 lg:py-20">
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{c.index} - {c.eyebrow}</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="display-type display-page mt-6 font-display uppercase">{dict.contact.title} <span className="font-serif font-medium italic normal-case text-lime">{dict.contact.accent}</span></motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70 sm:text-lg">{c.intro}</motion.p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 lg:py-20">
+      <section className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* One column, five fields, no steps. */}
           <div className="lg:col-span-8">
@@ -221,10 +221,12 @@ export default function Contact() {
             </Reveal>
           </div>
 
-          {/* Contact panel — unchanged: email, phone, locations, response time. */}
+          {/* Contact panel — unchanged: email, phone, locations, response time.
+              Two cards per row on phones/tablets keeps the column short; it
+              stacks back into a single rail from lg, beside the form. */}
           <div className="lg:col-span-4">
             <Reveal delay={0.1}>
-              <div className="space-y-px border border-bone/15 bg-bone/15">
+              <div className="grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 lg:grid-cols-1">
                 <div className="bg-ink p-6">
                   <Mail className="h-5 w-5 text-lime" strokeWidth={1.5} />
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{c.sidebar.newBusiness}</p>
