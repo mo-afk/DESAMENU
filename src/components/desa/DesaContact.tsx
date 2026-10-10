@@ -1,6 +1,7 @@
 import { Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
 import Reveal from '../Reveal';
 import DesaContactForm from './DesaContactForm';
+import TikTokIcon from '../TikTokIcon';
 import { CONTACT } from '../../lib/brand';
 import { useI18n } from '../../i18n';
 
@@ -12,6 +13,7 @@ export default function DesaContact() {
     { icon: Mail, label: t('contact.channelLabels.email'), value: CONTACT.email, href: CONTACT.emailHref, ltr: true },
     { icon: MessageCircle, label: t('contact.channelLabels.whatsapp'), value: t('contact.channelValues.whatsapp'), href: CONTACT.whatsappHref, ltr: false },
     { icon: Instagram, label: t('contact.channelLabels.instagram'), value: CONTACT.instagramHandle, href: CONTACT.instagram, ltr: true },
+    { icon: TikTokIcon, label: t('contact.channelLabels.tiktok'), value: CONTACT.tiktokHandle, href: CONTACT.tiktok, ltr: true },
     { icon: Phone, label: t('contact.channelLabels.phone'), value: CONTACT.phone, href: CONTACT.phoneHref, ltr: true },
   ];
   return (

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Instagram, Menu, MessageCircle, X } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
+import TikTokIcon from './TikTokIcon';
 import { CONTACT } from '../lib/brand';
 import { useI18n } from '../i18n';
 import type { StringPath } from '../i18n';
@@ -31,10 +32,26 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    /* Lock body scroll when the mobile menu is open, WITHOUT losing the
+       visitor's scroll position. Setting `overflow: hidden` on <body>
+       directly would otherwise collapse the scroll offset to 0 and leave
+       the user at the top when the menu closes. */
+    if (open) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
   }, [open]);
 
   return (
@@ -90,6 +107,39 @@ export default function Navbar() {
               <LanguageSwitcher />
             </div>
 
+            {/* Social shortcuts — hidden on mobile where the full menu carries
+                the email and CTA. Kept subtle so they never compete with the
+                Book a Demo button. */}
+            <div className="hidden items-center gap-1 lg:flex">
+              <a
+                href={CONTACT.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center text-bone/50 transition-colors hover:text-lime"
+              >
+                <Instagram className="h-4 w-4" strokeWidth={1.5} />
+              </a>
+              <a
+                href={CONTACT.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="flex h-9 w-9 items-center justify-center text-bone/50 transition-colors hover:text-lime"
+              >
+                <TikTokIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={CONTACT.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex h-9 w-9 items-center justify-center text-bone/50 transition-colors hover:text-lime"
+              >
+                <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
+              </a>
+            </div>
+
             <Link
               to="/contact"
               className="group hidden shrink-0 items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
@@ -98,6 +148,7 @@ export default function Navbar() {
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <button
+              type="button"
               onClick={() => setOpen(true)}
               className="inline-flex h-11 w-11 items-center justify-center border border-bone/20 text-bone lg:hidden"
               aria-label={t('nav.openMenu')}
@@ -125,6 +176,7 @@ export default function Navbar() {
                 </span>
               </div>
               <button
+                type="button"
                 onClick={() => setOpen(false)}
                 className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-bone/20 text-bone"
                 aria-label={t('nav.closeMenu')}
@@ -155,9 +207,37 @@ export default function Navbar() {
             </nav>
             <div className="shrink-0 space-y-5 px-5 pb-8 sm:px-8">
               <LanguageSwitcher variant="inline" />
-              <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">
-                <span>{t('nav.venues')}</span>
-                <a href={CONTACT.emailHref} dir="ltr" className="hover:text-lime">{CONTACT.email}</a>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-1">
+                  <a
+                    href={CONTACT.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="flex h-10 w-10 items-center justify-center border border-bone/15 text-bone/60 transition-colors hover:border-lime hover:text-lime"
+                  >
+                    <Instagram className="h-4 w-4" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href={CONTACT.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                    className="flex h-10 w-10 items-center justify-center border border-bone/15 text-bone/60 transition-colors hover:border-lime hover:text-lime"
+                  >
+                    <TikTokIcon className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={CONTACT.whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp"
+                    className="flex h-10 w-10 items-center justify-center border border-bone/15 text-bone/60 transition-colors hover:border-lime hover:text-lime"
+                  >
+                    <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
+                  </a>
+                </div>
+                <a href={CONTACT.emailHref} dir="ltr" className="font-mono text-[10px] uppercase tracking-[0.25em] text-fog hover:text-lime">{CONTACT.email}</a>
               </div>
             </div>
           </motion.div>

@@ -81,6 +81,7 @@ export default function DesaGames() {
               const selected = item.slug === active.slug;
               return (
                 <button
+                  type="button"
                   key={item.slug}
                   role="tab"
                   id={`game-tab-${item.slug}`}

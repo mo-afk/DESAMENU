@@ -323,7 +323,7 @@ export const ar: Dict = {
     title: 'اطلب عرضاً',
     accent: 'مخصّصاً.',
     intro: 'حدّثنا عن مكانك وسنوضّح لك كيف يُصمَّم DESA Menu ليلائم تجربة ضيوفك.',
-    channelLabels: { email: 'البريد الإلكتروني', whatsapp: 'واتساب', instagram: 'إنستغرام', phone: 'الهاتف' },
+    channelLabels: { email: 'البريد الإلكتروني', whatsapp: 'واتساب', instagram: 'إنستغرام', tiktok: 'تيك توك', phone: 'الهاتف' },
     channelValues: { whatsapp: 'ابدأ المحادثة' },
     form: {
       name: 'الاسم *',
@@ -393,8 +393,12 @@ export const ar: Dict = {
     sidebar: {
       newBusiness: 'مشاريع جديدة',
       preferToTalk: 'تفضّل التحدث؟',
-      whereWeOperate: 'أين نعمل',
-      locations: 'الدار البيضاء · شارع أنفا|دبي · الخليج التجاري|عن بُعد · حول العالم',
+      whereWeOperate: 'الانتشار والتواجد',
+      locations: [
+        'في المكان · التركيب والنشر داخل مؤسستكم',
+        'عن بُعد · الإعداد السحابي والدعم على مدار الساعة',
+        'التغطية · المغرب ومنطقة الشرق الأوسط وشمال إفريقيا والعالم',
+      ],
       responseTime: 'زمن الاستجابة',
       responseValue: 'أقل من 24 ساعة',
       support: 'الدعم',
@@ -449,6 +453,7 @@ export const ar: Dict = {
     email: 'البريد الإلكتروني',
     whatsapp: 'واتساب',
     instagram: 'إنستغرام',
+    tiktok: 'تيك توك',
     productItems: [
       { title: 'قوائم نصية وفيديو', note: 'بطاقات أطباق تفاعلية' },
       { title: 'مجموعة ألعاب الطاولة', note: 'مَن يدفع؟ · عجلة الطلب · اختبار الذوق' },

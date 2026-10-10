@@ -22,7 +22,11 @@ const DEFAULT_FROM = 'DESA Menu Leads <onboarding@resend.dev>';
 
 /** Caps that keep a junk payload from becoming a junk email. */
 const LIMITS = { name: 120, email: 200, phone: 60, venue: 200, source: 120, message: 5000 };
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/* Standard email check — permissive but structural: local@domain.tld,
+   allowing dots/plus/hyphens in the local part and multi-level domains,
+   while requiring a TLD of at least 2 characters (no `.x`). Same pattern
+   used client-side in the footer newsletter validation. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /**
  * The only send failure a visitor ever sees. Provider details ("Invalid API
@@ -139,6 +143,11 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
+  /* RESEND_API_KEY must be set in the environment (Vercel dashboard in
+     production, .env.local in local dev — see .env.example). When the key is
+     missing we answer 503 instead of attempting the send, so misconfiguration
+     is visible immediately rather than surfacing as a mysterious network
+     error. */
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('api/contact: RESEND_API_KEY is not set');

@@ -321,7 +321,7 @@ export const en = {
     title: 'Request a',
     accent: 'custom demo.',
     intro: "Tell us about your venue and we'll show you how DESA Menu can be tailored to your guest experience.",
-    channelLabels: { email: 'Email', whatsapp: 'WhatsApp', instagram: 'Instagram', phone: 'Phone' },
+    channelLabels: { email: 'Email', whatsapp: 'WhatsApp', instagram: 'Instagram', tiktok: 'TikTok', phone: 'Phone' },
     channelValues: { whatsapp: 'Start a conversation' },
     form: {
       name: 'Name *',
@@ -392,8 +392,12 @@ export const en = {
     sidebar: {
       newBusiness: 'New business',
       preferToTalk: 'Prefer to talk?',
-      whereWeOperate: 'Where we operate',
-      locations: 'Casablanca · Boulevard Anfa|Dubai · Business Bay|Remote · worldwide',
+      whereWeOperate: 'Deployment & presence',
+      locations: [
+        'On-site · Installation & deployment at your venue',
+        'Remote · Cloud configuration & 24/7 support',
+        'Coverage · Morocco, MENA & international',
+      ],
       responseTime: 'Response time',
       responseValue: 'Under 24 hours',
       support: 'Support',
@@ -448,6 +452,7 @@ export const en = {
     email: 'Email',
     whatsapp: 'WhatsApp',
     instagram: 'Instagram',
+    tiktok: 'TikTok',
     productItems: [
       { title: 'Text & video menus', note: 'Interactive dish cards' },
       { title: 'Gamified dining suite', note: 'Who Pays? · Combo Spinner · Taste Quiz' },

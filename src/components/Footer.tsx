@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Check, Instagram, Loader2, Mail, MessageCircle } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import Marquee from './Marquee';
+import TikTokIcon from './TikTokIcon';
 import { CONTACT } from '../lib/brand';
 import { submitLead } from '../lib/api';
 import { useI18n } from '../i18n';
@@ -24,16 +25,25 @@ export default function Footer() {
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === 'sending') return;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    /* Normalise before validating — copy-paste often leaves a trailing space,
+       and mobile keyboards sometimes auto-capitalise the first character. */
+    const normalizedEmail = email.trim().toLowerCase();
+    /* Standard email regex: local-part @ domain . TLD, allowing dots, plus,
+       hyphens and underscores in the local part (e.g. diane.mouad+1@gmail.com,
+       user@sub.domain.co) without letting through whitespace or missing TLDs. */
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!EMAIL_RE.test(normalizedEmail)) {
       setStatus('error');
       return;
     }
     setStatus('sending');
     try {
-      /* Same route as the lead forms, so a signup lands in the inbox too. */
+      /* POST through the shared lead handler so a newsletter signup lands
+         directly in desacontact.01@gmail.com the same way a contact-form
+         submission does. */
       await submitLead({
         name: 'Newsletter subscriber',
-        email,
+        email: normalizedEmail,
         message: 'Newsletter signup from the website footer.',
         source: 'Newsletter — website footer',
       });
@@ -106,9 +116,11 @@ export default function Footer() {
                 <li><a href={CONTACT.emailHref} className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.email')} <ArrowUpRight className="h-3 w-3" /></a></li>
                 <li><a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.whatsapp')} <ArrowUpRight className="h-3 w-3" /></a></li>
                 <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.instagram')} <ArrowUpRight className="h-3 w-3" /></a></li>
+                <li><a href={CONTACT.tiktok} target="_blank" rel="noopener noreferrer" className="link-sweep inline-flex items-center gap-1 text-bone/80 hover:text-bone">{t('footer.tiktok')} <ArrowUpRight className="h-3 w-3" /></a></li>
                 <li className="flex gap-3 pt-2">
                   {[
                     { Icon: Instagram, href: CONTACT.instagram, label: t('footer.instagram'), external: true },
+                    { Icon: TikTokIcon, href: CONTACT.tiktok, label: t('footer.tiktok'), external: true },
                     { Icon: MessageCircle, href: CONTACT.whatsappHref, label: t('footer.whatsapp'), external: true },
                     { Icon: Mail, href: CONTACT.emailHref, label: t('footer.email'), external: false },
                   ].map(({ Icon, href, label, external }) => (

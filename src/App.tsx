@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect, useRef } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -24,29 +24,61 @@ const Contact = lazy(() => import('./pages/Contact'));
 const scrollPositions = new Map<string, number>();
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname, search, hash } = location;
   const navigationType = useNavigationType();
 
-  /* Capture the position of the page being left. */
+  /* Track the previous pathname (ignoring search + hash) so we can tell a
+     real page change from an in-page update (tab clicks that write ?game=…,
+     anchor jumps, filter chips on the same page). Anything that leaves the
+     pathname untouched must NOT touch `window.scrollY`. */
+  const prevPathname = useRef<string>(pathname);
+
+  /* Save the scroll offset when we unmount/leave a given pathname, so back
+     navigation can return to exactly where the visitor was reading. */
   useEffect(() => {
     return () => {
       scrollPositions.set(pathname, window.scrollY);
     };
   }, [pathname]);
 
-  /* Restore on back/forward, otherwise start at the top. Lazy-loaded routes
-     can still be mounting on the first frame, so retry briefly. */
   useEffect(() => {
-    const saved = navigationType === 'POP' ? scrollPositions.get(pathname) : undefined;
-    if (typeof saved !== 'number') {
-      window.scrollTo(0, 0);
-      return;
+    const prev = prevPathname.current;
+    const pathnameChanged = prev !== pathname;
+    prevPathname.current = pathname;
+
+    /* Anchor link (#section) — let the browser handle it; never reset to top.
+       The sections set `scroll-mt-20` to account for the fixed navbar. */
+    if (hash) return;
+
+    /* Same page (search-only change, or initial mount of the same route) —
+       preserve scroll. This covers DesaGames tab clicks that write ?game=…
+       via `setParams({ replace: true })`, and any future filter/tab that
+       syncs to the URL. */
+    if (!pathnameChanged) return;
+
+    /* Back / Forward: restore the previously-saved position, if any.
+       Lazy-loaded routes can still be mounting on the first frame so we
+       retry briefly. */
+    if (navigationType === 'POP') {
+      const saved = scrollPositions.get(pathname);
+      if (typeof saved === 'number') {
+        const restore = () => window.scrollTo({ top: saved, left: 0, behavior: 'auto' });
+        restore();
+        const timers = [
+          window.setTimeout(restore, 120),
+          window.setTimeout(restore, 320),
+        ];
+        return () => timers.forEach((t) => window.clearTimeout(t));
+      }
     }
-    const restore = () => window.scrollTo(0, saved);
-    restore();
-    const timers = [window.setTimeout(restore, 120), window.setTimeout(restore, 320)];
-    return () => timers.forEach((t) => window.clearTimeout(t));
-  }, [pathname, navigationType]);
+
+    /* Real new-page navigation (PUSH/REPLACE to a different route, or POP to
+       a route with no saved position) — start at the top. This is the ONLY
+       place a scroll reset is allowed to happen. Modals, tabs, filters,
+       accordions, FAQ rows and search-param toggles never reach here. */
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname, search, hash, navigationType]);
 
   return null;
 }

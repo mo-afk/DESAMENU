@@ -60,11 +60,17 @@ export default function Contact() {
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof FormState, string>> = {};
+    /* Normalise email once (trim + lowercase) before validating and
+       submitting, so both validation and the outbound lead use a clean
+       address — identical treatment to the footer newsletter flow. */
+    const emailNormalized = form.email.trim().toLowerCase();
     if (form.name.trim().length < 2) e.name = c.errors.name;
     /* Deliberately lenient: any international format, judged on digits. */
     if (form.phone.replace(/\D/g, '').length < 6) e.phone = c.errors.phone;
-    /* Optional — but an address that is there has to be usable. */
-    if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = c.errors.email;
+    /* Optional — but an address that is there has to be usable. TLD of ≥2
+       chars so `.x` never passes (same regex used on the server and in the
+       footer newsletter). */
+    if (emailNormalized && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailNormalized)) e.email = c.errors.email;
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -81,7 +87,7 @@ export default function Contact() {
       await submitLead({
         name: form.name.trim(),
         phone: form.phone.trim(),
-        email: form.email.trim() || undefined,
+        email: form.email.trim().toLowerCase() || undefined,
         venue: form.venue.trim() || undefined,
         /* No minimum length and no character cap on the visitor's side. */
         message: form.message.trim() || undefined,
@@ -233,8 +239,8 @@ export default function Contact() {
                   <MapPin className="h-5 w-5 text-lime" strokeWidth={1.5} />
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-fog">{c.sidebar.whereWeOperate}</p>
                   <p className="mt-1 text-sm leading-relaxed text-bone/80">
-                    {c.sidebar.locations.split('|').map((line, i) => (
-                      <span key={line} className="block">{line}{i === 0 && <br />}</span>
+                    {c.sidebar.locations.map((line) => (
+                      <span key={line} className="block">{line}</span>
                     ))}
                   </p>
                 </div>
