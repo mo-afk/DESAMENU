@@ -6,16 +6,9 @@ import type { Lang } from '../i18n';
 /**
  * Language selector.
  *
- * `variant="navbar"` is the control in the top bar, next to *Book a Demo*. It
- * is the same badge at two densities so it stays prominent without ever pushing
- * the CTA off the row:
- *
- *  - below `xl` — the compact badge: globe + current code, opening a dropdown.
- *    Between 1024 and 1280 the bar already carries the wordmark and five nav
- *    links, so the four codes would be the thing that overflows.
- *  - from `xl` — the full segmented control: globe + `EN | FR | AR | ES`, every
- *    language one tap away and the active one lit, so the control reads as a
- *    language selector at a glance rather than a mystery icon.
+ * `variant="navbar"` is the compact globe + current-language badge in the top
+ * bar, next to *Book a Demo*. It opens a dropdown without consuming the space
+ * needed by the logo, primary links, or CTA.
  *
  * `variant="inline"` is the four-button row for the mobile menu overlay.
  *
@@ -25,60 +18,11 @@ import type { Lang } from '../i18n';
  */
 export default function LanguageSwitcher({ variant = 'navbar' }: { variant?: 'navbar' | 'inline' }) {
   if (variant === 'inline') return <InlineRow />;
-  return (
-    <>
-      <Segmented className="hidden xl:inline-flex" />
-      <CompactDropdown className="inline-flex xl:hidden" />
-    </>
-  );
+  return <CompactDropdown className="inline-flex" />;
 }
 
 /* ------------------------------------------------------------------ */
-/* xl and up — every language visible as a segment                     */
-/* ------------------------------------------------------------------ */
-
-function Segmented({ className = '' }: { className?: string }) {
-  const { lang, setLang, t } = useI18n();
-
-  return (
-    <div
-      role="group"
-      aria-label={t('nav.switchAria')}
-      className={`h-10 shrink-0 items-stretch border border-bone/10 bg-coal/80 backdrop-blur-sm transition-colors hover:border-honey/50 ${className}`}
-    >
-      <span aria-hidden className="flex w-8 items-center justify-center border-e border-bone/10 text-honey">
-        <Globe className="h-3.5 w-3.5" strokeWidth={1.5} />
-      </span>
-
-      {/* Fixed reading order regardless of page direction. */}
-      <div dir="ltr" className="flex items-stretch divide-x divide-bone/10">
-        {LANGS.map((code) => {
-          const active = code === lang;
-          return (
-            <button
-              key={code}
-              type="button"
-              onClick={() => setLang(code)}
-              aria-pressed={active}
-              aria-current={active ? 'true' : undefined}
-              title={LANG_META[code].native}
-              className={`flex items-center px-2.5 font-mono text-[10px] uppercase tracking-[0.15em] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-lime ${
-                active
-                  ? 'bg-lime/15 text-lime'
-                  : 'text-bone/45 hover:bg-bone/[0.05] hover:text-bone'
-              }`}
-            >
-              {LANG_META[code].label}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* below xl — one badge, current code, full list on open               */
+/* Navbar — one badge, current code, full list on open                 */
 /* ------------------------------------------------------------------ */
 
 function CompactDropdown({ className = '' }: { className?: string }) {
