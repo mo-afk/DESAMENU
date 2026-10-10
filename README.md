@@ -24,14 +24,17 @@ npm run dev        # http://localhost:3000
 npm run build      # tsc -b && vite build  → dist/
 npm run preview    # serve the production build
 npm run lint       # eslint
+npm test           # API and environment tests
 ```
 
 The site renders without any environment variables: when Supabase isn't
 configured the API handlers serve the content in `api/seed-data.js` and
-inquiries are held in memory. `RESEND_API_KEY` is the one variable the lead
-forms need — without it `POST /api/contact` answers `503` and the form shows
-its inline error instead of silently pretending to send. Copy `.env.example` to
-`.env.local` (both are gitignored) for local work.
+inquiries are held in memory. In Vite dev, lead forms also work without
+`RESEND_API_KEY`: `POST /api/contact` logs the validated submission to the
+server console and returns `{ ok: true, id: null, mocked: true }` (no email is
+sent). Production requires the key and returns `503` without it. Copy
+`.env.example` to `.env.local` for real email delivery in local dev; replace
+its example key. `.env` and `.env.local` are gitignored.
 
 ## Routes
 
@@ -203,9 +206,17 @@ a stack detail to a visitor.
 Resend limits it to sending to the account's own address.
 
 Locally the variable reaches the handler through `vite.config.ts`, which loads
-`.env` / `.env.*` into `process.env` for the SSR-loaded handlers. It stays out
-of the client bundle: only `VITE_*` and `NEXT_PUBLIC_*` are inlined by `define`.
-On Vercel, set `RESEND_API_KEY` in the project settings.
+`.env`, `.env.local` and mode-specific files into `process.env` before the
+SSR-loaded handlers run. Vite reloads the file values when an env file changes;
+restart `npm run dev` if you change a host-provided variable. A host-provided
+value takes precedence over the files. The key stays out of
+the client bundle: only `VITE_*` and `NEXT_PUBLIC_*` are inlined by `define`.
+With no key (or the `re_your_key_here` example value), **Vite dev only** logs
+validated submissions to its terminal and returns success marked `mocked: true`;
+nothing is delivered. Validation errors still return `400`. A configured key
+uses Resend normally; a failed send still returns `502` and is never mocked.
+On Vercel, set `RESEND_API_KEY` in the project settings; missing configuration
+continues to return `503` in production. Do not put secrets in `VITE_*` vars.
 
 ### Supabase (optional)
 

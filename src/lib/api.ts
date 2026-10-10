@@ -111,12 +111,12 @@ export const submitInquiry = (input: InquiryInput) =>
   api<{ id: number }>('/api/inquiries', { method: 'POST', body: JSON.stringify(input) });
 
 /**
- * Sends a lead to the DESA inbox (`api/contact.js` → Resend). The visitor
- * stays on the page: this resolves once the mail provider has accepted the
- * message, and throws with the server's message when it has not.
+ * Sends a lead to the DESA inbox (`api/contact.js` → Resend). In Vite dev
+ * without a key, the server logs it instead and returns `mocked: true`.
+ * This throws with the server's message when delivery fails.
  */
 export const submitLead = (input: LeadInput) =>
-  api<{ ok: true; id: string | null }>('/api/contact', {
+  api<{ ok: true; id: string | null; mocked?: true }>('/api/contact', {
     method: 'POST',
     body: JSON.stringify(input),
   });
