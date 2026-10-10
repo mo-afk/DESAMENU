@@ -38,11 +38,22 @@ export default function DesaContactForm() {
     /* Normalise email once (trim + lowercase) before validating and
        submitting — matches the footer newsletter and contact-page flow. */
     const emailNormalized = form.email.trim().toLowerCase();
+    const phoneDigits = form.phone.replace(/\D/g, '');
+    /* Only two things are ever required: a name and one way to reply — an
+       email or a phone number, whichever the visitor prefers. Business, venue
+       type and message stay optional, and the message carries no minimum
+       length: a bare "ok" is a lead we can still call back. */
     if (form.name.trim().length < 2) e.name = t('contact.form.errors.name');
-    if (form.business.trim().length < 2) e.business = t('contact.form.errors.business');
-    if (!form.venueType) e.venueType = t('contact.form.errors.venueType');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailNormalized)) e.email = t('contact.form.errors.email');
-    if (form.message.trim().length > 0 && form.message.trim().length < 10) e.message = t('contact.form.errors.message');
+    if (emailNormalized && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailNormalized)) {
+      e.email = t('contact.form.errors.email');
+    } else if (!emailNormalized && phoneDigits.length < 6) {
+      /* Neither channel is usable yet — the gentle version of "required". */
+      e.email = t('contact.form.errors.contact');
+      e.phone = t('contact.form.errors.contact');
+    }
+    /* A number that is being typed still has to be dialable — the same
+       6-digit judgement used on the /contact page and on the server. */
+    if (phoneDigits.length > 0 && phoneDigits.length < 6) e.phone = t('contact.form.errors.phone');
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -144,7 +155,6 @@ export default function DesaContactForm() {
             placeholder="La Terrasse"
             className={`mt-3 ${fieldClass}`}
           />
-          {errors.business && <p className="mt-2 font-mono text-xs text-red-400">{errors.business}</p>}
         </div>
 
         <div>
@@ -167,7 +177,6 @@ export default function DesaContactForm() {
               </option>
             ))}
           </select>
-          {errors.venueType && <p className="mt-2 font-mono text-xs text-red-400">{errors.venueType}</p>}
         </div>
 
         <div>
@@ -201,8 +210,14 @@ export default function DesaContactForm() {
             placeholder="+212 6 00 00 00 00"
             className={`mt-3 ${fieldClass}`}
           />
+          {errors.phone && <p className="mt-2 font-mono text-xs text-red-400">{errors.phone}</p>}
         </div>
       </div>
+
+      {/* The one rule worth spelling out: any single reply channel will do. */}
+      <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">
+        {t('contact.form.reachHint')}
+      </p>
 
       <div className="mt-6">
         <label htmlFor="desa-message" className={labelClass}>
@@ -217,7 +232,6 @@ export default function DesaContactForm() {
           placeholder={t('contact.form.messagePlaceholder')}
           className={`mt-3 resize-none leading-relaxed ${fieldClass}`}
         />
-        {errors.message && <p className="mt-2 font-mono text-xs text-red-400">{errors.message}</p>}
       </div>
 
       {submitError && (
