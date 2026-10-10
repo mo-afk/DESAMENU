@@ -9,7 +9,8 @@ interface Props {
  *
  * The official logo image is the primary brand mark (see `BrandLogo`); this
  * vector stays in the codebase as the automatic fallback for when the hosted
- * asset cannot be reached, and as the local `<link rel="alternate icon">`.
+ * asset cannot be reached. It is not wired to the favicon — the site icon is
+ * the official logo (see the head of `index.html`).
  */
 export function LogoMark({ className = 'h-9 w-9', decorative = false }: Props) {
   return (

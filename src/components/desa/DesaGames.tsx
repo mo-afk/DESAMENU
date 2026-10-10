@@ -88,7 +88,7 @@ export default function DesaGames() {
                   aria-controls={`game-panel-${item.slug}`}
                   tabIndex={selected ? 0 : -1}
                   onClick={() => select(item.slug)}
-                  className={`group flex items-start gap-4 p-5 text-left transition-colors lg:p-6 ${
+                  className={`group flex items-start gap-4 p-5 text-start transition-colors lg:p-6 ${
                     selected ? 'bg-ink' : 'bg-coal hover:bg-carbon/60'
                   }`}
                 >

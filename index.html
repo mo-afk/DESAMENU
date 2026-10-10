@@ -4,12 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Official brand logo — transparent PNG on the DESA CDN. The same asset
-         backs the in-app mark in src/lib/brand.ts; update both if it moves. -->
-    <link rel="icon" type="image/png" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev/image.png_20261006110214-removebg-preview.png" sizes="any" />
-    <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Site icons — the official DESA Menu logo: a transparent PNG on the DESA
+         CDN, the same file `src/lib/brand.ts` declares as BRAND_LOGO_URL. Keep
+         the two in sync if the asset ever moves.
+
+         `icon` + the legacy `shortcut icon` cover Chrome, Edge, Firefox, Safari
+         and the in-app browsers that only know the old spelling; both resolve to
+         one file, so the "last icon link wins" rule can never surface a
+         different mark. `apple-touch-icon` is the iOS home-screen icon. No
+         `sizes` attribute on purpose — these are fixed-resolution bitmaps, and
+         `sizes="any"` is only valid for scalable (SVG) icons.
+
+         Nothing local is registered as an icon. The previous
+         `public/favicon.svg` monogram was declared `alternate icon`, which
+         SVG-preferring browsers picked *over* the PNG — that is why the tab kept
+         showing the placeholder. `/favicon.ico`, the path browsers probe without
+         reading this head, 302s to the same file (vite-plugin-favicon.ts in dev
+         and preview, vercel.json on Vercel).
+
+         `npm run icons -- --apply` vendors the whole raster set — favicon.ico,
+         apple-touch-icon, maskable/manifest PNGs, a solid-background og:image —
+         into public/ and repoints these three links. See README → Site icons. -->
+    <link rel="icon" type="image/png" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev/image.png_20261006110214-removebg-preview.png" />
+    <link rel="shortcut icon" type="image/png" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev/image.png_20261006110214-removebg-preview.png" />
     <link rel="apple-touch-icon" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev/image.png_20261006110214-removebg-preview.png" />
-    <link rel="preconnect" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev" crossorigin />
+    <!-- Fetched no-CORS (favicons and <img>), so the preconnect must not ask
+         for a CORS connection — that one would never be reused. -->
+    <link rel="preconnect" href="https://pub-29827e9bf6264adc912660207eecba67.r2.dev" />
 
     <meta name="description" content="DESA Menu replaces static QR menus with interactive text menus, cinematic dish video and a gamified dining ecosystem — Who Pays?, the Ideal Combo Spinner and the Taste &amp; Personality Quiz — plus digital loyalty cards, for restaurants, cafes, lounges and hotels." />
     <title>DESA Menu — Premium digital menu ecosystems for hospitality</title>

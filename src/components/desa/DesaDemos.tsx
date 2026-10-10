@@ -49,7 +49,7 @@ export default function DesaDemos() {
 
         <div className="mt-12 grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-3">
           {loading
-            ? [0, 1, 2].map((i) => <div key={i} className="aspect-[16/11] animate-pulse bg-carbon" />)
+            ? [0, 1, 2].map((i) => <div key={i} className="aspect-[16/9] animate-pulse bg-carbon" />)
             : demos.map((demo, i) => (
                 <Reveal key={demo.id} delay={(i % 3) * 0.08}>
                   {/* The card is no longer one big anchor: the venue link is stretched over
@@ -57,7 +57,10 @@ export default function DesaDemos() {
                     anchor can sit on top of it instead of inside it — nested
                     anchors are invalid and the inner one stops working. */}
                 <article className="group relative">
-                    <div className="relative aspect-[16/11] overflow-hidden border border-bone/15 bg-carbon">
+                    {/* 16/9 + object-cover: the CDN covers are cropped to the
+                        frame rather than stretched, and overflow-hidden clips
+                        the image to the border so the edge stays clean. */}
+                    <div className="relative aspect-[16/9] overflow-hidden border border-bone/15 bg-carbon">
                       <img
                         src={demo.image_url}
                         alt={`${demo.title} — ${demo.industry} venue interface`}

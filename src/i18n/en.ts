@@ -337,6 +337,8 @@ export const en = {
       submitCta: 'Request Demo',
       submit: 'Request my demo',
       sending: 'Sending',
+      /* Inline confirmation shown right where the form was submitted. */
+      successInline: 'Your request has been received! We will contact you shortly.',
       successTitle: 'Request received.',
       successBody: 'Thanks {name} — our team will get back to you within one business day with a tailored DESA Menu walkthrough for your venue.',
       reference: 'Reference',
@@ -370,42 +372,21 @@ export const en = {
   contactPage: {
     index: '05',
     eyebrow: 'Contact',
-    intro: 'Four steps, two minutes, zero commitment. Tell us about your venue and we will show you how DESA Menu can be tailored to your guest experience.',
-    steps: ['Venue', 'Scope & timing', 'Details', 'Review'],
-    projectTypes: ['Video Menu', 'Full DESA Menu suite', 'Gamified dining suite (games)', 'Loyalty programme', 'Multi-venue rollout', 'Something else'],
-    budgets: ['Under €3k', '€3k - €6k', '€6k - €12k', '€12k - €25k', '€25k+'],
-    timelines: ['This month', '1 - 2 months', 'Next season', 'Flexible / exploring'],
-    step1Title: 'What do you want on the menu?',
-    step2Title: 'Scope and timing',
-    investmentRange: 'Investment range',
-    idealKickoff: 'Ideal kickoff',
-    step3Title: 'The details',
-    yourName: 'Your name *',
-    emailLabel: 'Email *',
-    venueName: 'Venue / business name',
-    step4Title: 'Review and send',
-    rowMenu: 'Menu',
-    rowBudget: 'Budget',
-    rowTimeline: 'Timeline',
-    rowName: 'Name',
-    rowEmail: 'Email',
-    rowVenue: 'Venue',
-    menuNotes: 'Menu notes',
-    back: 'Back',
-    next: 'Continue',
-    submit: 'Request Demo',
+    intro: 'Five fields, no account, no commitment. Leave your name and a number we can reach you on, and we will come back within one business day with a walkthrough built around your menu.',
+    /* The single contact form — name and phone are the only requirements. */
+    name: 'Full name *',
+    phone: 'Phone number *',
+    email: 'Email address (optional)',
+    venue: 'Establishment / restaurant name (optional)',
+    message: 'Message (optional)',
+    messagePlaceholder: 'What would you like to show on your menu? Anything else we should know.',
+    privacy: 'No spam, no obligation — we reply within one business day.',
+    submit: 'Send request',
     sending: 'Sending',
-    successTitle: 'Request received.',
-    successBody: 'Thanks {name} — our hospitality team has your request. Expect a personal reply within one business day, with a walkthrough built around your menu.',
-    reference: 'Reference',
-    sendAnother: 'Send another request',
     errors: {
-      projectType: 'Please choose a project type.',
-      budget: 'Please choose a budget range.',
-      timeline: 'Please choose a timeline.',
       name: 'Please enter your name.',
-      email: 'Please enter a valid email.',
-      message: 'Tell us a little more (20+ characters).',
+      phone: 'Please enter a phone number we can reach you on.',
+      email: 'Please enter a valid email address, or leave the field empty.',
       generic: 'Something went wrong. Please try again.',
     },
     sidebar: {
@@ -525,8 +506,9 @@ export const en = {
   },
 
   /** Deep copy for the eight feature entries, keyed by slug.
-   *  Fields left out fall back to the English entry in `lib/features.ts`,
-   *  which is what the long-form essays currently do in every locale. */
+   *  Fields left out fall back to the English entry in `lib/features.ts`; every
+   *  locale now supplies all of them, so the fallback is a safety net rather
+   *  than something a visitor is expected to see. */
   content: {
     features: {} as Record<
       string,

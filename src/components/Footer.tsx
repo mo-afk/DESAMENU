@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Check, Instagram, Mail, MessageCircle } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Instagram, Loader2, Mail, MessageCircle } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import Marquee from './Marquee';
 import { CONTACT } from '../lib/brand';
-import { submitInquiry } from '../lib/api';
+import { submitLead } from '../lib/api';
 import { useI18n } from '../i18n';
 import type { StringPath } from '../i18n';
 
@@ -23,13 +23,20 @@ export default function Footer() {
 
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (status === 'sending') return;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('error');
       return;
     }
     setStatus('sending');
     try {
-      await submitInquiry({ name: 'Newsletter subscriber', email, project_type: 'Newsletter', message: 'Newsletter signup from the footer.' });
+      /* Same route as the lead forms, so a signup lands in the inbox too. */
+      await submitLead({
+        name: 'Newsletter subscriber',
+        email,
+        message: 'Newsletter signup from the website footer.',
+        source: 'Newsletter — website footer',
+      });
       setStatus('done');
       setEmail('');
     } catch {
@@ -61,8 +68,8 @@ export default function Footer() {
                   dir="ltr"
                   className="w-full bg-transparent px-4 py-3 text-sm text-bone placeholder:text-smoke focus:outline-none"
                 />
-                <button type="submit" className="flex items-center gap-2 bg-bone px-5 font-mono text-xs uppercase tracking-widest text-ink transition-colors hover:bg-lime" aria-label={t('footer.subscribeAria')}>
-                  {status === 'done' ? <Check className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
+                <button type="submit" disabled={status === 'sending'} aria-busy={status === 'sending'} className="flex items-center gap-2 bg-bone px-5 font-mono text-xs uppercase tracking-widest text-ink transition-colors hover:bg-lime disabled:cursor-not-allowed disabled:opacity-60" aria-label={t('footer.subscribeAria')}>
+                  {status === 'sending' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : status === 'done' ? <Check className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
                 </button>
               </div>
               {status === 'done' && <p className="mt-2 font-mono text-xs text-lime">{t('footer.newsletterDone')}</p>}

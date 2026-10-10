@@ -75,6 +75,23 @@ export interface InquiryInput {
   message: string;
 }
 
+/** A lead as `/api/contact` accepts it — delivered to the inbox by Resend. */
+export interface LeadInput {
+  name: string;
+  /**
+   * Optional, matching the endpoint: a lead needs a phone number *or* an
+   * email, and the `/contact` form treats the number as the required one.
+   * When present it is validated server-side and used as the reply address.
+   */
+  email?: string;
+  phone?: string;
+  /** Venue, business or service the lead is asking about. */
+  venue?: string;
+  message?: string;
+  /** Which form it came from, shown in the notification email. */
+  source?: string;
+}
+
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(path, {
     headers: { 'Content-Type': 'application/json' },
@@ -92,6 +109,17 @@ export const getPosts = (params = '') => api<Post[]>(`/api/posts${params}`);
 export const getPost = (slug: string) => api<Post | null>(`/api/posts?slug=${encodeURIComponent(slug)}`);
 export const submitInquiry = (input: InquiryInput) =>
   api<{ id: number }>('/api/inquiries', { method: 'POST', body: JSON.stringify(input) });
+
+/**
+ * Sends a lead to the DESA inbox (`api/contact.js` → Resend). The visitor
+ * stays on the page: this resolves once the mail provider has accepted the
+ * message, and throws with the server's message when it has not.
+ */
+export const submitLead = (input: LeadInput) =>
+  api<{ ok: true; id: string | null }>('/api/contact', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
 
 export function formatDate(iso: string): string {
   try {

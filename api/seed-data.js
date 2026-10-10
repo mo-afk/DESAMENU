@@ -3,6 +3,15 @@
 // so the site stays fully functional in every environment.
 
 /**
+ * Venue cover photography lives on the DESA CDN — the same bucket as the brand
+ * logo (`BRAND_LOGO_URL` in src/lib/brand.ts). Written once here so the bucket
+ * is not repeated per venue; filenames stay percent-encoded exactly as they are
+ * stored on the bucket.
+ */
+const CDN = 'https://pub-29827e9bf6264adc912660207eecba67.r2.dev';
+const venueCover = (file) => `${CDN}/${file}`;
+
+/**
  * Live venue demos. Each entry is a real hospitality deployment of DESA Menu:
  * `category` is the deployment type (Video Menu, Interactive Menu, Text Menu,
  * Loyalty), `services` lists what the venue actually runs, and `metrics` are the
@@ -21,7 +30,7 @@ export const projects = [
     tagline: 'Full video-enabled luxury menu with interactive table games and social connectivity.',
     description:
       'Juvia serves Italian fine dining with a lounge that runs late, and the two halves of the room were selling against each other. Guests who arrived for dinner never saw the lounge menu; guests who came for drinks never saw the kitchen. Everything the house was proud of sat in the middle of a printed card nobody read.\n\nWe filmed twelve plates and four signature cocktails on the pass, cut them to six-second loops, and rebuilt the menu as one continuous evening — aperitivo, pasta, secondi, then the lounge list, so a table can move through the whole night without changing a document. The menu ships in four languages (EN, FR, AR and ES) with full right-to-left support, because the room is rarely one nationality after nine.\n\nWho Pays? sits on the bill and the Ideal Combo Spinner pairs courses with the cellar, both branded to the room. The Instagram, Facebook and TikTok links live inside the menu, so a dish that photographs well can leave the table with the guest instead of being described to a friend the next morning.',
-    image_url: '/images/demo-noir.jpg',
+    image_url: venueCover('juvia.png'),
     services: [
       'Cinematic dish videos',
       'Multi-language menu — EN, FR, AR, ES',
@@ -59,7 +68,7 @@ export const projects = [
     tagline: 'Gourmet lounge experience featuring cinematic video menus and personalized taste quizzes.',
     description:
       'Le Manoir is a café by day, a gastronomic kitchen in the evening and a lounge after that — three services, one address, and a menu that had grown into a small book trying to speak to all of them at once. Regulars knew what they wanted. New guests asked the floor team to choose for them.\n\nWe filmed the plates that carry the kitchen and rewrote the categories around the hour rather than the course, so the same menu reads correctly at eleven in the morning and at eleven at night. It ships in four languages with full right-to-left support, and the house keeps its Instagram and Facebook audience inside the menu rather than a link people promise to look at later.\n\nThe Taste & Personality Quiz is the piece that changed the floor: three questions and a curated selection of plates and cocktails, built with the kitchen, so a first-time guest is recommended rather than sold to. The quiz is exclusive to Le Manoir — no other DESA Menu venue runs that combination — and it is why tables that would have ordered safe now order the tasting plate.',
-    image_url: '/images/work-verre.jpg',
+    image_url: venueCover('le%20manoire.png'),
     services: [
       'Cinematic dish videos',
       'Multi-language menu — EN, FR, AR, ES',
@@ -96,7 +105,7 @@ export const projects = [
     tagline: 'High-conversion bistro menu optimized for direct digital ordering and visual dish discovery.',
     description:
       'Pause à Paris is a café, a bakery counter and a bistro sharing one small room, which means the queue at the counter is the whole business. Every guest who hesitated over a laminated list was two minutes of somebody else\'s lunch.\n\nWe built the shortest possible path from sitting down to a confirmed order. A visual menu of the pâtisserie, the plat du jour and the bakery counter, filmed and photographed so the pastry case is legible from the back of the room, with direct ordering from the table: no app, no account, no waiting to catch an eye. Orders land in the kitchen and at the counter at the same time.\n\nThere are no games here on purpose. The bistro story is speed — fewer questions at the counter, more covers at lunch, and a menu that can change the daily special at seven in the morning without a reprint. The result reads as a visual menu that happens to take orders, rather than an ordering system that happens to list food.',
-    image_url: '/images/demo-brasserie.jpg',
+    image_url: venueCover('pause%20a%20paris.png'),
     services: [
       'Optimized video & visual menu',
       'Direct digital ordering from the table',
