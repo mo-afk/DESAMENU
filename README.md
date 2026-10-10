@@ -26,9 +26,12 @@ npm run preview    # serve the production build
 npm run lint       # eslint
 ```
 
-No environment variables are required to run the site: when Supabase isn't
+The site renders without any environment variables: when Supabase isn't
 configured the API handlers serve the content in `api/seed-data.js` and
-inquiries are held in memory.
+inquiries are held in memory. `RESEND_API_KEY` is the one variable the lead
+forms need — without it `POST /api/contact` answers `503` and the form shows
+its inline error instead of silently pretending to send. Copy `.env.example` to
+`.env.local` (both are gitignored) for local work.
 
 ## Routes
 
@@ -42,7 +45,7 @@ inquiries are held in memory.
 | `/how-it-works`   | How it works | Five-week onboarding, shoot day, analytics review            |
 | `/notes`          | Notes        | Field notes from deployments (filterable)                    |
 | `/notes/:slug`    | Note detail  | Article, pull quote, related notes                           |
-| `/contact`        | Contact      | Demo request form, wired to `POST /api/inquiries`            |
+| `/contact`        | Contact      | Single contact form, wired to `POST /api/contact`            |
 
 Legacy paths (`/desa-menu`, `/work/*`, `/journal/*`, `/services`, `/studio`)
 redirect to their current equivalents so existing links never 404.
@@ -143,18 +146,26 @@ Navigating back is lossless: `ScrollToTop` in `App.tsx` remembers the scroll off
 pathname and restores it on `POP`, and because the tab lives in the URL, a visitor
 returns to the exact game they were reading.
 
-Every form on the site — the hero, the `/contact` four-step form, the
-`DesaContact` panel and the footer newsletter — posts through `submitInquiry()`
-in `src/lib/api.ts` to `POST /api/inquiries`:
+Every lead form on the site — the `DesaContact` demo request, the single form on
+`/contact` and the footer newsletter — posts through `submitLead()` in
+`src/lib/api.ts` to `POST /api/contact`, which emails the lead to the DESA
+inbox with Resend. Nothing leaves the page: the submit button shows a spinner,
+and an inline alert reports either the confirmation or the failure. No form
+hands the visitor off to WhatsApp or reloads.
 
-| Form field                    | Inquiry field                     |
-| ----------------------------- | --------------------------------- |
-| Name                          | `name`                            |
-| Business Name                 | `company`                         |
-| Venue Type                    | `project_type` → `DESA Menu - …`  |
-| Email                         | `email`                           |
-| Phone (optional)              | appended to `message`             |
-| What would you like to show…  | `message`                         |
+The `/contact` page is deliberately short — full name and phone number are the
+only required fields, and email, establishment and message are optional. It
+replaced a four-step qualification wizard that asked for budget and kickoff
+before it would take a phone number.
+
+| Form field                    | Lead field                                          |
+| ----------------------------- | --------------------------------------------------- |
+| Full name                     | `name`                                              |
+| Phone number                  | `phone`                                             |
+| Email (optional)              | `email`, also used as `replyTo` when present         |
+| Establishment (optional)      | `venue` (`DesaContactForm` joins business and venue type) |
+| Message (optional)            | `message`, no minimum length                        |
+| —                             | `source`, so the email says which form it came from |
 
 ## API
 
@@ -166,9 +177,35 @@ in `src/lib/api.ts` to `POST /api/inquiries`:
 | `/api/posts`        | GET                    | Field notes (`?slug=`)                                     |
 | `/api/testimonials` | GET                    | Operator quotes                                           |
 | `/api/inquiries`    | GET, POST, PUT, DELETE | Demo requests and leads                                    |
+| `/api/contact`      | POST                   | Emails a lead to the DESA inbox (Resend)                   |
 
 Each handler tries Supabase first (4s timeout) and falls back to seed data, so
 the site is never blank.
+
+### Resend (lead emails)
+
+```bash
+RESEND_API_KEY=re_…
+LEADS_INBOX=desacontact.01@gmail.com      # optional, this is the default
+LEADS_FROM=DESA Menu Leads <onboarding@resend.dev>
+```
+
+`api/contact.js` builds a styled dark-theme notification (plus a plain-text
+part) and sends it with `resend.emails.send()`, subject
+`New Lead: [Customer Name] - DESA Menu`, `replyTo` set to the lead's address so
+a reply goes straight back to them. Every value a visitor typed is HTML-escaped
+before it reaches the template. Provider errors are logged server-side and
+answered with one friendly message — the form never shows an API key problem or
+a stack detail to a visitor.
+
+`LEADS_FROM` must be an address on a domain verified in Resend;
+`onboarding@resend.dev` only works while the account has no verified domain, and
+Resend limits it to sending to the account's own address.
+
+Locally the variable reaches the handler through `vite.config.ts`, which loads
+`.env` / `.env.*` into `process.env` for the SSR-loaded handlers. It stays out
+of the client bundle: only `VITE_*` and `NEXT_PUBLIC_*` are inlined by `define`.
+On Vercel, set `RESEND_API_KEY` in the project settings.
 
 ### Supabase (optional)
 
@@ -248,9 +285,13 @@ How it works:
   and mirrored chevrons in `src/index.css`; Arabic uses Noto Kufi Arabic and IBM
   Plex Sans Arabic with letter-spacing and text-transform neutralised.
 - **Copy ownership.** UI chrome, FAQ and feature/game marketing copy are written
-  per locale. Long-form feature essays and all API-driven content (venue demo
-  bodies, field notes, operator quotes) stay English and fall back by design —
-  that is editorial copy tied to real shoots, not interface text.
+  per locale — including the long-form essays on `/features/:slug`, which live in
+  `i18n/features-{fr,ar,es}.ts` and cover all eight entries in every language.
+  `useLocalizedFeatures()` still falls back field by field to the English entry,
+  so adding a ninth capability renders English rather than an empty page while
+  its translations are written. API-driven content (venue demo bodies, field
+  notes, operator quotes) is English-only by design: that is editorial copy tied
+  to real shoots, authored per venue in the database, not interface text.
 
 To add a locale: extend `LANGS`/`LANG_META` in `src/i18n/core.ts`, add the
 dictionary file annotated with `Dict`, add its loader to `LOADERS`, then add the
@@ -275,7 +316,7 @@ so any lockup keeps its own aspect ratio:
 | Footer mark + agency credit    | `components/Footer.tsx`                          |
 | In-app menu header preview     | `components/desa/DesaHero.tsx`                   |
 | QR stands (demos + detail)     | `components/desa/DesaQr.tsx`                     |
-| Favicon, `og:image`, Twitter   | `index.html` (static — keep in sync by hand)      |
+| Favicon, `og:image`, Twitter   | `index.html` (static — keep in sync by hand) and `npm run icons` |
 
 `<BrandLogo />` falls back to the inline SVG monogram (`components/Logo.tsx`)
 if the hosted file cannot be reached, so a blocked or offline request never
@@ -287,11 +328,78 @@ whose code area has to stay light — the mark there sits on a dark chip inside
 the code's cleared zone. That chip is the single place to flip if the artwork
 ever changes from a light mark to a dark one.
 
-Favicon and `og:image` use the same URL, so a light mark on a light browser
-theme (or a social platform that composites transparency onto white) is the one
-place transparency works against us; `public/favicon.svg` stays wired as the
-`alternate icon` for that case, and a solid-background 1200×630 card is the
-proper long-term `og:image`.
+### Venue covers
+
+The three demo venues carry their own cover photography from the same bucket,
+declared once through `venueCover()` at the top of `api/seed-data.js`:
+
+| Venue          | File on the bucket     |
+| -------------- | ---------------------- |
+| JUVIA          | `juvia.png`            |
+| LE MANOIR      | `le%20manoire.png`     |
+| PAUSE À PARIS  | `pause%20a%20paris.png` |
+
+Every surface that renders a venue reads `project.image_url`, so the homepage
+showcase (`DesaDemos`), the `/demos` cards (`ProjectCard`) and the detail hero
+(`DemoDetail`) all follow the same file. Each frame is a fixed ratio with
+`object-cover` and `overflow-hidden` — 16/9 on the showcase, 4/3 or 16/10 on the
+demo cards, 16/8 on the hero — so a cover of any proportion is cropped to the
+frame instead of stretched.
+
+Two things sit on top of every cover and will affect how artwork reads: the
+`.img-warm` filter (`saturate(1.14) contrast(1.07) brightness(1.05)`, rising on
+hover) and, on the showcase cards, a bottom `from-ink` scrim plus the orange
+`.warm-veil`. They were tuned for photography; if a cover is really a graphic on
+a light background, that is the first place to look.
+
+### Site icons
+
+The favicon, the shortcut icon, the Apple touch icon and `og:image` /
+`twitter:image` all point at that same CDN file from the head of `index.html`:
+
+```html
+<link rel="icon" type="image/png" href="https://pub-…r2.dev/image.png_…-removebg-preview.png" />
+<link rel="shortcut icon" type="image/png" href="…" />
+<link rel="apple-touch-icon" href="…" />
+```
+
+`rel="icon"` and the legacy `rel="shortcut icon"` cover Chrome, Edge, Firefox
+and Safari plus the in-app browsers that only understand the old spelling, and
+both resolve to one file so the "last icon link wins" rule can never surface a
+different mark. Nothing local is registered as an icon: the old
+`public/favicon.svg` monogram was declared `alternate icon`, and browsers that
+prefer SVG (Firefox, Chrome) picked it *over* the PNG — which is why the tab
+kept showing the placeholder instead of the logo.
+
+`/favicon.ico`, the path browsers probe without reading the head, used to 404.
+It now 302s to the logo: `vite-plugin-favicon.ts` does it in dev and preview,
+`vercel.json` does it on Vercel. Keep the two in sync.
+
+Vendoring the set locally — recommended before launch, so the tab icon does not
+depend on a third-party host and browsers get the exact sizes they ask for:
+
+```bash
+npm run icons          # downloads the logo and writes the whole set to public/
+npm run icons -- --apply            # …and repoints the head at the local files
+npm run icons -- --source logo.png  # build from a local copy of the artwork
+```
+
+It needs ImageMagick on PATH and writes `favicon.ico` (16/24/32/48),
+`favicon.png` (512), `favicon-192.png`, `apple-touch-icon.png` (180, flattened
+onto `#0a0a0b`), `maskable-icon.png` (512, inside the Android safe zone),
+`og-image.png` (1200×630 solid card — a transparent PNG as `og:image`
+composites onto white on most platforms, which swallows a light mark) and a
+`site.webmanifest` whose sizes are measured from the files it just wrote.
+`--apply` also adds the `<link rel="manifest">`. Once a real `public/favicon.ico`
+exists the dev middleware steps aside and Vite serves it — but delete the
+`/favicon.ico` entry from `vercel.json`, because Vercel matches redirects before
+the filesystem and would keep sending the CDN copy.
+
+The remaining transparency caveat: a light mark on a light browser theme has
+little contrast. The vendored `.ico` and PNGs inherit it, so if it ever matters,
+regenerate them with the mark flattened onto `#0a0a0b` — `paddedIcon()` in
+`scripts/build-favicons.mjs` already does exactly that for the touch and
+maskable icons.
 
 ## Deployment
 
@@ -301,12 +409,18 @@ content is used.
 
 ## Before launch
 
+- Run `npm run icons -- --apply` on a machine that can reach the DESA CDN, so
+  the tab and home-screen icons are served from `public/` instead of the CDN —
+  see [Site icons](#site-icons).
 - Set the operating locations in `Contact` (`contactPage.sidebar.locations`) —
   Casablanca and Dubai are placeholders. The official contact details (email,
   phone / WhatsApp, Instagram) are no longer scattered: they live in one place,
   `CONTACT` in `src/lib/brand.ts`, and every surface imports from there.
-- Swap the AI-generated venue photography in `public/images/` for real venue
-  shoots — the demos read far stronger with actual rooms and plates.
+- The three venue covers (JUVIA, LE MANOIR, PAUSE À PARIS) now load from the
+  DESA CDN — see `venueCover()` at the top of `api/seed-data.js`. The remaining
+  AI-generated photography in `public/images/` (field notes, hero, process) is
+  still placeholder and wants real shoots. `public/images/work-verre.jpg` is no
+  longer referenced by anything and can be deleted.
 - If you deploy the marketing site and the `api/` functions to different
   origins, set `CORS` or a proxy for `/api/*`.
 - The initial JS is ~503 kB (~158 kB gzip) across four long-lived chunks —

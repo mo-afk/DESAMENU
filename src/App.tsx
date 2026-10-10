@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigatio
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import { useContextMenuGuard } from './lib/useContextMenuGuard';
 import { useI18n } from './i18n';
 
 /* Home ships in the initial bundle; every other route is split out and
@@ -78,6 +79,11 @@ function NotFound() {
 }
 
 export default function App() {
+  /* Site-wide: suppress the right-click menu so imagery is not one click from
+     "Save image as". Links, buttons and the lead forms keep the native menu —
+     the rule lives in `lib/useContextMenuGuard`. */
+  useContextMenuGuard();
+
   return (
     <BrowserRouter>
       <ScrollToTop />

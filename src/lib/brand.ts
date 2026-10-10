@@ -7,7 +7,14 @@
  * this one file — swap the URL here and the whole application follows.
  *
  * `index.html` cannot import this module, so the same URL also appears there
- * for the favicon and the Open Graph / Twitter meta tags. Keep the two in sync.
+ * for the favicon, the Apple touch icon and the Open Graph / Twitter meta
+ * tags. Keep the two in sync.
+ *
+ * Two more places follow this URL: `/favicon.ico` — the path browsers probe on
+ * their own, without reading the head — 302s to it (`vite-plugin-favicon.ts` in
+ * dev and preview, `vercel.json` on Vercel), and `npm run icons` downloads it to
+ * vendor a local raster set (favicon.ico, apple-touch-icon, manifest and
+ * og-image PNGs) in `public/`.
  *
  * Colour assumption: the artwork is the light mark (bone/lime) the interface
  * already used, so it is placed on dark surfaces everywhere. The one exception

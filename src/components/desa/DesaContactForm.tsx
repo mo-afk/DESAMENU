@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
-import { submitInquiry } from '../../lib/api';
+import { Check, ArrowRight, Loader2, MailCheck } from 'lucide-react';
+import { submitLead } from '../../lib/api';
 import { useI18n } from '../../i18n';
 
 interface FormState {
@@ -26,7 +26,7 @@ export default function DesaContactForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [reference, setReference] = useState<number | null>(null);
+  const [sent, setSent] = useState(false);
 
   const set = (k: keyof FormState, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
@@ -46,26 +46,23 @@ export default function DesaContactForm() {
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!validate()) return;
+    if (sending || !validate()) return;
 
     setSending(true);
     setSubmitError(null);
 
     try {
-      const res = await submitInquiry({
+      /* Straight to the DESA inbox through /api/contact — no redirect, no
+         page reload: the visitor stays exactly where they were. */
+      await submitLead({
         name: form.name.trim(),
         email: form.email.trim(),
-        company: form.business.trim(),
-        project_type: `DESA Menu - ${form.venueType}`,
-        message: [
-          form.message.trim() || 'No menu details provided yet.',
-          form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
-          'Source: DESA Menu landing page',
-        ]
-          .filter(Boolean)
-          .join('\n\n'),
+        phone: form.phone.trim() || undefined,
+        venue: [form.business.trim(), form.venueType].filter(Boolean).join(' — '),
+        message: form.message.trim() || undefined,
+        source: 'Demo request — website form',
       });
-      setReference(res.id);
+      setSent(true);
     } catch (e) {
       setSubmitError(e instanceof Error ? e.message : t('contact.form.errors.generic'));
     } finally {
@@ -73,7 +70,7 @@ export default function DesaContactForm() {
     }
   };
 
-  if (reference !== null) {
+  if (sent) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -88,15 +85,20 @@ export default function DesaContactForm() {
         <p className="mx-auto mt-4 max-w-md leading-relaxed text-bone/70">
           {t('contact.form.successBody').replace('{name}', form.name.split(' ')[0])}
         </p>
-        <p className="mt-6 inline-block border border-bone/20 px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-fog">
-          {t('contact.form.reference')} <span dir="ltr">DESA-{String(reference).padStart(4, '0')}</span>
+        {/* Inline confirmation of what happens next. */}
+        <p
+          role="status"
+          className="mx-auto mt-6 inline-flex max-w-md items-center gap-2 border border-lime/40 bg-ink px-4 py-3 text-sm leading-relaxed text-bone"
+        >
+          <MailCheck className="h-4 w-4 shrink-0 text-lime" aria-hidden />
+          {t('contact.form.successInline')}
         </p>
         <div className="mt-8">
           <button
             type="button"
             onClick={() => {
               setForm(INITIAL);
-              setReference(null);
+              setSent(false);
             }}
             className="font-mono text-xs uppercase tracking-[0.2em] text-bone/70 underline-offset-4 hover:text-lime hover:underline"
           >
@@ -215,17 +217,29 @@ export default function DesaContactForm() {
         {errors.message && <p className="mt-2 font-mono text-xs text-red-400">{errors.message}</p>}
       </div>
 
-      {submitError && <p className="mt-6 border border-red-500/30 bg-red-500/10 p-4 font-mono text-xs text-red-300">{submitError}</p>}
+      {submitError && (
+        <p
+          role="alert"
+          className="mt-6 border border-red-500/30 bg-red-500/10 p-4 font-mono text-xs text-red-300"
+        >
+          {submitError}
+        </p>
+      )}
 
       <div className="mt-8 flex flex-col gap-5 border-t border-bone/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">{t('contact.form.noSpam')}</p>
         <button
           type="submit"
           disabled={sending}
+          aria-busy={sending}
           className="group inline-flex items-center justify-center gap-2 bg-lime px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone disabled:cursor-not-allowed disabled:opacity-60"
         >
           {sending ? t('contact.form.sending') : t('contact.form.submitCta')}
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          {sending ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+          ) : (
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          )}
         </button>
       </div>
     </form>

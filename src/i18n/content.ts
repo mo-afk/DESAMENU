@@ -10,10 +10,10 @@ export interface LocalizedFeature extends FeatureEntry {
  * Resolve feature/game entries for the active language.
  *
  * Structure (slug, icon, panel, numbering) always comes from `lib/features.ts`;
- * only the words are localised. Any field a locale has translated is used, and
- * anything it has not — currently the long-form essays, which are authored per
- * venue and cost real translation budget — falls back to the English entry
- * rather than rendering an empty page.
+ * only the words are localised. Every locale now supplies every field, cards
+ * and long-form essays included; the per-field fallback remains so that adding
+ * an entry to `lib/features.ts` renders English rather than an empty page while
+ * its translations are written.
  *
  * Takes the whole list so callers can localise inside a `map` without calling a
  * hook per item.
