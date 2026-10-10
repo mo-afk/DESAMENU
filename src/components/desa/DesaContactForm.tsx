@@ -35,10 +35,13 @@ export default function DesaContactForm() {
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof FormState, string>> = {};
+    /* Normalise email once (trim + lowercase) before validating and
+       submitting — matches the footer newsletter and contact-page flow. */
+    const emailNormalized = form.email.trim().toLowerCase();
     if (form.name.trim().length < 2) e.name = t('contact.form.errors.name');
     if (form.business.trim().length < 2) e.business = t('contact.form.errors.business');
     if (!form.venueType) e.venueType = t('contact.form.errors.venueType');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t('contact.form.errors.email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailNormalized)) e.email = t('contact.form.errors.email');
     if (form.message.trim().length > 0 && form.message.trim().length < 10) e.message = t('contact.form.errors.message');
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -56,7 +59,7 @@ export default function DesaContactForm() {
          page reload: the visitor stays exactly where they were. */
       await submitLead({
         name: form.name.trim(),
-        email: form.email.trim(),
+        email: form.email.trim().toLowerCase(),
         phone: form.phone.trim() || undefined,
         venue: [form.business.trim(), form.venueType].filter(Boolean).join(' — '),
         message: form.message.trim() || undefined,

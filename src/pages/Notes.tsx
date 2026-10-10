@@ -51,7 +51,7 @@ export default function Notes() {
       >
         <div className="mt-8 flex flex-wrap gap-2">
           {categories.map((c) => (
-            <button key={c} onClick={() => setFilter(c)} className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}>{c === 'All' ? n.filterAll : c}</button>
+            <button type="button" key={c} onClick={() => setFilter(c)} className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}>{c === 'All' ? n.filterAll : c}</button>
           ))}
         </div>
       </PageHeader>

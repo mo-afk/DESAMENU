@@ -319,7 +319,7 @@ export const es: Dict = {
     title: 'Solicite una',
     accent: 'demo a medida.',
     intro: 'Cuéntenos cómo es su local y le mostraremos cómo se adapta DESA Menu a la experiencia de sus clientes.',
-    channelLabels: { email: 'Correo', whatsapp: 'WhatsApp', instagram: 'Instagram', phone: 'Teléfono' },
+    channelLabels: { email: 'Correo', whatsapp: 'WhatsApp', instagram: 'Instagram', tiktok: 'TikTok', phone: 'Teléfono' },
     channelValues: { whatsapp: 'Iniciar conversación' },
     form: {
       name: 'Nombre *',
@@ -389,8 +389,12 @@ export const es: Dict = {
     sidebar: {
       newBusiness: 'Nuevos proyectos',
       preferToTalk: '¿Prefiere hablar?',
-      whereWeOperate: 'Dónde operamos',
-      locations: 'Casablanca · Boulevard Anfa|Dubái · Business Bay|En remoto · todo el mundo',
+      whereWeOperate: 'Despliegue y presencia',
+      locations: [
+        'En sitio · Instalación y despliegue en su establecimiento',
+        'A distancia · Configuración en la nube y soporte 24/7',
+        'Cobertura · Marruecos, MENA e internacional',
+      ],
       responseTime: 'Tiempo de respuesta',
       responseValue: 'Menos de 24 horas',
       support: 'Soporte',
@@ -445,6 +449,7 @@ export const es: Dict = {
     email: 'Correo',
     whatsapp: 'WhatsApp',
     instagram: 'Instagram',
+    tiktok: 'TikTok',
     productItems: [
       { title: 'Cartas de texto y vídeo', note: 'Fichas de plato interactivas' },
       { title: 'Suite de juegos de mesa', note: '¿Quién paga? · Ruleta · Test de gusto' },

@@ -58,6 +58,7 @@ export default function Demos() {
           <div className="flex flex-wrap gap-2">
             {industries.map((c) => (
               <button
+                type="button"
                 key={c}
                 onClick={() => setFilter(c)}
                 className={`border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${filter === c ? 'border-lime bg-lime text-ink' : 'border-bone/20 text-bone/70 hover:border-bone hover:text-bone'}`}
@@ -68,8 +69,8 @@ export default function Demos() {
             ))}
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setView('grid')} aria-label={d.gridView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'grid' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><LayoutGrid className="h-4 w-4" /></button>
-            <button onClick={() => setView('list')} aria-label={d.listView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'list' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><Rows3 className="h-4 w-4" /></button>
+            <button type="button" onClick={() => setView('grid')} aria-label={d.gridView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'grid' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><LayoutGrid className="h-4 w-4" /></button>
+            <button type="button" onClick={() => setView('list')} aria-label={d.listView} className={`flex h-11 w-11 items-center justify-center border transition-colors ${view === 'list' ? 'border-bone bg-bone text-ink' : 'border-bone/20 text-bone/70 hover:text-bone'}`}><Rows3 className="h-4 w-4" /></button>
           </div>
         </div>
 

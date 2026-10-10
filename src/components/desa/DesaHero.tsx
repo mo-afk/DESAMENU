@@ -236,6 +236,16 @@ export default function DesaHero() {
 
         <motion.a
           href="#desa-value"
+          onClick={(e) => {
+            e.preventDefault();
+            const el = document.getElementById('desa-value');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.history?.replaceState) {
+              const url = new URL(window.location.href);
+              url.hash = '#desa-value';
+              window.history.replaceState(null, '', url.toString());
+            }
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}

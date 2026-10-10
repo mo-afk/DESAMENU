@@ -31,6 +31,16 @@ export default function DesaFaq() {
             <p className="max-w-sm text-sm leading-relaxed text-fog">{dict.cta.sub}</p>
             <a
               href="#desa-demo"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('desa-demo');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.history?.replaceState) {
+                  const url = new URL(window.location.href);
+                  url.hash = '#desa-demo';
+                  window.history.replaceState(null, '', url.toString());
+                }
+              }}
               className="mt-6 inline-flex items-center gap-2 border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
             >
               {dict.contact.title} {dict.contact.accent}

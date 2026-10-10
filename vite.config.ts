@@ -14,14 +14,20 @@ export default defineConfig(({ mode }) => {
   }
 
   /* Server-only vars for the `api/*` handlers (RESEND_API_KEY and friends).
-     Vercel injects these into a function's process.env; locally nothing does,
-     so read .env / .env.* and copy them across. They deliberately stay out of
-     `define` above, which is what inlines values into the client bundle — a
-     secret listed there would ship to the browser. A real environment
-     variable always wins over the file. */
-  for (const [key, value] of Object.entries(loadEnv(mode, process.cwd(), ''))) {
+     Vercel injects these into a function's process.env at deploy time;
+     locally nothing does, so load every .env / .env.local / .env.[mode]
+     variable and copy it onto the Node process.env before the SSR module
+     runner loads any `api/*.js` handler. Values are deliberately NOT added
+     to `define` above (which inlines into the client bundle) — a secret
+     listed there would ship to the browser. A real environment variable on
+     the host always wins over a file value. */
+  const fileEnv = loadEnv(mode, process.cwd(), '');
+  for (const [key, value] of Object.entries(fileEnv)) {
     if (process.env[key] === undefined) process.env[key] = value;
   }
+  /* Note: there is intentionally NO hardcoded fallback key here. Copy
+     .env.example to .env.local and fill in RESEND_API_KEY for local dev,
+     or set it on the host / Vercel for production. */
 
   return {
     plugins: [react(), tailwindcss(), apiRoutes(), faviconRedirect()],

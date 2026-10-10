@@ -67,4 +67,8 @@ export const CONTACT = {
   instagram: 'https://instagram.com/desa_menu/',
   /** Instagram handle, formatted for display. */
   instagramHandle: '@desa_menu',
+  /** Official TikTok profile. */
+  tiktok: 'https://www.tiktok.com/@desamenu',
+  /** TikTok handle, formatted for display. */
+  tiktokHandle: '@desamenu',
 } as const;
