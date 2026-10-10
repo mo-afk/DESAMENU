@@ -60,7 +60,7 @@ export default function Note() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-4xl px-5 pb-24 pt-32 sm:px-8">
+      <div className="mx-auto max-w-4xl px-5 pb-24 pt-32 sm:px-8 md:px-12">
         <div className="h-10 w-1/3 animate-pulse bg-carbon" />
         <div className="mt-6 h-16 w-full animate-pulse bg-carbon" />
         <div className="mt-8 aspect-[16/8] animate-pulse bg-carbon" />
@@ -71,7 +71,7 @@ export default function Note() {
 
   if (error || !post) {
     return (
-      <div className="mx-auto max-w-4xl px-5 pb-24 pt-40 sm:px-8">
+      <div className="mx-auto max-w-4xl px-5 pb-24 pt-40 sm:px-8 md:px-12">
         <p className="border border-red-500/30 bg-red-500/10 p-6 font-mono text-sm text-red-300">{error || n.notFound}</p>
         <Link to="/notes" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-bone hover:text-lime"><ArrowLeft className="h-4 w-4" /> {n.backToNotes}</Link>
       </div>
@@ -81,7 +81,7 @@ export default function Note() {
   return (
     <div className="pt-[72px]">
       <section className="bg-blueprint border-b border-bone/10">
-        <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
+        <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 md:px-12 lg:py-16">
           <Link to="/notes" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fog hover:text-lime"><ArrowLeft className="h-4 w-4" /> {n.backToNotes}</Link>
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
             <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]">
@@ -101,7 +101,7 @@ export default function Note() {
         </div>
       </section>
 
-      <article className="mx-auto max-w-4xl px-5 py-12 sm:px-8">
+      <article className="mx-auto max-w-4xl px-5 py-12 sm:px-8 md:px-12">
         <Reveal>
           <div className="relative overflow-hidden">
             <img src={post.image_url} alt={post.title} className="img-warm aspect-[16/8] w-full object-cover" />
@@ -120,14 +120,14 @@ export default function Note() {
               <p className="font-display text-xl uppercase">{n.ctaTitle}</p>
               <p className="mt-1 text-sm text-fog">{n.ctaBody}</p>
             </div>
-            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone">{n.ctaButton} <ArrowUpRight className="h-4 w-4" /></Link>
+            <Link to="/contact" className="group inline-flex shrink-0 items-center gap-2 bg-lime px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone">{n.ctaButton} <ArrowUpRight className="h-4 w-4" /></Link>
           </div>
         </Reveal>
       </article>
 
       {related.length > 0 && (
         <section className="border-t border-bone/10">
-          <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8">
+          <div className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 md:px-12">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-fog">{n.keepReading}</p>
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               {related.map((r) => (

@@ -50,10 +50,10 @@ export default function TestimonialSlider({ items }: { items: Testimonial[] }) {
           {String((index % items.length) + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
         </span>
         <div className="flex gap-3">
-          <button type="button" onClick={() => setIndex((i) => (i - 1 + items.length) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.prevTestimonial')}>
+          <button type="button" onClick={() => setIndex((i) => (i - 1 + items.length) % items.length)} className="flex h-12 w-12 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.prevTestimonial')}>
             <ArrowLeft className="h-4 w-4" />
           </button>
-          <button type="button" onClick={() => setIndex((i) => (i + 1) % items.length)} className="flex h-11 w-11 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.nextTestimonial')}>
+          <button type="button" onClick={() => setIndex((i) => (i + 1) % items.length)} className="flex h-12 w-12 items-center justify-center border border-bone/20 transition-colors hover:bg-bone hover:text-ink" aria-label={t('common.nextTestimonial')}>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

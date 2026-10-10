@@ -74,7 +74,9 @@ export function GamePanel() {
           {t('panels.whoPays')} — <span className="text-honey">{t('device.gameResult')}</span>
         </span>
       </div>
-      <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.15em] text-smoke">
+      {/* flex-wrap: in the 240px preview box on a 320px phone, three inline
+          labels would otherwise clip past the border instead of stacking. */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[9px] uppercase tracking-[0.15em] text-smoke">
         <span className="inline-flex items-center gap-1"><Disc3 className="h-3 w-3" />{t('panels.spinner')}</span>
         <span className="inline-flex items-center gap-1"><Brain className="h-3 w-3" />{t('panels.tasteTitle')}</span>
         <span className="inline-flex items-center gap-1"><Puzzle className="h-3 w-3" />{t('games.wholeSuite')}</span>

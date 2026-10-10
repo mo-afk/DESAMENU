@@ -23,7 +23,7 @@ export default function DesaFaq() {
 
   return (
     <section id="desa-faq" className="border-y border-bone/10 bg-coal">
-      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
         <SectionHeading index={f.index} eyebrow={f.eyebrow} title={f.title} accent={f.accent} />
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
@@ -41,7 +41,7 @@ export default function DesaFaq() {
                   window.history.replaceState(null, '', url.toString());
                 }
               }}
-              className="mt-6 inline-flex items-center gap-2 border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
+              className="mt-6 inline-flex items-center gap-2 border border-bone/25 px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
             >
               {dict.contact.title} {dict.contact.accent}
             </a>

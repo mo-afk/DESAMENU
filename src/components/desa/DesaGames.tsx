@@ -61,7 +61,7 @@ export default function DesaGames() {
   return (
     <section id="desa-games" className="relative scroll-mt-20 overflow-hidden border-y border-bone/10 bg-coal">
       <div aria-hidden className="warm-veil pointer-events-none absolute inset-0 opacity-40" />
-      <div className="relative mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+      <div className="relative mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
         <SectionHeading index={g.index} eyebrow={g.eyebrow} title={g.title} accent={g.accent} />
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">
@@ -145,14 +145,14 @@ export default function DesaGames() {
                 <div className="mt-8 flex flex-wrap gap-4">
                   <Link
                     to={`/features/${active.slug}`}
-                    className="group inline-flex items-center gap-2 bg-lime px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone"
+                    className="group inline-flex items-center gap-2 bg-lime px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone"
                   >
                     {t('features.viewDetails')}
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Link>
                   <Link
                     to="/demos"
-                    className="group inline-flex items-center gap-2 border border-bone/25 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
+                    className="group inline-flex items-center gap-2 border border-bone/25 px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-bone transition-colors hover:bg-bone hover:text-ink"
                   >
                     {g.seeLive}
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -178,7 +178,7 @@ export default function DesaGames() {
 
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-col gap-8 border-t border-bone/10 pt-10 lg:flex-row lg:items-end lg:justify-between">
-            <dl className="grid grid-cols-3 gap-8">
+            <dl className="grid grid-cols-3 gap-6 sm:gap-8">
               {g.stats.map((s) => (
                 <div key={s.label}>
                   <dt className="sr-only">{s.label}</dt>

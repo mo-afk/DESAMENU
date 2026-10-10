@@ -59,7 +59,7 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${scrolled ? 'border-b border-bone/10 bg-ink/85 backdrop-blur-md' : 'border-b border-transparent bg-transparent'}`}
       >
-        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between gap-3 px-5 sm:px-8">
+        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between gap-3 px-5 sm:px-8 md:px-12">
           <Link to="/" className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3" aria-label={t('nav.homeAria')}>
             {/* Official brand logo — sized by height so any lockup keeps its
                 ratio. The max-width steps keep logo + wordmark + nav + CTA
@@ -142,7 +142,7 @@ export default function Navbar() {
 
             <Link
               to="/contact"
-              className="group hidden shrink-0 items-center gap-2 bg-lime px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
+              className="group hidden shrink-0 items-center gap-2 bg-lime px-5 py-4 font-mono text-xs uppercase tracking-[0.2em] text-ink transition-colors hover:bg-bone sm:inline-flex"
             >
               {t('nav.cta')}
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -150,7 +150,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center border border-bone/20 text-bone lg:hidden"
+              className="inline-flex h-12 w-12 items-center justify-center border border-bone/20 text-bone transition-colors hover:border-lime hover:text-lime lg:hidden"
               aria-label={t('nav.openMenu')}
             >
               <Menu className="h-5 w-5" />
@@ -166,9 +166,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[110] flex flex-col overflow-y-auto bg-ink"
+            className="fixed inset-0 z-[110] flex flex-col overflow-y-auto bg-ink/95 backdrop-blur-2xl"
           >
-            <div className="flex h-[72px] shrink-0 items-center justify-between px-5 sm:px-8">
+            <div className="flex h-[72px] shrink-0 items-center justify-between px-5 sm:px-8 md:px-12">
               <div className="flex min-w-0 items-center gap-2.5 text-bone sm:gap-3">
                 <BrandLogo className="h-8 w-auto max-w-[96px] shrink-0 sm:h-9 sm:max-w-[130px]" />
                 <span className="truncate font-display text-base uppercase tracking-wider xl:text-lg">
@@ -178,13 +178,13 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-bone/20 text-bone"
+                className="inline-flex h-12 w-12 shrink-0 items-center justify-center border border-bone/20 text-bone transition-colors hover:border-lime hover:text-lime"
                 aria-label={t('nav.closeMenu')}
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col justify-center gap-1 px-5 py-8 sm:px-8">
+            <nav className="flex flex-1 flex-col justify-center gap-1 px-5 py-8 sm:px-8 md:px-12">
               {[{ to: '/', key: 'nav.home' as StringPath }, ...LINKS].map((l, i) => (
                 <motion.div
                   key={l.to}
@@ -205,7 +205,7 @@ export default function Navbar() {
                 </motion.div>
               ))}
             </nav>
-            <div className="shrink-0 space-y-5 px-5 pb-8 sm:px-8">
+            <div className="shrink-0 space-y-5 px-5 pb-8 sm:px-8 md:px-12">
               <LanguageSwitcher variant="inline" />
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-1">

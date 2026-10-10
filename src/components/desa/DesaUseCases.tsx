@@ -9,7 +9,7 @@ export default function DesaUseCases() {
   const { dict } = useI18n();
   const u = dict.useCases;
   return (
-    <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+    <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
       <SectionHeading index={u.index} eyebrow={u.eyebrow} title={u.title} accent={u.accent} />
 
       <div className="mt-12 grid gap-px border border-bone/15 bg-bone/15 sm:grid-cols-2 xl:grid-cols-4">

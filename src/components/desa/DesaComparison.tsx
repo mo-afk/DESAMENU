@@ -7,7 +7,7 @@ export default function DesaComparison() {
   const { dict } = useI18n();
   const c = dict.comparison;
   return (
-    <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+    <section className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
       <SectionHeading index={c.index} eyebrow={c.eyebrow} title={c.title} accent={c.accent} />
       <Reveal delay={0.1}>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-bone/70">

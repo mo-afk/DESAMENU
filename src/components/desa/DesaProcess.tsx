@@ -10,7 +10,7 @@ export default function DesaProcess() {
   const p = dict.process;
   return (
     <section className="border-y border-bone/10 bg-coal">
-      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-[1600px] px-5 py-20 sm:px-8 md:px-12 lg:py-28">
         <SectionHeading index={p.index} eyebrow={p.eyebrow} title={p.title} accent={p.accent} />
 
         <div className="mt-12 grid gap-8 md:grid-cols-3">

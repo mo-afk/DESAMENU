@@ -166,7 +166,7 @@ export default function DesaHero() {
         {h.vertical}
       </p>
 
-      <div className="relative mx-auto max-w-[1600px] px-5 pb-16 pt-32 sm:px-8 lg:pb-24 lg:pt-40">
+      <div className="relative mx-auto max-w-[1600px] px-5 pb-16 pt-32 sm:px-8 md:px-12 lg:pb-24 lg:pt-40">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-10">
           {/* Copy.
               `min-w-0` lets the grid track shrink below the width of the
